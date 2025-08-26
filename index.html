@@ -1362,7 +1362,8 @@ async function validateAndCalculateGovernment() {
     const yearlyBonus = calculateYearlyBonus(formData.serviceYears);
 
     let totalBeforePensionCalc = baseMonthlySalary + yearlyBonus + formData.positionSalary;
-	const totalDeduction =(formData.detail === "ເງີນອຸດໜຸນບຳນານເສຍຊີວິດ" || formData.detail === "ເງີນອຸດໜຸນໝາຍເສຍຊີວິດ")
+const totalDeduction = 
+    (formData.detail === "ເງີນອຸດໜຸນບຳນານເສຍຊີວິດ" || formData.detail === "ເງີນອຸດໜຸນໝາຍເສຍຊີວິດ")
         ? totalBeforePensionCalc * (Math.floor(formData.percentage / 100))
         : totalBeforePensionCalc;
 
