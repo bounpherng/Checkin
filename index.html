@@ -1,22 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- ການກຳນົດຄ່າພື້ນຖານຂອງໜ້າเว็บ -->
-  <meta charset="UTF-8"> <!-- ກຳນົດການເຂົ້າລະຫັດຕົວອັກສອນເປັນ UTF-8 ເພື່ອຮອງຮັບພາສາລາວ -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ກຳນົດການສະແດງຜົນໃຫ້ເໝາະສົມກັບທຸກຂະໜາດໜ້າຈໍ -->
-  <meta name="theme-color" content="#2ecc71"> <!-- ກຳນົດສີຂອງ browser theme (ສຳລັບມືຖື) -->
-  <title>ລະບົບຄຳນວນເງິນເດືອນ ແລະ ອຸດໜູນ</title> <!-- ຫົວຂໍ້ຂອງໜ້າเว็บ -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2ecc71">
+  <title>ລະບົບຄຳນວນເງິນເດືອນ ແລະ ອຸດໜູນ</title>
   <base target="_top">
 
-  <!-- ການເຊື່ອມຕໍ່ກັບໄຟລ໌ພາຍນອກ (CSS ແລະ JS Libraries) -->
-  <!-- <link rel="manifest" href="/manifest.json" />   <!-- ກຳນົດໃຫ້ຕິດຕັງແອັບໄດ້ໃນໂທລະສັບທຳມະດາ -->
-  <link rel="manifest" href="./manifest.json" />  <!-- ກຳນົດໃຫ້ຕິດຕັງແອັບໄດ້ໃນໂທລະສັບຜ່ານກິດຮັບ -->
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> <!-- ເຊື່ອມຕໍ່ Font Awesome ສຳລັບໄອຄອນຕ່າງໆ -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;500;700&display=swap" rel="stylesheet"> <!-- ນຳເຂົ້າฟอนต์ Noto Sans Lao -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- ນຳເຂົ້າ SweetAlert2 ສຳລັບສະແດງ Pop-up ສວຍງາມ -->
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script> <!-- ນຳເຂົ້າ html2canvas ສຳລັບແປງ HTML ເປັນຮູບພາບ -->
-  <link rel="icon" href="/icon-192.png" />  <!-- ສະແດງໄອຄອນແອັບ -->
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <link rel="icon" href="/icon-192.png" />
   <style>
     /* ================================================= */
     /* ===== ການກຳນົດສະໄຕລ໌ (CSS) ຂອງໜ້າเว็บທັງໝົດ ===== */
@@ -24,228 +20,189 @@
 
     /* ----- ການກຳນົດຕົວແປສີ ແລະ ຄ່າຕ່າງໆ (CSS Variables) ----- */
     :root {
-      --primary-color: #2ecc71;      /* ສີຫຼັກ (ສີຂຽວ) */
-      --secondary-color: #27ae60;    /* ສີສຳຮອງ (ສີຂຽວເຂັ້ມ) */
-      --accent-color: #e67e22;       /* ສີສຳລັບເນັ້ນ (ສີສົ້ມ) */
-      --danger-color: #e74c3c;       /* ສີສຳລັບແຈ້ງເຕືອນອັນຕະລາຍ (ສີແດງ) */
-      --text-color: #ecf0f1;         /* ສີຕົວອັກສອນ (ສີຂາວອ່ອນ) */
-      --bg-color-dark: #1a2525;      /* ສີພື້ນຫຼັງ (ສີດຳແກມຂຽວ) */
+      --primary-color: #2ecc71; /* ສີຫຼັກ (ສີຂຽວ) */
+      --secondary-color: #27ae60; /* ສີສຳຮອງ (ສີຂຽວເຂັ້ມ) */
+      --accent-color: #e67e22; /* ສີສຳລັບເນັ້ນ (ສີສົ້ມ) */
+      --danger-color: #e74c3c; /* ສີສຳລັບແຈ້ງເຕືອນອັນຕະລາຍ (ສີແດງ) */
+      --text-color: #ecf0f1; /* ສີຕົວອັກສອນ (ສີຂາວອ່ອນ) */
+      --bg-color-dark: #1a2525; /* ສີພື້ນຫຼັງ (ສີດຳແກມຂຽວ) */
       --card-bg: rgba(44, 62, 80, 0.75); /* ສີພື້ນຫຼັງຂອງກ່ອງເນື້ອຫາ (ໂປ່ງໃສ) */
       --input-bg: rgba(0, 0, 0, 0.2); /* ສີພື້ນຫຼັງຂອງຊ່ອງປ້ອນຂໍ້ມູນ */
       --border-color: rgba(46, 204, 113, 0.3); /* ສີຂອບ */
       --shadow: 0 10px 40px rgba(0, 0, 0, 0.5); /* ເງົາຂອງກ່ອງ */
       --font-family: 'Noto Sans Lao', system-ui, -apple-system, Segoe UI, Arial, sans-serif; /* ฟอนต์ທີ່ໃຊ້ໃນเว็บ */
-      /* ຕົວແປສຳລັບ Popup ແບບໃໝ່ */
       --accent1: #ffd700; /* ສີເນັ້ນ 1 (ສີຄຳ) */
       --accent2: #ff8c00; /* ສີເນັ້ນ 2 (ສີສົ້ມເຂັ້ມ) */
-      --muted: #bbb;      /* ສີຕົວອັກສອນສຳຮອງ (ສີເທົາ) */
+      --muted: #bbb; /* ສີຕົວອັກສອນສຳຮອງ (ສີເທົາ) */
     }
 
     /* ----- ການກຳນົດ Animation ----- */
-    @keyframes gradient-animation { /* Animation ໄລ່ສີພື້ນຫຼັງ */
+    @keyframes gradient-animation {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    @keyframes fadeIn { /* Animation ຄ່ອຍໆປາກົດຂຶ້ນ */
+    @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     /* ----- ສະໄຕລ໌ພື້ນຖານ ----- */
     * {
-      box-sizing: border-box; /* ວິທີຄິດໄລ່ຂະໜາດຂອງກ່ອງ (ລວມ padding ແລະ border) */
-      margin: 0;
+      box-sizing: border-box; margin: 0;
       padding: 0;
     }
     html {
-      scroll-behavior: smooth; /* ເຮັດໃຫ້ການເລື່ອນໜ້າຈໍນຸ້ມນວນ */
-    }
+      scroll-behavior: smooth; }
     body {
       color: var(--text-color);
       font-family: var(--font-family);
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      flex-direction: column; align-items: center;
       justify-content: flex-start;
       min-height: 100vh;
       overflow-x: hidden;
-      background: linear-gradient(-45deg, #1a2525, #2c3e50, #27ae60, #1a2525); /* ພື້ນຫຼັງແບບໄລ່ສີ */
-      background-size: 400% 400%;
-      animation: gradient-animation 15s ease infinite; /* ເອີ້ນໃຊ້ Animation ໄລ່ສີ */
+      background: linear-gradient(-45deg, #1a2525, #2c3e50, #27ae60, #1a2525);
+      background-size: 400% 400%; animation: gradient-animation 15s ease infinite;
       padding: 16px;
     }
 
     /* ----- Layout ແລະ Card (ກ່ອງເນື້ອຫາ) ----- */
     .container {
-      width: 100%;
-      max-width: 900px; /* ຂະໜາດກວ້າງສຸດຂອງເນື້ອຫາ */
+      width: 100%; max-width: 900px;
       animation: fadeIn .6s ease-out;
     }
     .page {
-      display: none; /* ເຊື່ອງໜ້າທັງໝົດໄວ້ກ່ອນ */
-      flex-direction: column;
+      display: none; flex-direction: column;
       gap: 24px;
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(20px); /* ເຮັດໃຫ້ພື້ນຫຼັງຂອງກ່ອງເບລอ */
+      backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-radius: 24px;
-      padding: clamp(20px, 4vw, 32px); /* ກຳນົດ padding ໃຫ້ປັບຂະໜາດຕາມໜ້າຈໍ */
+      border-radius: 24px; padding: clamp(20px, 4vw, 32px);
       margin-bottom: 20px;
     }
     .page.active {
-      display: flex; /* ສະແດງສະເພາະໜ້າທີ່ມີ class 'active' */
-    }
+      display: flex; }
 
     /* ----- ส่วนหัว (Header / Hero Section) ----- */
     .hero {
-      display: flex;
-      flex-direction: column;
+      display: flex; flex-direction: column;
       align-items: center;
       text-align: center;
       gap: 12px;
     }
     .logo {
-      width: clamp(100px, 15vw, 120px);
-      aspect-ratio: 1/1;
+      width: clamp(100px, 15vw, 120px); aspect-ratio: 1/1;
       border-radius: 50%;
       object-fit: cover;
       box-shadow: 0 0 28px var(--secondary-color);
-      border: 3px solid var(--secondary-color);
-    }
+      border: 3px solid var(--secondary-color); }
     .title {
       font-size: clamp(20px, 3vw, 28px);
-      font-weight: 700;
-      text-shadow: 0 0 12px rgba(46, 204, 113, 0.7);
+      font-weight: 700; text-shadow: 0 0 12px rgba(46, 204, 113, 0.7);
     }
     .subtitle {
-      font-size: clamp(14px, 2vw, 16px);
-      color: #d5f5e3;
+      font-size: clamp(14px, 2vw, 16px); color: #d5f5e3;
       opacity: .92;
     }
     #date-lao {
       font-weight: 500;
-      color: var(--primary-color);
-    }
+      color: var(--primary-color); }
 
     /* ----- ເມນູ (Navigation Grid) ----- */
     .grid {
-      display: grid;
-      gap: 16px;
+      display: grid; gap: 16px;
       width: 100%;
     }
     @media (min-width: 600px) {
-      .grid { grid-template-columns: repeat(2, 1fr); } /* ຖ້າຈໍໃຫຍ່ກວ່າ 600px ໃຫ້ແບ່ງເປັນ 2 ຖັນ */
+      .grid { grid-template-columns: repeat(2, 1fr); }
     }
     .link-card {
       position: relative;
-      overflow: hidden;
-      border-radius: 16px;
+      overflow: hidden; border-radius: 16px;
       padding: 20px;
       background: rgba(0, 0, 0, 0.2);
-      border: 1px solid var(--border-color);
-      transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
+      border: 1px solid var(--border-color); transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 16px;
-    }
-    .link-card:hover { /* ເມື່ອເອົາເມົ້າສ໌ໄປວາງ */
-      transform: translateY(-5px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-      background: rgba(46, 204, 113, 0.15);
-    }
+      gap: 16px; }
+    .link-card:hover {
+      transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      background: rgba(46, 204, 113, 0.15); }
     .link-icon {
       font-size: 28px;
       line-height: 1;
       color: var(--primary-color);
-      width: 40px;
-      text-align: center;
+      width: 40px; text-align: center;
     }
     .link-text {
       flex-grow: 1;
-      font-size: clamp(16px, 2.5vw, 18px);
-      font-weight: 500;
+      font-size: clamp(16px, 2.5vw, 18px); font-weight: 500;
       color: #fff;
     }
     .link-arrow {
       font-size: 20px;
-      opacity: .8;
-      transition: transform .3s ease;
+      opacity: .8; transition: transform .3s ease;
     }
     .link-card:hover .link-arrow {
-      transform: translateX(5px);
-    }
+      transform: translateX(5px); }
 
     /* ----- ฟอร์ม และ ช่องป้อนข้อมูล (Forms & Inputs) ----- */
     .form-container {
-        width: 100%;
-    }
+        width: 100%; }
     .form-group {
       margin-bottom: 16px;
       display: flex;
-      flex-direction: column;
-    }
+      flex-direction: column; }
     label {
       margin-bottom: 8px;
       font-weight: 500;
       color: var(--text-color);
-      font-size: 14px;
-      opacity: 0.9;
+      font-size: 14px; opacity: 0.9;
     }
     input, select, textarea {
       font-family: var(--font-family);
-      width: 100%;
-      padding: 12px;
+      width: 100%; padding: 12px;
       border: 1px solid var(--border-color);
       border-radius: 8px;
       font-size: 14px;
       background-color: var(--input-bg);
       color: var(--text-color);
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
+      transition: border-color 0.3s, box-shadow 0.3s; }
     input::placeholder, textarea::placeholder {
-        color: rgba(236, 240, 241, 0.5); /* ສີຂອງຕົວໜັງສື placeholder */
-    }
-    input:focus, select:focus, textarea:focus { /* ເມື່ອ focus ໃສ່ຊ່ອງປ້ອນຂໍ້ມູນ */
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.4);
-      outline: none;
-    }
+        color: rgba(236, 240, 241, 0.5); }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.4);
+      outline: none; }
     select option {
         background-color: #2c3e50;
-        color: var(--text-color);
-    }
+        color: var(--text-color); }
 
     /* ----- ປຸ່ມ (Buttons) ----- */
     .button-group {
-      display: flex;
-      flex-wrap: wrap;
+      display: flex; flex-wrap: wrap;
       justify-content: center;
       gap: 12px;
       margin-top: 20px;
     }
     .btn {
-      background-color: var(--primary-color);
-      color: white;
+      background-color: var(--primary-color); color: white;
       border: none;
       padding: 10px 20px;
       border-radius: 8px;
       cursor: pointer;
       font-size: 14px;
       font-weight: 500;
-      font-family: var(--font-family);
-      transition: all 0.3s ease;
+      font-family: var(--font-family); transition: all 0.3s ease;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-    }
+      gap: 8px; }
     .btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
     .btn.btn-primary { background-color: var(--primary-color); }
     .btn.btn-primary:hover { background-color: #25a25a; }
     .btn.btn-secondary { background-color: #3498db; }
@@ -257,316 +214,275 @@
 
     /* ----- ຜົນລັບ ແລະ ຕາຕະລາງ (Results & Tables) ----- */
     .result {
-      margin-top: 20px;
-      padding: 20px;
+      margin-top: 20px; padding: 20px;
       background-color: rgba(0,0,0,0.2);
       border-left: 5px solid var(--primary-color);
       border-radius: 8px;
-      display: none; /* ເຊື່ອງໄວ້ກ່ອນ, ຈະສະແດງເມື່ອມີຜົນລັບ */
-    }
+      display: none; }
     .result h3 {
       color: var(--primary-color);
       margin-top: 0;
       margin-bottom: 15px;
-      font-size: 18px;
-    }
+      font-size: 18px; }
     .result p {
       margin: 8px 0;
       font-size: 15px;
-      display: flex;
-      justify-content: space-between;
+      display: flex; justify-content: space-between;
     }
     .result p strong {
       color: #bdc3c7;
-      font-weight: 500;
-    }
+      font-weight: 500; }
     .result p span {
       color: #fff;
-      font-weight: 700;
+      font-weight: 700; }
+    
+    /* ========== START: CSS ທີ່ແກ້ໄຂໃໝ່ ========== */
+    /* ----- ການປັບປຸງການສະແດງຜົນລັບໃຫ້ສວຍງາມ ----- */
+    #govResult p {
+      display: flex; justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      margin: 4px 0;
+      border-radius: 8px;
+      transition: background-color 0.3s; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
+    #govResult p:last-child {
+        border-bottom: none; }
+    #govResult p strong {
+      color: var(--text-color);
+      opacity: 0.8;
+      font-weight: 500; }
+    #govResult p span {
+      font-weight: 500;
+      color: #fff; }
+    /* ----- ສະໄຕລ໌ພິເສດສຳລັບຍອດລວມສຸດທ້າຍ ----- */
+    .result-highlight {
+      background-color: rgba(46, 204, 113, 0.15); margin-top: 16px !important;
+      padding: 18px 16px !important;
+      border-left: 5px solid var(--primary-color); }
+    .result-highlight strong {
+      color: var(--primary-color) !important;
+      font-weight: 700 !important; opacity: 1 !important;
+    }
+    .result-highlight span {
+      font-size: 1.2em;
+      font-weight: 700 !important; color: #fff !important;
+    }
+    /* ========== END: CSS ທີ່ແກ້ໄຂໃໝ່ ========== */
+    
     .table-container {
-      width: 100%;
-      overflow-x: auto; /* ເພີ່ມ scrollbar ແນວນອນ ຖ້າຕາຕະລາງກວ້າງເກີນ */
+      width: 100%; overflow-x: auto;
       margin-top: 15px;
     }
     .table-container table {
       width: 100%;
-      border-collapse: collapse;
-    }
+      border-collapse: collapse; }
     .table-container th, .table-container td {
-      border-bottom: 1px solid var(--border-color);
-      padding: 12px 15px;
+      border-bottom: 1px solid var(--border-color); padding: 12px 15px;
       text-align: left;
       font-size: 14px;
     }
     .table-container th {
-      background-color: rgba(46, 204, 113, 0.15);
-      color: var(--primary-color);
+      background-color: rgba(46, 204, 113, 0.15); color: var(--primary-color);
       font-weight: 700;
     }
     .table-container tbody tr:last-child td {
-        border-bottom: none;
-    }
+        border-bottom: none; }
     .table-container tbody tr:hover {
-      background-color: rgba(46, 204, 113, 0.08);
-    }
+      background-color: rgba(46, 204, 113, 0.08); }
     .download-btn {
-        background-color: var(--secondary-color);
-    }
+        background-color: var(--secondary-color); }
 
     /* ----- ສ່ວນສະແດງຄຳຄິດເຫັນ (Feedback Section) ----- */
     .feedback-display {
-        margin-top: 24px;
-        padding-top: 20px;
+        margin-top: 24px; padding-top: 20px;
         border-top: 1px solid var(--border-color);
     }
     .feedback-display h3 {
-        margin-bottom: 16px;
-        color: var(--primary-color);
+        margin-bottom: 16px; color: var(--primary-color);
     }
     .feedback-item {
         background: rgba(0,0,0,0.15);
-        border-radius: 8px;
-        padding: 12px;
+        border-radius: 8px; padding: 12px;
         margin-bottom: 12px;
         animation: fadeIn 0.5s ease;
     }
     .feedback-item p {
-        margin-bottom: 8px;
-        line-height: 1.6;
+        margin-bottom: 8px; line-height: 1.6;
     }
     .feedback-item .meta {
         font-size: 12px;
-        color: #bdc3c7;
-        opacity: 0.8;
+        color: #bdc3c7; opacity: 0.8;
         margin-bottom: 8px;
     }
     .feedback-reply-btn {
-        background: none;
-        border: none;
+        background: none; border: none;
         color: var(--accent-color);
         cursor: pointer;
         font-size: 13px;
         font-weight: 500;
         padding: 4px 8px 4px 0;
         display: inline-flex;
-        align-items: center;
-        gap: 6px;
+        align-items: center; gap: 6px;
     }
     .feedback-reply-btn:hover {
-        text-decoration: underline;
-    }
+        text-decoration: underline; }
     .reply-item {
         border-left: 3px solid var(--accent-color);
-        padding-left: 12px;
-        margin-top: 10px;
+        padding-left: 12px; margin-top: 10px;
         margin-left: 20px;
     }
 
     /* ----- ສ່ວນທ້າຍ (Footer) ----- */
     .footer {
-      margin-top: 24px;
-      border-top: 1px solid var(--border-color);
+      margin-top: 24px; border-top: 1px solid var(--border-color);
       padding-top: 20px;
       text-align: center;
       font-size: clamp(13px, 2vw, 14px);
-      color: #b7c4c9;
-    }
+      color: #b7c4c9; }
     .social-links {
         display: flex;
         justify-content: center;
-        gap: 16px;
-        margin-bottom: 16px;
+        gap: 16px; margin-bottom: 16px;
     }
     .social-links a {
         color: var(--text-color);
-        font-size: 24px;
-        transition: color .3s ease, transform .3s ease;
+        font-size: 24px; transition: color .3s ease, transform .3s ease;
     }
     .social-links a:hover {
-        color: var(--primary-color);
-        transform: scale(1.1);
+        color: var(--primary-color); transform: scale(1.1);
     }
     .note {
-        line-height: 1.6;
-    }
+        line-height: 1.6; }
     .note b {
-      color: #ffffff;
-    }
+      color: #ffffff; }
 
     /* ----- ຄ່າອື່ນໆ (Utilities) ----- */
-    .hidden { display: none !important; } /* class ສຳລັບເຊື່ອງ element */
+    .hidden { display: none !important; }
 
     /* ----- ການອອກແບບໃຫ້ຮອງຮັບທຸກໜ້າຈໍ (Responsive Design) ----- */
-    @media (max-width: 768px) { /* ສະໄຕລ໌ສຳລັບໜ້າຈໍນ້ອຍກວ່າ 768px (ມືຖື) */
+    @media (max-width: 768px) {
       body {
-        padding: 0;
-      }
+        padding: 0; }
       .page {
         border-radius: 0;
-        border-left: none;
-        border-right: none;
+        border-left: none; border-right: none;
         min-height: 100vh;
       }
       .button-group {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: column; align-items: stretch;
       }
-
-      /* ----- ປรับตารางในหน้าค้นหาให้แสดงผลสวยงามในมือถือ ----- */
       #searchResult .table-container table,
       #searchResult .table-container thead,
       #searchResult .table-container tbody,
       #searchResult .table-container th,
       #searchResult .table-container td,
       #searchResult .table-container tr {
-        display: block;
-      }
-
-      #searchResult .table-container thead tr { /* ເຊື່ອງຫົວຕາຕະລາງແບບປົກກະຕິ */
-        position: absolute;
-        top: -9999px;
+        display: block; }
+      #searchResult .table-container thead tr {
+        position: absolute; top: -9999px;
         left: -9999px;
       }
-
       #searchResult .table-container tr {
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
+        border: 1px solid var(--border-color); border-radius: 12px;
         margin-bottom: 12px;
         background: rgba(0, 0, 0, 0.2);
-        padding: 12px;
-      }
-
+        padding: 12px; }
       #searchResult .table-container td {
-        border: none;
-        border-bottom: 1px solid rgba(46, 204, 113, 0.15);
+        border: none; border-bottom: 1px solid rgba(46, 204, 113, 0.15);
         position: relative;
         padding-left: 45%;
         padding-top: 10px;
         padding-bottom: 10px;
         text-align: right;
-        min-height: 38px;
-        display: flex;
+        min-height: 38px; display: flex;
         align-items: center;
         justify-content: flex-end;
       }
-
-      #searchResult .table-container td:before { /* ເອົາຫົວຂໍ້ຂອງຖັນມາສະແດງຢູ່ທາງໜ້າຂອງຂໍ້ມູນ */
-        content: attr(data-label);
-        position: absolute;
+      #searchResult .table-container td:before {
+        content: attr(data-label); position: absolute;
         left: 12px;
         width: 40%;
         padding-right: 10px;
         white-space: nowrap;
         text-align: left;
         font-weight: bold;
-        color: var(--primary-color);
-      }
-
+        color: var(--primary-color); }
       #searchResult .table-container td:last-child {
-        border-bottom: 0;
-        justify-content: center;
+        border-bottom: 0; justify-content: center;
         padding-left: 0;
       }
       #searchResult .table-container td:last-child::before {
-        display: none;
-      }
+        display: none; }
     }
 
     /* ----- ສະໄຕລ໌ຂອງ Popup ແຈ້ງເຕືອນແບບໃໝ່ ----- */
     .prize-popup {
-        position: fixed;
-        top: 50%; left: 50%;
+        position: fixed; top: 50%; left: 50%;
         width: min(85vw, 450px);
         transform: translate(-50%, -50%) scale(0.5);
         background: radial-gradient(circle, #1a0b2e, #071027);
-        border-radius: 20px;
-        border: 2px solid transparent;
+        border-radius: 20px; border: 2px solid transparent;
         box-shadow: 0 0 80px rgba(138, 43, 226, 0.7);
-        z-index: 1000; text-align: center; color: #fff;
-        padding: clamp(1.5rem, 2vw, 2rem) 1rem;
+        z-index: 1000; text-align: center; color: #fff; padding: clamp(1.5rem, 2vw, 2rem) 1rem;
         opacity: 0;
         pointer-events: none;
-        transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-
+        transition: opacity 0.3s ease, transform 0.3s ease; }
     .prize-popup.active {
         animation: prize-pop-in 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
-                     prize-border-glow 2s infinite alternate;
-        opacity: 1;
+                     prize-border-glow 2s infinite alternate; opacity: 1;
         pointer-events: auto;
     }
-
-    .prize-popup.warning { /* ສະໄຕລ໌ Popup ແບບເຕືອນ */
-        --accent1: #ffd700;
-        --accent2: #ff8c00;
-        box-shadow: 0 0 100px rgba(255, 215, 0, 0.8);
+    .prize-popup.warning {
+        --accent1: #ffd700; --accent2: #ff8c00;
+        box-shadow: 0 0 100px rgba(255, 215, 0, 0.8); }
+    .prize-popup.success {
+        --accent1: #32cd32;
+        --accent2: #008000; box-shadow: 0 0 100px rgba(50, 205, 50, 0.8);
     }
-    .prize-popup.success { /* ສະໄຕລ໌ Popup ແບບສຳເລັດ */
-        --accent1: #32cd32; --accent2: #008000;
-        box-shadow: 0 0 100px rgba(50, 205, 50, 0.8);
-    }
-    .prize-popup.error { /* ສະໄຕລ໌ Popup ແບບຜິດພາດ */
-        --accent1: #ff4d4d;
-        --accent2: #e74c3c;
-        box-shadow: 0 0 100px rgba(231, 76, 60, 0.8);
-    }
-
+    .prize-popup.error {
+        --accent1: #ff4d4d; --accent2: #e74c3c;
+        box-shadow: 0 0 100px rgba(231, 76, 60, 0.8); }
     @keyframes prize-pop-in { to { transform: translate(-50%, -50%) scale(1); } }
     @keyframes prize-border-glow {
         from { border-color: var(--accent2); }
         to { border-color: var(--accent1); }
     }
     .prize-popup .icon {
-        font-size: clamp(4rem, 5vw, 5rem);
-        animation: prize-icon-float 3s ease-in-out infinite;
+        font-size: clamp(4rem, 5vw, 5rem); animation: prize-icon-float 3s ease-in-out infinite;
         text-shadow: 0 0 20px var(--accent2);
-        line-height: 1;
-    }
+        line-height: 1; }
     @keyframes prize-icon-float {
         0%, 100% { transform: translateY(0) scale(1); }
         50% { transform: translateY(-15px) scale(1.1); }
     }
     .prize-popup .message {
-        font-size: clamp(1.2rem, 2vw, 1.5rem);
-        font-weight: 700;
+        font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 700;
         margin: 1rem 0 0.5rem;
-        text-shadow: 0 0 10px var(--accent1), 0 0 20px var(--accent1);
-    }
+        text-shadow: 0 0 10px var(--accent1), 0 0 20px var(--accent1); }
     .prize-popup .sub-message {
         font-size: clamp(0.9rem, 1.5vw, 1rem);
-        color: var(--muted);
-    }
+        color: var(--muted); }
     .close-popup {
-        position: absolute; top: 10px; right: 10px;
-        background: none; border: none; font-size: 2rem;
+        position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 2rem;
         color: #fff; cursor: pointer;
         opacity: 0.7;
-        transition: opacity 0.3s ease, transform 0.3s ease;
-    }
+        transition: opacity 0.3s ease, transform 0.3s ease; }
     .close-popup:hover {
         opacity: 1;
-        transform: rotate(90deg);
-    }
+        transform: rotate(90deg); }
   </style>
 </head>
 <body>
 
-<!-- ================================================= -->
-<!-- ===== ໂຄງສ້າງ HTML ຂອງໜ້າเว็บ ===== -->
-<!-- ================================================= -->
-
 <div class="container">
-    <!-- ===== ໜ້າຫຼັກ (Home) ===== -->
     <div id="Home" class="page active">
         <div class="hero">
             <img src="https://i.ibb.co/36359Bf/image.png" alt="Logo" class="logo">
             <h1 class="title">ລະບົບຄິດໄລ່ເງິນເດືອນ-ອຸດໜູນຕ່າງໆ</h1>
-            <!-- <p class="subtitle">ພາກລັດ ແລະ ພາກວິສາຫະກິດ (ອປຊ)</p> -->
-            <p id="date-lao"></p> <!-- ສະແດງວັນທີເປັນພາສາລາວ -->
+            <p id="date-lao"></p>
         </div>
 
-         <!-- ເມນູຫຼັກ -->
          <div class="grid">
             <div class="link-card" onclick="showPage('Salary')">
                 <i class="link-icon fas fa-money-bill-wave"></i>
@@ -590,7 +506,6 @@
             </div>
         </div>
 
-        <!-- ສ່ວນສົ່ງຄຳຄິດເຫັນ -->
         <div class="feedback-container">
             <label for="feedbackText">ຄຳຄິດເຫັນ ຫຼື ສະເໜີແນະ:</label>
             <textarea id="feedbackText" placeholder="ຂຽນຄຳຄິດເຫັນຂອງທ່ານທີ່ນີ້..."></textarea>
@@ -599,10 +514,8 @@
             </div>
         </div>
 
-        <!-- ພື້ນທີ່ສະແດງຄຳຄິດເຫັນ -->
         <div id="feedbackDisplayArea" class="feedback-display"></div>
 
-        <!-- ສ່ວນທ້າຍຂອງໜ້າเว็บ (Footer) -->
         <footer class="footer">
             <div class="social-links">
                 <a href="https://www.facebook.com/Phetsaiyaphoom?rdid=r1ybXu9G2h95D2NO" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -618,44 +531,42 @@
         </footer>
     </div>
 
-    <!-- ===== ໜ້າຄຳນວນເງິນເດືອນ (Salary) ===== -->
     <div id="Salary" class="page">
         <div class="hero">
             <h1 class="title">ຄຳນວນເງິນເດືອນ</h1>
             <p class="subtitle">ລັດຖະກອນ (ປົກຄອງ-ຄູອາຈານ)</p>
         </div>
-         <div class="form-container">
+          <div class="form-container">
             <form id="salaryForm">
                 <div class="form-group">
                     <label for="category">ເນື້ອໃນລາຍລະອຽດ:</label>
                     <select id="category" onchange="toggleFields()">
                         <option value="">-- ເລືອກປະເພດ --</option>
                         <option value="civil">ເງິນເດືອນພະນັກງານລັດຖະກອນ</option>
-                        <!-- <option value="pension">ເງິນບຳນານ</option> -->
-                    </select>
+						</select>
                 </div>
                 <div class="form-group">
-                    <label for="index">ດັດສະນີ:</label>
+                     <label for="index">ດັດສະນີ:</label>
                     <input type="number" id="index" min="0" placeholder="ປ້ອນຄ່າດັດສະນີ (ຕົວຢ່າງ: 226)">
                 </div>
                 <div class="form-group">
                     <label for="year">ປີການ:</label>
-                    <input type="number" id="year" min="0" placeholder="ປ້ອນຈຳນວນປີການ (ຕົວຢ່າງ: 10)">
+                     <input type="number" id="year" min="0" placeholder="ປ້ອນຈຳນວນປີການ (ຕົວຢ່າງ: 10)">
                 </div>
                 <div class="form-group">
                     <label for="position">ເງິນຕຳແໜ່ງ:</label>
                     <input type="text" inputmode="numeric" id="position" oninput="formatAndRestrictNumber(this)" placeholder="ປ້ອນເງິນຕຳແໜ່ງ (ຕົວຢ່າງ: 200,000)">
-                </div>
+                 </div>
                 <div class="form-group">
                     <label for="children">ຈຳນວນລູກ:</label>
                     <input type="number" id="children" min="0" placeholder="ປ້ອນຈຳນວນລູກ (ຕົວຢ່າງ: 2)">
                  </div>
-                <div class="form-group" id="wifeGroup">
+                 <div class="form-group" id="wifeGroup">
                     <label for="wife">ຈຳນວນເມຍ:</label>
                     <input type="number" id="wife" min="0" placeholder="ປ້ອນຈຳນວນເມຍ (ຕົວຢ່າງ: 1)">
                 </div>
                 <div class="form-group hidden" id="pensionGroup">
-                    <label for="pensionPercent">ເປີເຊັນບຳນານ (%):</label>
+                     <label for="pensionPercent">ເປີເຊັນບຳນານ (%):</label>
                     <input type="number" id="pensionPercent" min="0" max="100" placeholder="ປ້ອນເປີເຊັນບຳນານ (ຕົວຢ່າງ: 80)">
                 </div>
                 <div class="button-group">
@@ -664,14 +575,13 @@
                     <button type="button" class="btn btn-back" onclick="goHomeAndClearForms()"><i class="fas fa-arrow-left"></i> ກັບຄືນ</button>
                 </div>
             </form>
-            <!-- ພື້ນທີ່ສະແດງຜົນການຄຳນວນເງິນເດືອນ -->
             <div id="salaryResult" class="result">
                 <h3>ຜົນການຄຳນວນ</h3>
                 <p><strong>ລວມເງິນກ່ອນຫັກ:</strong> <span id="totalBeforeDeduction">0</span> ກີບ</p>
                 <p><strong>ເງິນປີການ:</strong> <span id="yearAllowance">0</span> ກີບ</p>
                 <p><strong>ເງິນລູກ:</strong> <span id="childAllowance">0</span> ກີບ</p>
                 <p id="wifeLabel"><strong>ເງິນເມຍ:</strong> <span id="wifeAllowance">0</span> ກີບ</p>
-                <p id="deductionLabel"><strong>ຫັກ 8%:</strong> <span id="deduction8">0</span> ກີບ</p>
+                 <p id="deductionLabel"><strong>ຫັກ 8%:</strong> <span id="deduction8">0</span> ກີບ</p>
                 <p id="taxLabel"><strong>ຫັກອາກອນ:</strong> <span id="tax">0</span> ກີບ</p>
                 <p><strong>ເງິນຄ່າຄອງຊີບເພີ່ມ:</strong> <span id="livingAllowance">0</span> ກີບ</p>
                 <p><strong>ລວມເງິນທັງໝົດ:</strong> <span id="totalNet">0</span> ກີບ</p>
@@ -679,7 +589,6 @@
         </div>
     </div>
 
-    <!-- ===== ໜ້າຄຳນວນອຸດໜູນພາກລັດ (Government) ===== -->
     <div id="Government" class="page">
         <div class="hero">
             <h1 class="title">ຄຳນວນເງິນອຸດໜຸນພາກລັດ</h1>
@@ -691,47 +600,44 @@
                     <label for="detail">ເນື້ອໃນລາຍລະອຽດ:</label>
                     <select id="detail" name="detail" onchange="updatePercentage()">
                         <option value="">-- ເລືອກປະເພດ --</option>
-                        <!-- <option value="ເງີນອຸດໜຸນບຳເນັດອອກການ">ເງິນອຸດໜຸນບຳເນັດອອກການ</option>-->
-                       <option value="ເງີນອຸດໜຸນເສຍຊີວິດລັດຖະກອນ">ເງິນອຸດໜຸນເສຍຊີວິດລັດຖະກອນ</option>
-                        <option value="ເງີນອຸດໜຸນບຳນານເສຍຊີວິດ">ເງິນອຸດໜຸນບຳນານເສຍຊີວິດ</option>
+						<option value="ເງີນອຸດໜຸນເສຍຊີວິດລັດຖະກອນ">ເງິນອຸດໜຸນເສຍຊີວິດລັດຖະກອນ</option>
+                       <option value="ເງີນອຸດໜຸນບຳນານເສຍຊີວິດ">ເງິນອຸດໜຸນບຳນານເສຍຊີວິດ</option>
                         <option value="ເງີນອຸດໜຸນໝາຍເສຍຊີວິດ">ເງິນອຸດໜຸນໝາຍເສຍຊີວິດ</option>
                     </select>
                  </div>
                 <div class="form-group">
-                    <label for="govIndex">ດັດສະນີ:</label>
+                     <label for="govIndex">ດັດສະນີ:</label>
                     <input type="number" id="govIndex" name="index" placeholder="ປ້ອນຄ່າດັດສະນີ (ຕົວຢ່າງ: 226)">
                 </div>
                  <div class="form-group">
                     <label for="serviceYears">ປີການ:</label>
-                    <input type="number" id="serviceYears" name="serviceYears" placeholder="ປ້ອນຈຳນວນປີການ (ຕົວຢ່າງ: 10)">
+                     <input type="number" id="serviceYears" name="serviceYears" placeholder="ປ້ອນຈຳນວນປີການ (ຕົວຢ່າງ: 10)">
                 </div>
                 <div class="form-group">
                    <label for="positionSalary">ເງິນຕຳແໜ່ງ:</label>
                     <input type="text" inputmode="numeric" id="positionSalary" name="positionSalary" oninput="formatAndRestrictNumber(this)" placeholder="ປ້ອນເງິນຕຳແໜ່ງ (ຕົວຢ່າງ: 200,000)">
-                </div>
+                 </div>
                 <div class="form-group hidden" id="percentageGroup">
                    <label id="percentageLabel">ເປີເຊັນບຳນານ (%):</label>
                       <input type="number" id="percentage" name="percentage" step="0.01" placeholder="ປ້ອນເປີເຊັນບຳນານ (ຕົວຢ່າງ: 85)">
                 </div>
-                <div class="button-group">
+                 <div class="button-group">
                     <button type="button" class="btn btn-primary" onclick="validateAndCalculateGovernment()"><i class="fas fa-calculator"></i> ຄຳນວນ</button>
                     <button type="button" class="btn btn-danger" onclick="clearGovForm()"><i class="fas fa-trash"></i> ລ້າງຂໍ້ມູນ</button>
                     <button type="button" class="btn btn-back" onclick="goHomeAndClearForms()"><i class="fas fa-arrow-left"></i> ກັບຄືນ</button>
-                </div>
+                 </div>
             </form>
-            <!-- ພື້ນທີ່ສະແດງຜົນການຄຳນວນອຸດໜູນພາກລັດ -->
             <div id="govResult" class="result">
                 <h3>ຜົນການຄຳນວນ</h3>
-                 <p><strong>ເງິນເດືອນພື້ນຖານ:</strong> <span id="govBaseMonthlySalary">0</span> ກີບ</p>
-                <p><strong>ເງິນປີການ:</strong> <span id="govYearlyBonus">0</span> ກີບ</p>
-                <p><strong>ລວມເງິນກ່ອນຫັກ:</strong> <span id="govTotalDeduction">0</span> ກີບ</p>
+                <p><strong>ເງິນເດືອນພື້ນຖານ:</strong> <span id="govBaseMonthlySalary">0</span></p>
+                <p><strong>ເງິນປີການ:</strong> <span id="govYearlyBonus">0</span></p>
+                <p><strong>ລວມເງິນກ່ອນຫັກ:</strong> <span id="govTotalDeduction">0</span></p>
                 <p><strong>ເດືອນທີ່ໄດ້ຮັບ:</strong> <span id="govMonthsReceived">0</span></p>
-                <p><strong>ລວມເງິນທັງໝົດທີ່ໄດ້ຮັບ:</strong> <span id="govTotalAmountReceived">0</span> ກີບ</p>
+                <p class="result-highlight"><strong>ລວມເງິນທັງໝົດທີ່ໄດ້ຮັບ:</strong> <span id="govTotalAmountReceived">0</span></p>
             </div>
          </div>
     </div>
 
-    <!-- ===== ໜ້າຄຳນວນອຸດໜູນພາກວິສາຫະກິດ (Enterprise) ===== -->
     <div id="Enterprise" class="page">
         <div class="hero">
             <h1 class="title">ຄຳນວນເງິນອຸດໜຸນພາກວິສາຫະກິດ</h1>
@@ -741,33 +647,32 @@
             <form id="supportForm">
                 <div class="form-group">
                    <label for="entCategory">ເນື້ອໃນລາຍລະອຽດ:</label>
-                    <select id="entCategory" name="category" onchange="toggleEntChildrenField()">
+                    <select id="entCategory" name="category" onchange="handleEnterpriseCategoryChange()">
                         <option value="">-- ເລືອກປະເພດ --</option>
                         <option value="ບຳເນັດເກີດລູກ">ບຳເນັດເກີດລູກ</option>
                          <option value="ອຸດໜຸນເກີດລູກ">ອຸດໜຸນເກີດລູກ</option>
-                    <!--<option value="ບຳເນັດອອກການ">ບຳເນັດອອກການ</option>-->
-                        <option value="ເງີນເສຍຊີວິດ">ເງິນເສຍຊີວິດ</option>
+						 <option value="ບຳເນັດອອກການ">ບຳເນັດອອກການ</option>
+                         <option value="ເງີນເສຍຊີວິດ">ເງິນເສຍຊີວິດ</option>
                     </select>
                  </div>
                 <div class="form-group">
-                    <label for="contribution">ເງິນສົມທົບຕາມເງິນໄຂ:</label>
-                    <input type="text" inputmode="numeric" id="contribution" name="contribution" oninput="formatAndRestrictNumber(this)" placeholder="ປ້ອນເງິນສົມທົບ (ຕົວຢ່າງ: 27,000,000)">
+                    <label for="contribution" id="contributionLabel">ຈຳນວນເງີນສົມທົບ 6 ເດືອນສຸດທ້າຍ:</label>
+                     <input type="text" inputmode="numeric" id="contribution" name="contribution" oninput="formatAndRestrictNumber(this)" placeholder="ປ້ອນເງິນສົມທົບ (ຕົວຢ່າງ: 27,000,000)">
                 </div>
                  <div class="form-group">
                     <label for="months">ເດືອນ:</label>
                     <input type="number" id="months" name="months" step="1" placeholder="ປ້ອນຈຳນວນເດືອນ (ຕົວຢ່າງ: 12)">
-                </div>
+                 </div>
                 <div class="form-group hidden" id="entChildrenField">
                     <label for="entChildren">ຈຳນວນລູກ:</label>
                     <input type="number" id="entChildren" name="children" step="1" placeholder="ປ້ອນຈຳນວນລູກ (ຕົວຢ່າງ: 1)">
                 </div>
-                <div class="button-group">
+                 <div class="button-group">
                     <button type="button" class="btn btn-primary" onclick="calculateEnterprise()"><i class="fas fa-calculator"></i> ຄຳນວນ</button>
                      <button type="button" class="btn btn-danger" onclick="clearEntForm()"><i class="fas fa-trash"></i> ລ້າງຂໍ້ມູນ</button>
-                    <button type="button" class="btn btn-back" onclick="goHomeAndClearForms()"><i class="fas fa-arrow-left"></i> ກັບຄືນ</button>
-                </div>
+                     <button type="button" class="btn btn-back" onclick="goHomeAndClearForms()"><i class="fas fa-arrow-left"></i> ກັບຄືນ</button>
+                 </div>
             </form>
-            <!-- ພື້ນທີ່ສະແດງຜົນການຄຳນວນອຸດໜູນພາກວິສາຫະກິດ -->
             <div id="entResult" class="result">
                 <h3>ຜົນການຄຳນວນ</h3>
                 <p><strong>ລວມເງິນທັງໝົດທີ່ໄດ້ຮັບ:</strong> <span id="entTotal">0</span> ກີບ</p>
@@ -775,47 +680,44 @@
         </div>
     </div>
 
-    <!-- ===== ໜ້າຄົ້ນຫາຂໍ້ມູນ (Search) ===== -->
     <div id="Search" class="page">
-        <div class="hero">
+         <div class="hero">
             <h1 class="title">ຄົ້ນຫາຂໍ້ມູນ</h1>
             <p class="subtitle">ຄົ້ນຫາການຄຳນວນທີ່ຜ່ານມາ ແລະ ຊອກຫາດັດສະນີ</p>
         </div>
         <div class="form-container">
             <form id="searchForm">
                 <div class="form-group">
-                    <label for="combobox1">ເລືອກລາຍການ:</label>
+                     <label for="combobox1">ເລືອກລາຍການ:</label>
                     <select id="combobox1" name="combobox1">
                         <option value="">-- ກະລຸນາເລືອກ --</option>
                         <option value="salaryHistory">ປະຫວັດຄຳນວນເງິນເດືອນ</option>
-                        <option value="indexData">ຄົ້ນຫາດັດສະນີ</option>
+                         <option value="indexData">ຄົ້ນຫາດັດສະນີ</option>
                         <option value="govSupportHistory">ປະຫວັດຄຳນວນພາກລັດ</option>
                         <option value="entSupportHistory">ປະຫວັດຄຳນວນພາກວິສາຫະກິດ</option>
                     </select>
                 </div>
-                <div class="form-group">
+                 <div class="form-group">
                     <label for="textbox1">ໃສ່ຂໍ້ມູນເພື່ອຄົ້ນຫາ (ບໍ່ບັງຄັບ):</label>
                     <input type="text" id="textbox1" name="textbox1" placeholder="ຕົວຢ່າງ: 4/2, ຄູອາຈານ">
                 </div>
                 <div class="button-group">
-                    <button type="button" id="searchButton" class="btn btn-primary" onclick="searchData()"><i class="fas fa-search"></i> ຄົ້ນຫາ</button>
+                     <button type="button" id="searchButton" class="btn btn-primary" onclick="searchData()"><i class="fas fa-search"></i> ຄົ້ນຫາ</button>
                     <button type="button" class="btn btn-back" onclick="goHomeAndClearForms()"><i class="fas fa-arrow-left"></i> ກັບຄືນ</button>
                 </div>
             </form>
-            <!-- ພື້ນທີ່ສະແດງຜົນການຄົ້ນຫາ (ຕາຕະລາງ) -->
             <div id="searchResult" class="result" style="padding:0; border:none; background:transparent;">
                 <div class="table-container" id="table-container">
                     <table>
                         <thead><tr id="table-header"></tr></thead>
                         <tbody id="table-body"></tbody>
-                    </table>
+                     </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- ===== ສ່ວນຂອງ Popup ແຈ້ງເຕືອນ ===== -->
 <div id="popup" class="prize-popup">
   <button class="close-popup">&times;</button>
   <div class="icon"></div>
@@ -823,20 +725,14 @@
   <div class="sub-message"></div>
 </div>
 
-<!-- ================================================= -->
-<!-- ===== ການເຊື່ອມຕໍ່ ແລະ ຕັ້ງຄ່າ FIREBASE ===== -->
-<!-- ================================================= -->
 <script type="module">
-  // ນໍາເຂົ້າ functions ທີ່ຈຳເປັນຈາກ Firebase SDKs
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import {
     getFirestore, collection, addDoc, getDocs,
     query, orderBy, limit, serverTimestamp, onSnapshot,
     doc, updateDoc, arrayUnion
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-  // ການຕັ້ງຄ່າ Firebase ຂອງແອັບຯເວັບຂອງທ່ານ (ຂໍ້ມູນນີ້ໄດ້ມາຈາກ Firebase Console)
-  const firebaseConfig = {
+   const firebaseConfig = {
     apiKey: "AIzaSyD8fd_23dLQPbLqfqbakpJtlzjIOD_B-Jw",
     authDomain: "myapp-506ca.firebaseapp.com",
     projectId: "myapp-506ca",
@@ -844,109 +740,92 @@
     messagingSenderId: "341275741284",
     appId: "1:341275741284:web:f955e6c5a273e4be616371"
   };
-
-  // ເລີ່ມຕົ້ນການເຊື່ອມຕໍ່ກັບ Firebase
   const app = initializeApp(firebaseConfig);
-  // ເຂົ້າເຖິງ Firestore Database
   const db = getFirestore(app);
-
-  // ເຮັດໃຫ້ db ແລະ firestoreFunctions ເປັນ Global ເພື່ອໃຫ້ function ອື່ນໆໃນ <script> ໂຕລຸ່ມສາມາດເອີ້ນໃຊ້ໄດ້
   window.db = db;
   window.firestoreFunctions = {
       collection, addDoc, getDocs, query, orderBy, limit, serverTimestamp,
       onSnapshot, doc, updateDoc, arrayUnion
   };
-
-  // ເມື່ອໜ້າเว็บໂຫຼດສຳເລັດ, ໃຫ້ເລີ່ມການຟັງຂໍ້ມູນ feedback ແບບ real-time
   document.addEventListener('DOMContentLoaded', () => {
     listenForFeedback();
   });
 </script>
 
 
-<!-- ================================================= -->
-<!-- ===== JAVASCRIPT LOGIC ຫຼັກຂອງແອັບ ===== -->
-<!-- ================================================= -->
 <script>
-// ===================================================================
-// ການກຳນົດຄ່າຄົງທີ່ຕ່າງໆຂອງແອັບ (APP CONFIGURATION)
-// ===================================================================
+// =================================================================
+// ===== ການກຳນົດຄ່າຄົງທີ່ ແລະ ຕົວແປຫຼັກຂອງລະບົບ (Configuration) =====
+// =================================================================
 const APP_CONFIG = {
+    // ----- ການຕັ້ງຄ່າກ່ຽວກັບເງິນເດືອນ -----
     salary: {
-        indexMultiplier: 7350,      // ຄ່າຕົວຄູນດັດສະນີ
-        livingAllowance: 450000,    // ເງິນຄ່າຄອງຊີບ
-        childAllowance: 100000,     // ເງິນອຸດໜູນລູກຕໍ່ຄົນ
-        wifeAllowance: 100000,      // ເງິນອຸດໜູນເມຍຕໍ່ຄົນ
+        indexMultiplier: 7350,      // ຄ່າຕົວຄູນດັດສະນີ: ໃຊ້ຄູນກັບດັດສະນີເພື່ອຄິດໄລ່ເງິນເດືອນພື້ນຖານ
+        livingAllowance: 450000,    // ເງິນຄ່າຄອງຊີບ: ເງິນຊ່ວຍເຫຼືອເພີ່ມເຕີມທີ່ໄດ້ຮັບທຸກເດືອນ
+        childAllowance: 100000,     // ເງິນອຸດໜູນລູກຕໍ່ຄົນ: ເງິນທີ່ໄດ້ຮັບເພີ່ມຕາມຈຳນວນລູກ
+        wifeAllowance: 100000,      // ເງິນອຸດໜູນເມຍຕໍ່ຄົນ: ເງິນທີ່ໄດ້ຮັບເພີ່ມຕາມຈຳນວນເມຍ (ສຳລັບລັດຖະກອນ)
     },
+    // ----- ການຕັ້ງຄ່າກ່ຽວກັບການຫັກຕ່າງໆ -----
     deductions: {
-        civilRate: 0.08,            // ອັດຕາຫັກປະກັນສັງຄົມ (8%) ສຳລັບລັດຖະກອນ
-        pensionHealthRate: 0.00625, // ອັດຕາຫັກປະກັນສຸຂະພາບ (0.625%) ສຳລັບຜູ້ຮັບບຳນານ
+        civilRate: 0.08,            // ອັດຕາການຫັກປະກັນສັງຄົມສຳລັບລັດຖະກອນ (8%)
+        pensionHealthRate: 0.00625, // ອັດຕາການຫັກປະກັນສຸຂະພາບສຳລັບຜູ້ຮັບເບ້ຍບຳນານ
     },
-    yearAllowanceTiers: [ // ການຄິດໄລ່ເງິນປີການແບບຂັ້ນໄດ
-        { maxYears: 5, rate: 5000, base: 0, previousMax: 0 },         // 1-5 ປີ: ປີລະ 5,000
-        { maxYears: 15, rate: 10000, base: 25000, previousMax: 5 },   // 6-15 ປີ: ປີລະ 10,000
-        { maxYears: 25, rate: 15000, base: 125000, previousMax: 15 }, // 16-25 ປີ: ປີລະ 15,000
-        { maxYears: Infinity, rate: 20000, base: 275000, previousMax: 25 } // 26 ປີຂຶ້ນໄປ: ປີລະ 20,000
+    // ----- ການຕັ້ງຄ່າຂັ້ນເງິນປີການ -----
+    yearAllowanceTiers: [
+        { maxYears: 5, rate: 5000, base: 0, previousMax: 0 },         // 0-5 ປີ: ໄດ້ຮັບ 5,000 ກີບຕໍ່ປີ
+        { maxYears: 15, rate: 10000, base: 25000, previousMax: 5 },   // 6-15 ປີ: ໄດ້ຮັບ 10,000 ກີບຕໍ່ປີ + ເງິນພື້ນຖານຂອງຂັ້ນກ່ອນໜ້າ
+        { maxYears: 25, rate: 15000, base: 125000, previousMax: 15 }, // 16-25 ປີ: ໄດ້ຮັບ 15,000 ກີບຕໍ່ປີ + ເງິນພື້ນຖານຂອງຂັ້ນກ່ອນໜ້າ
+        { maxYears: Infinity, rate: 20000, base: 275000, previousMax: 25 } // >25 ປີ: ໄດ້ຮັບ 20,000 ກີບຕໍ່ປີ + ເງິນພື້ນຖານຂອງຂັ້ນກ່ອນໜ້າ
     ],
-    taxBrackets: [ // ການຄິດໄລ่อາກອນລາຍໄດ້ແບບຂັ້ນໄດ
-        { max: 1300000, rate: 0, base: 0 },         // 0 - 1,300,000: ຍົກເວັ້ນ
-        { max: 5000000, rate: 0.05, base: 0 },      // 1,300,001 - 5,000,000: 5%
-        { max: 15000000, rate: 0.10, base: 185000 },// 5,000,001 - 15,000,000: 10%
-        { max: 25000000, rate: 0.15, base: 1185000 },// 15.000.001 - 25.000.000: 15%
-        { max: 65000000, rate: 0.20, base: 2685000 },//25.000.001 - 65.000.000 : 20%
-        { max: Infinity, rate: 0.25, base: 10685000 }//65.000.001 ປີຂຶ້ນໄປ: 25%
+    // ----- ການຕັ້ງຄ່າຂັ້ນອາກອນລາຍໄດ້ -----
+    taxBrackets: [
+        { max: 1300000, rate: 0, base: 0 },         // ລາຍຮັບ <= 1,300,000: ບໍ່ເສຍອາກອນ
+        { max: 5000000, rate: 0.05, base: 0 },       // ລາຍຮັບ > 1,300,000 ຫາ 5,000,000: ເສຍ 5%
+        { max: 15000000, rate: 0.10, base: 185000 },  // ລາຍຮັບ > 5,000,000 ຫາ 15,000,000: ເສຍ 10% + ອາກອນພື້ນຖານ
+        { max: 25000000, rate: 0.15, base: 1185000 }, // ລາຍຮັບ > 15,000,000 ຫາ 25,000,000: ເສຍ 15% + ອາກອນພື້ນຖານ
+        { max: 65000000, rate: 0.20, base: 2685000 }, // ລາຍຮັບ > 25,000,000 ຫາ 65,000,000: ເສຍ 20% + ອາກອນພື້ນຖານ
+        { max: Infinity, rate: 0.25, base: 10685000 } // ລາຍຮັບ > 65,000,000: ເສຍ 25% + ອາກອນພື້ນຖານ
     ],
-    govSubsidy: { // ຄ່າຄົງທີ່ສຳລັບອຸດໜູນພາກລັດ
-        deathAllowanceYearsLimit: 7,           //
-        deathAllowanceBaseMonths: 14,          //
-        deathAllowanceFormulaMonths1: 24,      //
-        deathAllowanceFormulaMonths2: 2,       //
-        deathAllowanceFormulaMonths3: 5,       //
-        widowAllowanceMonths: 6,               //
-        severancePayMultiplier: 1.5,           //
-        widowPensionMultiplier: 0.3,           //
+    // ----- ການຕັ້ງຄ່າເງິນອຸດໜູນພາກລັດ -----
+    govSubsidy: {
+        deathAllowanceYearsLimit: 7,         // ເງື່ອນໄຂປີການສຳລັບການຄິດໄລ່ເງິນເສຍຊີວິດ (7 ປີ)
+        deathAllowanceBaseMonths: 14,        // ຈຳນວນເດືອນພື້ນຖານ (ກໍລະນີປີການ < 7)
+        deathAllowanceFormulaMonths1: 24,    // ຕົວຄູນໃນສູດ (ກໍລະນີປີການ >= 7)
+        deathAllowanceFormulaMonths2: 2,     // ຕົວຫານໃນສູດ (ກໍລະນີປີການ >= 7)
+        deathAllowanceFormulaMonths3: 5,     // ຕົວບວກໃນສູດ (ກໍລະນີປີການ >= 7)
+        widowAllowanceMonths: 6,             // ຈຳນວນເດືອນທີ່ຄູ່ສົມລົດໄດ້ຮັບ (6 ເດືອນ)
+        severancePayMultiplier: 1.5,         // ຕົວຄູນບຳເນັດອອກການ (1.5 ເທົ່າຂອງປີການ)
+        widowPensionMultiplier: 0.3,         // ຕົວຄູນເງິນອຸດໜູນໝ້າຍ (30% ຂອງເງິນເດືອນ)
     },
-    entSubsidy: { // ຄ່າຄົງທີ່ສຳລັບອຸດໜູນພາກວິສາຫະກິດ
-        baseMonths: 6,
-        childbirthBenefitMultiplier: 0.6,
-        childbirthAllowanceMultipliers: {
+    // ----- ການຕັ້ງຄ່າເງິນອຸດໜູນພາກວິສາຫະກິດ -----
+    entSubsidy: {
+        baseMonths: 6,                      // ຈຳນວນເດືອນພື້ນຖານທີ່ໃຊ້ຫານເງິນສົມທົບ (6 ເດືອນ)
+        childbirthBenefitMultiplier: 0.6,   // ຕົວຄູນບຳເນັດເກີດລູກ (60% ຂອງເງິນເດືອນສະເລ່ຍ)
+        childbirthAllowanceMultipliers: {   // ຕົວຄູນອຸດໜູນເກີດລູກໃນແຕ່ລະເດືອນ
             month1: 0.8, month2: 0.8, month3: 1.2, month4: 2.8,
         },
-        deathBenefit: {
+        deathBenefit: {                     // ການຕັ້ງຄ່າເງິນເສຍຊີວິດ
             yearLimit: 7, baseMonths: 14, formulaMonths1: 24, formulaMonths2: 2, formulaMonths3: 5,
         },
-        severancePay: {
+        severancePay: {                     // ການຕັ້ງຄ່າບຳເນັດອອກການ
             maxMonths: 60, yearMultiplier: 1.5,
         }
     },
+    // ----- ການຕັ້ງຄ່າສ່ວນຕິດຕໍ່ຜູ້ໃຊ້ (UI) -----
     ui: {
-        visitorCountStart: 99, // ຕົວເລກເລີ່ມຕົ້ນຂອງຜູ້ເຂົ້າຊົມ (ກໍລະນີບໍ່ມີຂໍ້ມູນໃນ localStorage)
+        visitorCountStart: 99,              // ຈຳນວນผู้ເຂົ້າຊົມເລີ່ມຕົ້ນ
     }
 };
 
-// ===================================================================
-// ລະບົບ POPUP ແຈ້ງເຕືອນແບບໃໝ່
-// ===================================================================
-let popupTimeout; // ຕົວແປສຳລັບເກັບ timeout ເພື່ອເຊື່ອງ popup ອັດຕະໂນມັດ
-
-/**
- * Function ສະແດງ popup ແຈ້ງເຕືອນແບບເຄື່ອນໄຫວ.
- * @param {'success'|'warning'|'error'} type - ປະເພດຂອງການແຈ້ງເຕືອນ.
- * @param {string} message - ຂໍ້ຄວາມຫຼັກທີ່ຈະສະແດງ.
- * @param {string} [subMessage] - ຂໍ້ຄວາມຍ່ອຍ (ຖ້າມີ).
- */
+let popupTimeout;
 function showCustomPopup(type, message, subMessage = 'ກະລຸນາກວດສອບຂໍ້ມູນຂອງທ່ານຄືນ') {
     const popup = document.getElementById('popup');
     const popupIcon = popup.querySelector('.icon');
     const popupMessage = popup.querySelector('.message');
     const popupSubMessage = popup.querySelector('.sub-message');
-
-    // ລ້າງ timeout ເກົ່າ (ຖ້າມີ) ເພື່ອບໍ່ໃຫ້ມັນເຊື່ອງ popup ໃໝ່ກ່ອນກຳນົດ
     if (popupTimeout) clearTimeout(popupTimeout);
-
     let iconHtml = '';
     let themeClass = '';
-    // ກວດສອບປະເພດຂອງ popup ເພື່ອກຳນົດໄອຄອນ, ສີ ແລະ ຂໍ້ຄວາມຍ່ອຍເລີ່ມຕົ້ນ
     switch (type) {
       case 'success':
         iconHtml = '✅';
@@ -965,55 +844,31 @@ function showCustomPopup(type, message, subMessage = 'ກະລຸນາກວ�
         iconHtml = 'ℹ️';
         themeClass = 'warning';
     }
-
-    // ຕັ້ງຄ່າຂໍ້ມູນໃຫ້ກັບ element ຕ່າງໆໃນ popup
     popupIcon.innerHTML = iconHtml;
     popupMessage.textContent = message;
     popupSubMessage.textContent = subMessage;
-
-    // ເພີ່ມ/ລົບ class ເພື່ອປ່ຽນສະໄຕລ໌ ແລະ ສະແດງ popup
     popup.classList.remove('success', 'warning', 'error');
     popup.classList.add(themeClass);
     popup.classList.add('active');
-
-    // ຕັ້ງເວລາໃຫ້ popup ເຊື່ອງເອງພາຍໃນ 5 ວິນາທີ
     popupTimeout = setTimeout(() => {
         hidePopup();
     }, 5000);
 }
-
-/**
- * Function ສຳລັບເຊື່ອງ popup.
- */
 function hidePopup() {
     const popup = document.getElementById('popup');
     popup.classList.remove('active');
-    if (popupTimeout) clearTimeout(popupTimeout); // ລ້າງ timeout ເພື່ອຢຸດການເຊື່ອງຊ້ຳຊ້ອນ
+    if (popupTimeout) clearTimeout(popupTimeout);
 }
 
-// ===================================================================
-// FUNCTIONS ກ່ຽວກັບການຈັດການຂໍ້ມູນ (ຕິດຕໍ່ກັບ FIRESTORE)
-// ===================================================================
-
-/**
- * Function ບັນທຶກຂໍ້ມູນລົງໃນ Firestore.
- * @param {string} collectionName - ຊື່ collection ທີ່ຕ້ອງການບັນທຶກ.
- * @param {object} data - ຂໍ້ມູນ (object) ທີ່ຈະບັນທຶກ.
- * @returns {Promise<boolean>} - ຄືນຄ່າ true ຖ້າບັນທຶກສຳເລັດ, false ຖ້າລົ້ມເຫຼວ.
- */
 async function saveDataToFirestore(collectionName, data) {
-    // ກວດສອບວ່າ Firestore ໄດ້ຖືກເລີ່ມຕົ້ນແລ້ວຫຼືບໍ່
     if (!window.db) {
         console.error("Firestore is not initialized.");
         showCustomPopup('error', 'ຜິດພາດ', 'ບໍ່ສາມາດເຊື່ອມຕໍ່ຖານຂໍ້ມູນໄດ້.');
         return false;
     }
     try {
-        // ເອົາ functions ຈາກ global object ທີ່ຕັ້ງຄ່າໄວ້
         const { collection, addDoc, serverTimestamp } = window.firestoreFunctions;
-        // ເພີ່ມ timestamp ຂອງ server ເຂົ້າໄປໃນຂໍ້ມູນກ່ອນບັນທຶກ
         const dataToSave = { ...data, savedAt: serverTimestamp() };
-        // ເພີ່ມ document ໃໝ່ເຂົ້າໄປໃນ collection
         await addDoc(collection(window.db, collectionName), dataToSave);
         return true;
     } catch (error) {
@@ -1023,11 +878,6 @@ async function saveDataToFirestore(collectionName, data) {
     }
 }
 
-/**
- * Function ດຶງຂໍ້ມູນຈາກ Firestore.
- * @param {string} collectionName - ຊື່ collection ທີ່ຕ້ອງການດຶງຂໍ້ມູນ.
- * @returns {Promise<Array>} - ຄືນຄ່າເປັນ array ຂອງຂໍ້ມູນ.
- */
 async function getDataFromFirestore(collectionName) {
     if (!window.db) {
         console.error("Firestore is not initialized.");
@@ -1035,14 +885,11 @@ async function getDataFromFirestore(collectionName) {
     }
     try {
         const { collection, getDocs, query, orderBy, limit } = window.firestoreFunctions;
-        // ສ້າງ query ເພື່ອດຶງຂໍ້ມູນ 22 ລາຍການລ່າສຸດ โดยเรียงจากเวลาที่บันทึกล่าสุดก่อน
         const q = query(collection(window.db, collectionName), orderBy("savedAt", "desc"), limit(22));
         const querySnapshot = await getDocs(q);
         const data = [];
-        // Loop ເອົາຂໍ້ມູນຈາກແຕ່ລະ document
         querySnapshot.forEach((doc) => {
             let docData = doc.data();
-            // ແປງ timestamp ຂອງ Firestore ໃຫ້ເປັນ object Date ຂອງ JavaScript
             if (docData.savedAt && docData.savedAt.toDate) {
                 docData.savedAt = docData.savedAt.toDate();
             }
@@ -1055,57 +902,32 @@ async function getDataFromFirestore(collectionName) {
     }
 }
 
-// ===================================================================
-// ການເລີ່ມຕົ້ນລະບົບ ແລະ ການຈັດການ UI (INITIALIZATION & UI MANAGEMENT)
-// ===================================================================
-
-// ເມື່ອ HTML ໂຫຼດສຳເລັດ, ໃຫ້ເລີ່ມການເຮັດວຽກຂອງ functions ເຫຼົ່ານີ້
 document.addEventListener('DOMContentLoaded', () => {
-    displayLaoDate();       // ສະແດງວັນທີເປັນພາສາລາວ
-    setupVisitorCounter();  // ຕັ້ງຄ່າ ແລະ ສະແດງຈຳນວນຜູ້ເຂົ້າຊົມ
-    initializeForms();      // ຕັ້ງຄ່າເລີ່ມຕົ້ນໃຫ້ກັບฟอร์มຕ່າງໆ
-
-    // ເພີ່ມ event listener ໃຫ້ກັບປຸ່ມປິດ popup
+    displayLaoDate();
+    setupVisitorCounter();
+    initializeForms();
     const closePopupBtn = document.querySelector('.close-popup');
     if (closePopupBtn) {
         closePopupBtn.addEventListener('click', hidePopup);
     }
 });
-
-/**
- * Function ຕັ້ງຄ່າເລີ່ມຕົ້ນໃຫ້ກັບฟอร์มຕ່າງໆ.
- */
 function initializeForms() {
     toggleFields();
     updatePercentage();
-    toggleEntChildrenField();
+    handleEnterpriseCategoryChange();
 }
-
-/**
- * Function ສະແດງໜ້າທີ່ເລືອກ ແລະ ເຊື່ອງໜ້າອື່ນໆ.
- * @param {string} pageId - ID ຂອງໜ້າທີ່ຕ້ອງການສະແດງ.
- */
 function showPage(pageId) {
-    // ເຊື່ອງທຸກໜ້າ
     document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
     const activePage = document.getElementById(pageId);
     if (activePage) {
-        // ສະແດງສະເພາະໜ້າທີ່ເລືອກ
         activePage.classList.add('active');
-        window.scrollTo(0, 0); // ເລື່ອນຂຶ້ນໄປເທິງສຸດຂອງໜ້າ
+        window.scrollTo(0, 0);
     }
 }
-
-/**
- * Function ກັບໄປໜ້າຫຼັກ ແລະ ລ້າງຂໍ້ມູນໃນທຸກฟอร์ม.
- */
 function goHomeAndClearForms() {
-    // ລ້າງข้อมูลในแต่ละฟอร์ม
     resetSalaryForm();
     clearGovForm();
     clearEntForm();
-
-    // ລ້າງຂໍ້ມູນໃນໜ້າຄົ້ນຫາ
     document.getElementById('searchForm').reset();
     const tableHeader = document.getElementById('table-header');
     const tableBody = document.getElementById('table-body');
@@ -1113,25 +935,14 @@ function goHomeAndClearForms() {
     if(tableHeader) tableHeader.innerHTML = '';
     if(tableBody) tableBody.innerHTML = '';
     if(searchResult) searchResult.style.display = 'none';
-
-    // ກັບໄປໜ້າຫຼັກ
     showPage('Home');
 }
-
-/**
- * Function ນັບ ແລະ ສະແດງຈຳນວນຜູ້ເຂົ້າຊົມ.
- */
 function setupVisitorCounter() {
-    // ດຶງຈຳນວນຜູ້ເຂົ້າຊົມເກົ່າຈາກ localStorage
     let count = localStorage.getItem('visitorCount') || APP_CONFIG.ui.visitorCountStart;
-    count = parseInt(count) + 1; // ເພີ່ມຈຳນວນຂຶ້ນ 1
-    localStorage.setItem('visitorCount', count); // ບັນທຶກຄ່າໃໝ່ລົງ localStorage
-    document.getElementById('visitorCount').innerText = count.toString().padStart(4, '0'); // ສະແດງຜົນ (ໃຫ້ມີ 4 ຫຼັກ)
+    count = parseInt(count) + 1;
+    localStorage.setItem('visitorCount', count);
+    document.getElementById('visitorCount').innerText = count.toString().padStart(4, '0');
 }
-
-/**
- * Function ສະແດງວັນທີ, ເດືອນ, ປີ ປັດຈຸບັນເປັນພາສາລາວ.
- */
 function displayLaoDate() {
     const laoDays = ["ວັນອາທິດ", "ວັນຈັນ", "ວັນອັງຄານ", "ວັນພຸດ", "ວັນພະຫັດ", "ວັນສຸກ", "ວັນເສົາ"];
     const laoMonths = ["ມັງກອນ", "ກຸມພາ", "ມີນາ", "ເມສາ", "ພຶດສະພາ", "ມິຖຸນາ", "ກໍລະກົດ", "ສິງຫາ", "ກັນຍາ", "ຕຸລາ", "ພະຈິກ", "ທັນວາ"];
@@ -1140,26 +951,14 @@ function displayLaoDate() {
     document.getElementById('date-lao').textContent = dateString;
 }
 
-// ===================================================================
-// FUNCTIONS ຊ່ວຍເຫຼືອໃນฟอร์ม ແລະ ການກວດສອບຂໍ້ມູນ (FORM HELPERS & VALIDATION)
-// ===================================================================
-
-/**
- * Function ຈັດຮູບແບບຕົວເລກໃຫ້ມີຈຸດຂັ້ນຫຼັກພັນ ແລະ ຮັບສະເພາະຕົວເລກ.
- * @param {HTMLInputElement} input - element input ທີ່ຕ້ອງການຈັດຮູບແບບ.
- */
 function formatAndRestrictNumber(input) {
-    let value = input.value.replace(/[^0-9]/g, ''); // ລົບຕົວອັກສອນອື່ນທີ່ບໍ່ແມ່ນຕົວເລກອອກ
+    let value = input.value.replace(/[^0-9]/g, '');
     if (value) {
-        input.value = parseInt(value, 10).toLocaleString('en-US'); // ຈັດຮູບແບບໃຫ້ມີຈຸດ
+        input.value = parseInt(value, 10).toLocaleString('en-US');
     } else {
         input.value = '';
     }
 }
-
-/**
- * Function ເປີດ/ປິດຊ່ອງປ້ອນຂໍ້ມູນໃນฟอร์มເງິນເດືອນ.
- */
 function toggleFields() {
     const category = document.getElementById('category').value;
     const pensionGroup = document.getElementById('pensionGroup');
@@ -1167,25 +966,14 @@ function toggleFields() {
     const wifeLabel = document.getElementById('wifeLabel');
     const deductionLabel = document.getElementById('deductionLabel');
     const taxLabel = document.getElementById('taxLabel');
-
     const isCivil = category === 'civil';
     const isPension = category === 'pension';
-
-    // ເປີດ/ປິດຊ່ອງປ້ອນເປີເຊັນບຳນານ ແລະ ຈຳນວນເມຍ
     pensionGroup.classList.toggle('hidden', !isPension);
     wifeGroup.classList.toggle('hidden', isPension);
-
-    // ເປີດ/ປິດການສະແດງຜົນຂອງເງິນເມຍ ແລະ ອາກອນ
     if(wifeLabel) wifeLabel.style.display = isPension ? 'none' : 'flex';
     if(taxLabel) taxLabel.style.display = isPension ? 'none' : 'flex';
-
-    // ປ່ຽນຂໍ້ຄວາມຂອງ mục "ຫັກເງິນ"
     if(deductionLabel) deductionLabel.innerHTML = `<strong>${isPension ? 'ຫັກປະກັນສຸຂະພາບ:' : 'ຫັກ 8%:'}</strong> <span id="deduction8">0</span> ກີບ`;
 }
-
-/**
- * Function ເປີດ/ປິດຊ່ອງປ້ອນເປີເຊັນໃນฟอร์มอຸດໜູນພາກລັດ.
- */
 function updatePercentage() {
     const detail = document.getElementById('detail').value;
     const group = document.getElementById('percentageGroup');
@@ -1193,124 +981,105 @@ function updatePercentage() {
     group.classList.toggle('hidden', !show);
 }
 
-/**
- * Function ເປີດ/ປິດຊ່ອງປ້ອນຈຳນວນລູກໃນฟอร์มอຸດໜູນພາກວິສາຫະກິດ.
- */
-function toggleEntChildrenField() {
+// ========== START: Function ທີ່ປັບປຸງໃໝ່ສຳລັບພາກວິສາຫະກິດ ==========
+function handleEnterpriseCategoryChange() {
     const category = document.getElementById('entCategory').value;
-    const group = document.getElementById('entChildrenField');
-    const show = category === 'ອຸດໜຸນເກີດລູກ' || category === 'ບຳເນັດເກີດລູກ';
-    group.classList.toggle('hidden', !show);
-}
+    const childrenGroup = document.getElementById('entChildrenField');
+    const monthsInput = document.getElementById('months');
+    const contributionLabel = document.getElementById('contributionLabel');
 
-/**
- * Function ແມ່ແບບສຳລັບລ້າງຂໍ້ມູນໃນฟอร์ม.
- * @param {string} formId - ID ຂອງฟอร์ม.
- * @param {string} resultId - ID ຂອງພື້ນທີ່ສະແດງຜົນ.
- * @param {Function} [callback] - function ທີ່ຈະເອີ້ນຫຼັງຈາກລ້າງຂໍ້ມູນ.
- */
+    // Reset all fields to default state first
+    monthsInput.disabled = false;
+    monthsInput.value = ''; 
+    monthsInput.min = '1';
+    monthsInput.max = ''; // No max by default
+    contributionLabel.textContent = 'ຈຳນວນເງີນສົມທົບ 6 ເດືອນສຸດທ້າຍ:';
+
+    const showChildren = category === 'ອຸດໜຸນເກີດລູກ' || category === 'ບຳເນັດເກີດລູກ';
+    childrenGroup.classList.toggle('hidden', !showChildren);
+
+    if (category === 'ບຳເນັດເກີດລູກ') {
+        monthsInput.value = 1;
+        monthsInput.disabled = true;
+    } else if (category === 'ອຸດໜຸນເກີດລູກ') {
+        monthsInput.placeholder = "ປ້ອນເດືອນ (1-4)";
+        monthsInput.min = '1';
+        monthsInput.max = '4';
+    } else if (category === 'ບຳເນັດອອກການ') {
+        contributionLabel.textContent = 'ຈຳນວນເງີນສົມທົບ <60 ເດືອນສຸດທ້າຍ:';
+        monthsInput.placeholder = "ປ້ອນເດືອນ (1-60)";
+        monthsInput.min = '1';
+        monthsInput.max = '60';
+    } else {
+        // For 'ເງີນເສຍຊີວິດ' or default
+        monthsInput.placeholder = "ປ້ອນຈຳນວນເດືອນ (ຕົວຢ່າງ: 12)";
+    }
+}
+// ========== END: Function ທີ່ປັບປຸງໃໝ່ສຳລັບພາກວິສາຫະກິດ ==========
+
 function clearForm(formId, resultId, callback) {
     document.getElementById(formId).reset();
     const resultEl = document.getElementById(resultId);
     if (resultEl) resultEl.style.display = 'none';
     if (callback) callback();
 }
-
-// Functions ສຳລັບລ້າງข้อมูลในแต่ละฟอร์มโดยเฉพาะ
 const resetSalaryForm = () => clearForm('salaryForm', 'salaryResult', toggleFields);
 const clearGovForm = () => clearForm('bonusForm', 'govResult', updatePercentage);
-const clearEntForm = () => clearForm('supportForm', 'entResult', toggleEntChildrenField);
+const clearEntForm = () => clearForm('supportForm', 'entResult', handleEnterpriseCategoryChange);
 
-
-// ===================================================================
-// ສູດ ແລະ ຫຼັກການຄຳນວນ (CALCULATION LOGIC)
-// ===================================================================
-
-/**
- * Function ຄຳນວນເງິນປີການ.
- * @param {number} years - ຈຳນວນປີການ.
- * @returns {number} - ເງິນປີການທີ່ຄຳນວນໄດ້.
- */
 function calculateYearlyBonus(years) {
     const tiers = APP_CONFIG.yearAllowanceTiers;
-    // Loop ກວດສອບແຕ່ລະຂັ້ນຂອງເງິນປີການ
     for (const tier of tiers) {
         if (years <= tier.maxYears) {
             return (years - tier.previousMax) * tier.rate + tier.base;
         }
     }
-    // ກໍລະນີພິເສດ (ບໍ່ຄວນເກີດຂຶ້ນ)
     const lastTier = tiers[tiers.length - 1];
     return (years - lastTier.previousMax) * lastTier.rate + lastTier.base;
 }
-
-/**
- * Function ຄຳນວນອາກອນລາຍໄດ້.
- * @param {number} taxableIncome - ລາຍຮັບທີ່ຕ້ອງເສຍອາກອນ.
- * @returns {number} - ເງິນອາກອນທີ່ຄຳນວນໄດ້.
- */
 function calculateTax(taxableIncome) {
     const brackets = APP_CONFIG.taxBrackets;
     let previousMax = 0;
-    // Loop ກວດສອບແຕ່ລະຂັ້ນຂອງອາກອນ
     for (const bracket of brackets) {
         if (taxableIncome <= bracket.max) {
             return (taxableIncome - previousMax) * bracket.rate + bracket.base;
         }
         previousMax = bracket.max;
     }
-    return 0; // ກໍລະນີບໍ່ຕົກໃນຂັ້ນໃດ
+    return 0;
 }
-
-
-/**
- * Function ຫຼັກສຳລັບຄຳນວນເງິນເດືອນ.
- */
 async function calculateSalary() {
-    // 1. ດຶງຂໍ້ມູນຈາກฟอร์ม
     const category = document.getElementById('category').value;
     const index = parseFloat(document.getElementById('index').value) || 0;
     const year = parseFloat(document.getElementById('year').value) || 0;
     const position = parseFloat(document.getElementById('position').value.replace(/,/g, '')) || 0;
-
-    // 2. ກວດສອບຂໍ້ມູນທີ່ຈຳເປັນ
     if (!category || !index || !year) {
         showCustomPopup('warning', 'ກະລຸນາປ້ອນຂໍ້ມູນ', 'ກະລຸນາປ້ອນຂໍ້ມູນທີ່ຈຳເປັນ (ປະເພດ, ດັດສະນີ, ປີການ) ໃຫ້ຄົບຖ້ວນ.');
         return;
     }
-
-    // ສະແດງ loading...
     Swal.fire({ title: 'ກຳລັງຄຳນວນ...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-
     const children = parseFloat(document.getElementById('children').value) || 0;
     const wife = parseFloat(document.getElementById('wife').value) || 0;
     const pensionPercent = parseFloat(document.getElementById('pensionPercent').value) || 0;
-
-    // 3. ຄຳນວນລາຍການຕ່າງໆ
     const yearAllowance = calculateYearlyBonus(year);
     const livingAllowance = APP_CONFIG.salary.livingAllowance;
     const childAllowance = children * APP_CONFIG.salary.childAllowance;
-
     let totalBeforeDeduction, deduction, tax, totalNet, wifeAllowance;
-
-    // 4. ແຍກການຄຳນວນລະຫວ່າງ "ລັດຖະກອນ" ແລະ "ບຳນານ"
-    if (category === 'civil') { // ກໍລະນີລັດຖະກອນ
+    if (category === 'civil') {
         totalBeforeDeduction = (index * APP_CONFIG.salary.indexMultiplier) + position + yearAllowance;
         wifeAllowance = wife * APP_CONFIG.salary.wifeAllowance;
-        deduction = totalBeforeDeduction * APP_CONFIG.deductions.civilRate; // ຫັກ 8%
+        deduction = totalBeforeDeduction * APP_CONFIG.deductions.civilRate;
         const taxableIncome = totalBeforeDeduction - deduction;
-        tax = calculateTax(taxableIncome); // ຄິດໄລ่อາກອນ
+        tax = calculateTax(taxableIncome);
         totalNet = Math.floor(totalBeforeDeduction - deduction - tax + childAllowance + wifeAllowance + livingAllowance);
-    } else { // ກໍລະນີບຳນານ
+    } else {
         totalBeforeDeduction = ((index * APP_CONFIG.salary.indexMultiplier) + position + yearAllowance) * (pensionPercent / 100);
         wifeAllowance = 0;
-        tax = 0; // ບຳນານບໍ່ເສຍອາກອນ
-        deduction = Math.floor(totalBeforeDeduction * APP_CONFIG.deductions.pensionHealthRate); // ຫັກປະກັນສຸຂະພາບ
+        tax = 0;
+        deduction = Math.floor(totalBeforeDeduction * APP_CONFIG.deductions.pensionHealthRate);
         totalNet = Math.floor(totalBeforeDeduction - deduction + childAllowance + livingAllowance);
     }
-
-    // 5. ສະແດງຜົນລັບ
-    Swal.close(); // ປິດ loading
+    Swal.close();
     document.getElementById('totalBeforeDeduction').textContent = totalBeforeDeduction.toLocaleString();
     document.getElementById('yearAllowance').textContent = yearAllowance.toLocaleString();
     document.getElementById('childAllowance').textContent = childAllowance.toLocaleString();
@@ -1320,8 +1089,6 @@ async function calculateSalary() {
     document.getElementById('livingAllowance').textContent = livingAllowance.toLocaleString();
     document.getElementById('totalNet').textContent = totalNet.toLocaleString();
     document.getElementById('salaryResult').style.display = 'block';
-
-    // 6. ບັນທຶກຂໍ້ມູນລົງ Firestore
     const data = {
         category: category === 'civil' ? 'ເງີນເດືອນພະນັກງານລັດຖະກອນ' : 'ເງີນເດືອນພະນັກງານບຳນານ',
         index, year, position, children, wife, pensionPercent, totalNet
@@ -1330,12 +1097,7 @@ async function calculateSalary() {
         showCustomPopup('success', 'ບັນທຶກສຳເລັດ!');
     }
 }
-
-/**
- * Function ຫຼັກສຳລັບຄຳນວນອຸດໜູນພາກລັດ.
- */
 async function validateAndCalculateGovernment() {
-    // 1. ດຶງຂໍ້ມູນຈາກฟอร์ม
     const formData = {
         detail: document.getElementById('detail').value,
         index: parseFloat(document.getElementById('govIndex').value) || 0,
@@ -1343,8 +1105,6 @@ async function validateAndCalculateGovernment() {
         positionSalary: parseFloat(document.getElementById('positionSalary').value.replace(/,/g, '')) || 0,
         percentage: parseFloat(document.getElementById('percentage').value) || 0
     };
-
-    // 2. ກວດສອບຂໍ້ມູນ
     if (!formData.detail || !formData.index || !formData.serviceYears) {
         showCustomPopup('warning', 'ກະລຸນາປ້ອນຂໍ້ມູນ', 'ກະລຸນາປ້ອນຂໍ້ມູນທີ່ຈຳເປັນໃຫ້ຄົບຖ້ວນ.');
         return;
@@ -1353,74 +1113,53 @@ async function validateAndCalculateGovernment() {
         showCustomPopup('warning', 'ຂໍ້ມູນບໍ່ຖືກຕ້ອງ', 'ກະລຸນາໃສ່ເປີເຊັນບຳນານທີ່ຖືກຕ້ອງ');
         return;
     }
-
     Swal.fire({ title: 'ກຳລັງຄຳນວນ...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-
-    // 3. ຄຳນວນຕາມສູດ
     const C = APP_CONFIG.govSubsidy;
     const baseMonthlySalary = formData.index * APP_CONFIG.salary.indexMultiplier;
     const yearlyBonus = calculateYearlyBonus(formData.serviceYears);
-
     let totalBeforePensionCalc = baseMonthlySalary + yearlyBonus + formData.positionSalary;
-const totalDeduction = 
-    (formData.detail === "ເງີນອຸດໜຸນບຳນານເສຍຊີວິດ" || formData.detail === "ເງີນອຸດໜຸນໝາຍເສຍຊີວິດ")
-        ? totalBeforePensionCalc * (Math.floor(formData.percentage / 100))
+    const totalDeduction = (formData.detail === "ເງີນອຸດໜຸນບຳນານເສຍຊີວິດ" || formData.detail === "ເງີນອຸດໜຸນໝາຍເສຍຊີວິດ")
+        ? Math.floor(totalBeforePensionCalc * formData.percentage / 100)
         : totalBeforePensionCalc;
-
-
     let monthsReceived = 0;
     if (formData.detail === "ເງີນອຸດໜຸນໝາຍເສຍຊີວິດ") {
         monthsReceived = C.widowAllowanceMonths;
     } else if (formData.detail === "ເງີນອຸດໜຸນບຳເນັດອອກການ") {
         monthsReceived = C.severancePayMultiplier * formData.serviceYears;
-    } else { // ກໍລະນີເສຍຊີວິດ
+    } else {
         if (formData.serviceYears < C.deathAllowanceYearsLimit) {
             monthsReceived = formData.serviceYears + C.deathAllowanceBaseMonths;
         } else {
             monthsReceived = ((formData.serviceYears + C.deathAllowanceFormulaMonths1) / C.deathAllowanceFormulaMonths2) + C.deathAllowanceFormulaMonths3;
         }
     }
-
     const totalAmountReceived = (formData.detail === "ເງີນອຸດໜຸນໝາຍເສຍຊີວິດ")
         ? (totalDeduction * C.widowPensionMultiplier) * monthsReceived
         : totalDeduction * monthsReceived;
-
-    // 4. ສະແດງຜົນ
     Swal.close();
-    document.getElementById('govBaseMonthlySalary').innerText = baseMonthlySalary.toLocaleString('en-US');
-    document.getElementById('govYearlyBonus').innerText = yearlyBonus.toLocaleString('en-US');
-    document.getElementById('govTotalDeduction').innerText = totalDeduction.toLocaleString('en-US');
-    document.getElementById('govMonthsReceived').innerText = monthsReceived;
-    document.getElementById('govTotalAmountReceived').innerText = totalAmountReceived.toLocaleString('en-US');
+    document.getElementById('govBaseMonthlySalary').innerText = `${baseMonthlySalary.toLocaleString('en-US')} ກີບ`;
+    document.getElementById('govYearlyBonus').innerText = `${yearlyBonus.toLocaleString('en-US')} ກີບ`;
+    document.getElementById('govTotalDeduction').innerText = `${totalDeduction.toLocaleString('en-US')} ກີບ`;
+    document.getElementById('govMonthsReceived').innerText = `${monthsReceived} ເດືອນ`;
+    document.getElementById('govTotalAmountReceived').innerText = `${totalAmountReceived.toLocaleString('en-US')} ກີບ`;
     document.getElementById('govResult').style.display = 'block';
-
-    // 5. ບັນທຶກຂໍ້ມູນ
     const saveData = { ...formData, totalAmountReceived };
     if (await saveDataToFirestore('govSupportHistory', saveData)) {
         showCustomPopup('success', 'ບັນທຶກສຳເລັດ!');
     }
 }
-
-/**
- * Function ຫຼັກສຳລັບຄຳນວນອຸດໜູນພາກວິສາຫະກິດ.
- */
 async function calculateEnterprise() {
-    // 1. ດຶງຂໍ້ມູນ
     const data = {
         category: document.getElementById('entCategory').value,
         contribution: parseFloat(document.getElementById('contribution').value.replace(/,/g, '')) || 0,
         months: parseFloat(document.getElementById('months').value) || 0,
         children: parseFloat(document.getElementById('entChildren').value) || 0
     };
-
-    // 2. ກວດສອບຂໍ້ມູນ
     if (!data.category || !data.contribution || !data.months || ( (data.category === 'ອຸດໜຸນເກີດລູກ' || data.category === 'ບຳເນັດເກີດລູກ') && !data.children) ) {
         showCustomPopup('warning', 'ກະລຸນາປ້ອນຂໍ້ມູນ', 'ກະລຸນາປ້ອນຂໍ້ມູນທີ່ຈຳເປັນໃຫ້ຄົບຖ້ວນ.');
         return;
     }
     Swal.fire({ title: 'ກຳລັງຄຳນວນ...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-
-    // 3. ຄຳນວນຕາມສູດ
     const C = APP_CONFIG.entSubsidy;
     let result = 0;
     const avgContribution = data.contribution / C.baseMonths;
@@ -1447,60 +1186,40 @@ async function calculateEnterprise() {
         var years = Math.round(data.months / 12 - 0.01);
         result = Math.round(data.contribution / effectiveMonths) * S.yearMultiplier * years;
     }
-
-    // 4. ສະແດງຜົນ
     Swal.close();
     const resultFormatted = result.toFixed(2);
     document.getElementById('entTotal').innerText = parseFloat(resultFormatted).toLocaleString();
     document.getElementById('entResult').style.display = 'block';
-
-    // 5. ບັນທຶກຂໍ້ມູນ
     const saveData = { ...data, totalAmountReceived: resultFormatted };
     if (await saveDataToFirestore('entSupportHistory', saveData)) {
          showCustomPopup('success', 'ບັນທຶກສຳເລັດ!');
     }
 }
 
-
-// ===================================================================
-// ການຄົ້ນຫາ ແລະ ສະແດງຂໍ້ມູນ (SEARCH & DATA DISPLAY)
-// ===================================================================
-
-// ຂໍ້ມູນດັດສະນີ (ຂໍ້ມູນຄົງທີ່, ບໍ່ໄດ້ດຶງຈາກ database)
 const indexData = [
     ['ຊັ້ນ/ຂັ້ນ', 'ດັດສະນີ', 'ຕົວຄູນ', 'ພາກສ່ວນ'],
     ['1/1', 135, 7350, 'ປົກຄອງ'],['1/2', 136, 7350, 'ປົກຄອງ'],['1/3', 137, 7350, 'ປົກຄອງ'],['1/4', 138, 7350, 'ປົກຄອງ'],['1/5', 139, 7350, 'ປົກຄອງ'],['1/6', 140, 7350, 'ປົກຄອງ'],['1/7', 141, 7350, 'ປົກຄອງ'],['1/8', 144, 7350, 'ປົກຄອງ'],['1/9', 147, 7350, 'ປົກຄອງ'],['1/10', 150, 7350, 'ປົກຄອງ'],['1/11', 153, 7350, 'ປົກຄອງ'],['1/12', 156, 7350, 'ປົກຄອງ'],['1/13', 159, 7350, 'ປົກຄອງ'],['1/14', 162, 7350, 'ປົກຄອງ'],['1/15', 165, 7350, 'ປົກຄອງ'],['2/1', 147, 7350, 'ປົກຄອງ'],['2/2', 150, 7350, 'ປົກຄອງ'],['2/3', 153, 7350, 'ປົກຄອງ'],['2/4', 156, 7350, 'ປົກຄອງ'],['2/5', 159, 7350, 'ປົກຄອງ'],['2/6', 162, 7350, 'ປົກຄອງ'],['2/7', 165, 7350, 'ປົກຄອງ'],['2/8', 170, 7350, 'ປົກຄອງ'],['2/9', 175, 7350, 'ປົກຄອງ'],['2/10', 180, 7350, 'ປົກຄອງ'],['2/11', 185, 7350, 'ປົກຄອງ'],['2/12', 190, 7350, 'ປົກຄອງ'],['2/13', 195, 7350, 'ປົກຄອງ'],['2/14', 200, 7350, 'ປົກຄອງ'],['2/15', 205, 7350, 'ປົກຄອງ'],['3/1', 175, 7350, 'ປົກຄອງ'],['3/2', 180, 7350, 'ປົກຄອງ'],['3/3', 185, 7350, 'ປົກຄອງ'],['3/4', 190, 7350, 'ປົກຄອງ'],['3/5', 195, 7350, 'ປົກຄອງ'],['3/6', 200, 7350, 'ປົກຄອງ'],['3/7', 205, 7350, 'ປົກຄອງ'],['3/8', 212, 7350, 'ປົກຄອງ'],['3/9', 219, 7350, 'ປົກຄອງ'],['3/10', 226, 7350, 'ປົກຄອງ'],['3/11', 233, 7350, 'ປົກຄອງ'],['3/12', 240, 7350, 'ປົກຄອງ'],['3/13', 247, 7350, 'ປົກຄອງ'],['3/14', 254, 7350, 'ປົກຄອງ'],['3/15', 261, 7350, 'ປົກຄອງ'],['4/1', 219, 7350, 'ປົກຄອງ'],['4/2', 226, 7350, 'ປົກຄອງ'],['4/3', 233, 7350, 'ປົກຄອງ'],['4/4', 240, 7350, 'ປົກຄອງ'],['4/5', 247, 7350, 'ປົກຄອງ'],['4/6', 254, 7350, 'ປົກຄອງ'],['4/7', 261, 7350, 'ປົກຄອງ'],['4/8', 270, 7350, 'ປົກຄອງ'],['4/9', 279, 7350, 'ປົກຄອງ'],['4/10', 288, 7350, 'ປົກຄອງ'],['4/11', 297, 7350, 'ປົກຄອງ'],['4/12', 306, 7350, 'ປົກຄອງ'],['4/13', 315, 7350, 'ປົກຄອງ'],['4/14', 324, 7350, 'ປົກຄອງ'],['4/15', 333, 7350, 'ປົກຄອງ'],['5/1', 279, 7350, 'ປົກຄອງ'],['5/2', 288, 7350, 'ປົກຄອງ'],['5/3', 297, 7350, 'ປົກຄອງ'],['5/4', 306, 7350, 'ປົກຄອງ'],['5/5', 315, 7350, 'ປົກຄອງ'],['5/6', 324, 7350, 'ປົກຄອງ'],['5/7', 333, 7350, 'ປົກຄອງ'],['5/8', 344, 7350, 'ປົກຄອງ'],['5/9', 355, 7350, 'ປົກຄອງ'],['5/10', 366, 7350, 'ປົກຄອງ'],['5/11', 377, 7350, 'ປົກຄອງ'],['5/12', 388, 7350, 'ປົກຄອງ'],['5/13', 399, 7350, 'ປົກຄອງ'],['5/14', 410, 7350, 'ປົກຄອງ'],['5/15', 421, 7350, 'ປົກຄອງ'],['6/1', 425, 7350, 'ປົກຄອງ'],['6/2', 450, 7350, 'ປົກຄອງ'],['6/3', 485, 7350, 'ປົກຄອງ'],['6/4', 530, 7350, 'ປົກຄອງ'],['6/5', 585, 7350, 'ປົກຄອງ'],['6/6', 650, 7350, 'ປົກຄອງ'],['6/7', 700, 7350, 'ປົກຄອງ'],
     ['1/1', 156, 7350, 'ຄູອາຈານ'],['1/2', 159, 7350, 'ຄູອາຈານ'],['1/3', 162, 7350, 'ຄູອາຈານ'],['1/4', 165, 7350, 'ຄູອາຈານ'],['1/5', 170, 7350, 'ຄູອາຈານ'],['1/6', 175, 7350, 'ຄູອາຈານ'],['1/7', 180, 7350, 'ຄູອາຈານ'],['1/8', 185, 7350, 'ຄູອາຈານ'],['1/9', 190, 7350, 'ຄູອາຈານ'],['1/10', 195, 7350, 'ຄູອາຈານ'],['1/11', 200, 7350, 'ຄູອາຈານ'],['1/12', 205, 7350, 'ຄູອາຈານ'],['1/13', 212, 7350, 'ຄູອາຈານ'],['1/14', 219, 7350, 'ຄູອາຈານ'],['1/15', 226, 7350, 'ຄູອາຈານ'],['1/16', 233, 7350, 'ຄູອາຈານ'],['1/17', 240, 7350, 'ຄູອາຈານ'],['1/18', 247, 7350, 'ຄູອາຈານ'],['1/19', 254, 7350, 'ຄູອາຈານ'],['1/20', 261, 7350, 'ຄູອາຈານ'],['1/21', 270, 7350, 'ຄູອາຈານ'],['1/22', 279, 7350, 'ຄູອາຈານ'],['1/23', 288, 7350, 'ຄູອາຈານ'],['1/24', 297, 7350, 'ຄູອາຈານ'],['1/25', 306, 7350, 'ຄູອາຈານ'],['2/1', 209, 7350, 'ຄູອາຈານ'],['2/2', 218, 7350, 'ຄູອາຈານ'],['2/3', 227, 7350, 'ຄູອາຈານ'],['2/4', 236, 7350, 'ຄູອາຈານ'],['2/5', 245, 7350, 'ຄູອາຈານ'],['2/6', 256, 7350, 'ຄູອາຈານ'],['2/7', 267, 7350, 'ຄູອາຈານ'],['2/8', 278, 7350, 'ຄູອາຈານ'],['2/9', 289, 7350, 'ຄູອາຈານ'],['2/10', 300, 7350, 'ຄູອາຈານ'],['2/11', 313, 7350, 'ຄູອາຈານ'],['2/12', 326, 7350, 'ຄູອາຈານ'],['2/13', 339, 7350, 'ຄູອາຈານ'],['2/14', 352, 7350, 'ຄູອາຈານ'],['2/15', 365, 7350, 'ຄູອາຈານ'],['3/1', 260, 7350, 'ຄູອາຈານ'],['3/2', 273, 7350, 'ຄູອາຈານ'],['3/3', 286, 7350, 'ຄູອາຈານ'],['3/4', 299, 7350, 'ຄູອາຈານ'],['3/5', 312, 7350, 'ຄູອາຈານ'],['3/6', 327, 7350, 'ຄູອາຈານ'],['3/7', 342, 7350, 'ຄູອາຈານ'],['3/8', 357, 7350, 'ຄູອາຈານ'],['3/9', 372, 7350, 'ຄູອາຈານ'],['3/10', 387, 7350, 'ຄູອາຈານ'],['3/11', 404, 7350, 'ຄູອາຈານ'],['3/12', 421, 7350, 'ຄູອາຈານ'],['3/13', 438, 7350, 'ຄູອາຈານ'],['3/14', 455, 7350, 'ຄູອາຈານ'],['3/15', 472, 7350, 'ຄູອາຈານ'],['4/1', 308, 7350, 'ຄູອາຈານ'],['4/2', 323, 7350, 'ຄູອາຈານ'],['4/3', 338, 7350, 'ຄູອາຈານ'],['4/4', 353, 7350, 'ຄູອາຈານ'],['4/5', 368, 7350, 'ຄູອາຈານ'],['4/6', 385, 7350, 'ຄູອາຈານ'],['4/7', 402, 7350, 'ຄູອາຈານ'],['4/8', 419, 7350, 'ຄູອາຈານ'],['4/9', 436, 7350, 'ຄູອາຈານ'],['4/10', 453, 7350, 'ຄູອາຈານ'],['4/11', 470, 7350, 'ຄູອາຈານ'],['4/12', 475, 7350, 'ຄູອາຈານ'],['4/13', 480, 7350, 'ຄູອາຈານ'],['4/14', 485, 7350, 'ຄູອາຈານ'],['4/15', 490, 7350, 'ຄູອາຈານ'],['5/1', 369, 7350, 'ຄູອາຈານ'],['5/2', 384, 7350, 'ຄູອາຈານ'],['5/3', 399, 7350, 'ຄູອາຈານ'],['5/4', 414, 7350, 'ຄູອາຈານ'],['5/5', 429, 7350, 'ຄູອາຈານ'],['5/6', 444, 7350, 'ຄູອາຈານ'],['5/7', 459, 7350, 'ຄູອາຈານ'],['5/8', 474, 7350, 'ຄູອາຈານ'],['5/9', 489, 7350, 'ຄູອາຈານ'],['5/10', 505, 7350, 'ຄູອາຈານ'],['5/11', 510, 7350, 'ຄູອາຈານ'],['5/12', 515, 7350, 'ຄູອາຈານ'],['5/13', 520, 7350, 'ຄູອາຈານ'],['5/14', 525, 7350, 'ຄູອາຈານ'],['5/15', 530, 7350, 'ຄູອາຈານ'],['5/16', 535, 7350, 'ຄູອາຈານ'],['5/17', 540, 7350, 'ຄູອາຈານ'],['5/18', 545, 7350, 'ຄູອາຈານ'],['5/19', 550, 7350, 'ຄູອາຈານ'],['5/20', 555, 7350, 'ຄູອາຈານ'],['5/21', 560, 7350, 'ຄູອາຈານ'],['5/22', 565, 7350, 'ຄູອາຈານ'],['5/23', 570, 7350, 'ຄູອາຈານ'],['5/24', 575, 7350, 'ຄູອາຈານ'],['5/25', 580, 7350, 'ຄູອາຈານ'],
 ];
-
-/**
- * Function ຫຼັກສຳລັບຄົ້ນຫາຂໍ້ມູນ.
- */
 async function searchData() {
     const collectionName = document.getElementById('combobox1').value;
     const searchTerm = document.getElementById('textbox1').value.trim().toLowerCase();
-
-    // ກວດສອບວ່າຜູ້ໃຊ້ເລືອກລາຍການຄົ້ນຫາແລ້ວຫຼືບໍ່
     if (!collectionName) {
         showCustomPopup('warning', 'ກະລຸນາເລືອກ', 'ກະລຸນາເລືອກລາຍການທີ່ຈະຄົ້ນຫາກ່ອນ!');
         return;
     }
     Swal.fire({ title: 'ກຳລັງຄົ້ນຫາ...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-
     let headers = [];
     let dataRows = [];
-
-    // ແຍກກໍລະນີ: ຄົ້ນຫາຂໍ້ມູນດັດສະນີ (ຈາກ array) ຫຼື ປະຫວັດ (ຈາກ Firestore)
     if (collectionName === 'indexData') {
         headers = indexData[0];
         let data = indexData.slice(1);
-        if (searchTerm) { // ຖ້າມີການປ້ອນຄຳຄົ້ນຫາ
+        if (searchTerm) {
             data = data.filter(row => row.some(cell => cell && cell.toString().toLowerCase().includes(searchTerm)));
         }
         dataRows = data;
-    } else { // ກໍລະນີດຶງຂໍ້ມູນຈາກ Firestore
+    } else {
         const firestoreData = await getDataFromFirestore(collectionName);
-        // ກະກຽມຫົວຂໍ້ຕາຕະລາງ ແລະ ຈັດຮູບແບບຂໍ້ມູນໃຫ້ກົງກັບຫົວຂໍ້
         switch (collectionName) {
             case 'salaryHistory':
                 headers = ['ວັນທີບັນທຶກ', 'ເນື່ອໃນ', 'ດັດສະນີ', 'ປີການ', 'ຕຳແໜ່ງ', 'ລູກ', 'ເມຍ', '%ບຳນານ', 'ລວມເງິນທັງໝົດ'];
@@ -1515,49 +1234,36 @@ async function searchData() {
                 dataRows = firestoreData.map(r => [new Date(r.savedAt).toLocaleString('lo-LA'), r.category, r.contribution, r.months, r.children, r.totalAmountReceived]);
                 break;
         }
-        if (searchTerm) { // ກັ່ນຕອງຂໍ້ມູນຈາກ Firestore ຕາມຄຳຄົ້ນຫາ
+        if (searchTerm) {
             dataRows = dataRows.filter(row => row.some(cell => cell && cell.toString().toLowerCase().includes(searchTerm)));
         }
     }
-
-    // ສົ່ງຂໍ້ມູນໄປສະແດງຜົນໃນຕາຕະລາງ
     displaySearchResults([headers, ...dataRows]);
     Swal.close();
 }
 
-/**
- * Function ສະແດງຜົນການຄົ້ນຫາໃນຮູບແບບຕາຕະລາງ.
- * @param {Array<Array<string|number>>} parsedData - ຂໍ້ມູນທີ່ຈະສະແດງ (array ຂອງ array).
- */
 function displaySearchResults(parsedData) {
     const tableHeader = document.getElementById('table-header');
     const tableBody = document.getElementById('table-body');
     tableHeader.innerHTML = '';
     tableBody.innerHTML = '';
     document.getElementById('searchResult').style.display = 'block';
-
-    // ກໍລະນີບໍ່ພົບຂໍ້ມູນ
     if (parsedData.length <= 1) {
         tableBody.innerHTML = '<tr><td colspan="100%" style="text-align:center; padding-left: 12px;">ບໍ່ພົບຂໍ້ມູນທີ່ຕົງກັບການຄົ້ນຫາ</td></tr>';
         return;
     }
-
-    // ສ້າງຫົວຕາຕະລາງ
-    const headers = [...parsedData[0], 'ດຳເນີນການ']; // ເພີ່ມຫົວຂໍ້ 'ດຳເນີນການ'
+    const headers = [...parsedData[0], 'ດຳເນີນການ'];
     headers.forEach(header => {
         const th = document.createElement('th');
         th.textContent = header;
         tableHeader.appendChild(th);
     });
-
-    // ສ້າງແຖວຂໍ້ມູນ
     const rows = parsedData.slice(1);
     rows.forEach(row => {
         const tr = document.createElement('tr');
         row.forEach((value, index) => {
             const td = document.createElement('td');
-            td.setAttribute('data-label', headers[index]); // ສຳລັບ responsive design ໃນມືຖື
-            // ຈັດຮູບແບບຕົວເລກໃຫ້ມີຈຸດ
+            td.setAttribute('data-label', headers[index]);
             if (typeof value === 'number' && value >= 1000) {
                  td.textContent = value.toLocaleString('en-US', { maximumFractionDigits: 2 });
             } else {
@@ -1565,61 +1271,42 @@ function displaySearchResults(parsedData) {
             }
             tr.appendChild(td);
         });
-
-        // ສ້າງປຸ່ມດາວໂຫຼດຮູບ
         const actionTd = document.createElement('td');
         const downloadBtn = document.createElement('button');
         downloadBtn.className = 'btn btn-primary download-btn';
-        downloadBtn.innerHTML = '<i class="fas fa-download"></i> ດາວໂຫຼດຮູບ';
-        downloadBtn.onclick = () => downloadRowAsImage(tr); // ເມື່ອກົດໃຫ້ເອີ້ນ function download
+ 
+               downloadBtn.innerHTML = '<i class="fas fa-download"></i> ດາວໂຫຼດຮູບ';
+        downloadBtn.onclick = () => downloadRowAsImage(tr);
         actionTd.appendChild(downloadBtn);
         tr.appendChild(actionTd);
-
         tableBody.appendChild(tr);
     });
 }
 
-/**
- * Function ດາວໂຫຼດແຖວຂອງຕາຕະລາງເປັນໄຟລ໌ຮູບພາບ.
- * @param {HTMLElement} elementToCapture - ແຖວ (tr) ທີ່ຕ້ອງການບັນທຶກເປັນຮູບ.
- */
 function downloadRowAsImage(elementToCapture) {
     if (!elementToCapture) return;
-
     Swal.fire({ title: 'ກຳລັງສ້າງຮູບພາບ...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-
-    // ໃຊ້ html2canvas ເພື່ອແປງ HTML element ເປັນ canvas (ຮູບ)
     html2canvas(elementToCapture, {
-        scale: 2, // ເພີ່ມຄວາມຄົມຊັດຂອງຮູບ
-        backgroundColor: '#2c3e50', // ກຳນົດສີພື້ນຫຼັງຂອງຮູບ
+        scale: 2,
+        backgroundColor: '#2c3e50',
         useCORS: true
     }).then(canvas => {
-        // ສ້າງ link ສຳລັບດາວໂຫຼດ
         const link = document.createElement('a');
-        link.href = canvas.toDataURL('image/jpeg', 0.95); // ແປງ canvas ເປັນ URL ຂອງຮູບ JPEG
-        link.download = `calculation_result_${Date.now()}.jpg`; // ຕັ້ງຊື່ໄຟລ໌
-        link.click(); // ສັ່ງໃຫ້ browser ດາວໂຫຼດ
+        link.href = canvas.toDataURL('image/jpeg', 0.95);
+        link.download = `calculation_result_${Date.now()}.jpg`;
+        link.click();
         Swal.close();
         showCustomPopup('success', 'ບັນທຶກຮູບພາບແລ້ວ!');
     }).catch(error => {
-        showCustomPopup('error', 'ຜິດພາດ', `ບໍ່ສາມາດບັນທຶກຮູບພາບໄດ້: ${error}`);
+   
+         showCustomPopup('error', 'ຜິດພາດ', `ບໍ່ສາມາດບັນທຶກຮູບພາບໄດ້: ${error}`);
     });
 }
 
-// ===================================================================
-// ລະບົບຄຳຄິດເຫັນ (FEEDBACK SYSTEM)
-// ===================================================================
-
-/**
- * Function ສົ່ງຄຳຄິດເຫັນ ຫຼື ຕອບກັບຄຳຄິດເຫັນ.
- * @param {string|null} parentId - ID ຂອງຄຳຄິດເຫັນຫຼັກ (ຖ້າเป็นการຕອບກັບ).
- */
 async function submitFeedback(parentId = null) {
     let feedbackText;
     const { serverTimestamp, doc, updateDoc, arrayUnion } = window.firestoreFunctions;
-
-    if (parentId) { // ກໍລະນີຕອບກັບ
-        // ໃຊ້ Swal ເພື່ອຮັບ input ຈາກผู้ใช้
+    if (parentId) {
         const { value: text } = await Swal.fire({
             title: 'ຕອບກັບຄຳຄິດເຫັນ',
             input: 'textarea',
@@ -1627,41 +1314,41 @@ async function submitFeedback(parentId = null) {
             showCancelButton: true,
             confirmButtonText: '<i class="fas fa-paper-plane"></i> ສົ່ງຄຳຕອບ',
             cancelButtonText: 'ຍົກເລີກ',
-            confirmButtonColor: 'var(--primary-color)',
+  
+           confirmButtonColor: 'var(--primary-color)',
             cancelButtonColor: 'var(--danger-color)',
         });
-        if (!text || !text.trim()) return; // ຖ້າผู้ใช้ກົດຍົກເລີກ ຫຼື ບໍ່ປ້ອນຫຍັງ
+        if (!text || !text.trim()) return;
         feedbackText = text.trim();
-    } else { // ກໍລະນີສົ່ງຄຳຄິດເຫັນໃໝ່
+    } else {
         feedbackText = document.getElementById('feedbackText').value.trim();
         if (!feedbackText) {
             showCustomPopup('warning', 'ກະລຸນາປ້ອນຂໍ້ມູນ', 'ກະລຸນາປ້ອນຄຳຄິດເຫັນກ່ອນສົ່ງ!');
             return;
         }
     }
-
     Swal.fire({ title: 'ກຳລັງບັນທຶກ...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
     try {
-        if (parentId) { // ຖ້າเป็นการຕອບກັບ, ໃຫ້ update document ເກົ່າ
+        if (parentId) {
             const feedbackRef = doc(window.db, "feedbackHistory", parentId);
             const reply = {
                 id: `reply-${Date.now()}`,
                 text: feedbackText,
-                savedAt: new Date().toISOString() // ໃຊ້เวลาปัจจุบันของเครื่อง client
+                savedAt: new Date().toISOString()
             };
             await updateDoc(feedbackRef, {
-                replies: arrayUnion(reply) // ເພີ່ມຄຳຕອບໃໝ່ເຂົ້າໄປໃນ array 'replies'
+                replies: arrayUnion(reply)
             });
-        } else { // ຖ້າเป็นการส่งใหม่, ໃຫ້ສ້າງ document ໃໝ່
+        } else {
             const newFeedback = {
                 text: feedbackText,
-                savedAt: serverTimestamp(), // ໃຊ້เวลาของ server
-                replies: [] // ສ້າງ array ວ່າງໆໄວ້ຮອງຮັບຄຳຕອບໃນອະນາຄົດ
+                savedAt: serverTimestamp(),
+                replies: []
             };
             await saveDataToFirestore('feedbackHistory', newFeedback);
         }
         Swal.close();
-        if (!parentId) document.getElementById('feedbackText').value = ''; // ລ້າງຊ່ອງປ້ອນຂໍ້ມູນ
+        if (!parentId) document.getElementById('feedbackText').value = '';
         showCustomPopup('success', 'ຂອບໃຈ!', 'ບັນທຶກຄຳຄິດເຫັນຂອງທ່ານສຳເລັດ.');
     } catch (error) {
         Swal.close();
@@ -1670,18 +1357,11 @@ async function submitFeedback(parentId = null) {
     }
 }
 
-/**
- * Function ຟັງການປ່ຽນແປງຂອງຂໍ້ມູນຄຳຄິດເຫັນໃນ Firestore ແບບ Real-time.
- */
 function listenForFeedback() {
     const displayArea = document.getElementById('feedbackDisplayArea');
     if (!displayArea || !window.db) return;
-
     const { collection, query, orderBy, limit, onSnapshot } = window.firestoreFunctions;
-    // ສ້າງ query ເພື່ອເອົາ 10 ຄຳຄິດເຫັນລ່າສຸດ
     const q = query(collection(window.db, "feedbackHistory"), orderBy("savedAt", "desc"), limit(10));
-
-    // onSnapshot ຈະເຮັດວຽກທຸກຄັ້ງທີ່ມີການປ່ຽນແປງຂໍ້ມູນໃນ Firestore
     onSnapshot(q, (querySnapshot) => {
         let html = '<h3>10 ຄຳຄິດເຫັນລ່າສຸດ</h3>';
         if (querySnapshot.empty) {
@@ -1689,30 +1369,24 @@ function listenForFeedback() {
             displayArea.innerHTML = html;
             return;
         }
-
-        // Loop ສ້າງ HTML ສຳລັບແຕ່ລະຄຳຄິດເຫັນ
         querySnapshot.forEach((doc) => {
             const item = { id: doc.id, ...doc.data() };
             const savedAtDate = item.savedAt?.toDate ? item.savedAt.toDate() : new Date();
-
-            // ປ้องกัน XSS (Cross-site scripting) ໂດຍການຕັ້ງ textContent ກ່ອນ
             const safeText = document.createElement('div');
             safeText.textContent = item.text;
-
             html += `<div class="feedback-item" id="${item.id}">
                         <p class="meta">ວັນທີ: ${savedAtDate.toLocaleString('lo-LA')}</p>
-                        <p>${safeText.innerHTML.replace(/\n/g, '<br>')}</p> <!-- ແປງ \n ເປັນ <br> -->
+      
+                         <p>${safeText.innerHTML.replace(/\n/g, '<br>')}</p>
                         <button class="feedback-reply-btn" onclick="submitFeedback('${item.id}')"><i class="fas fa-reply"></i> ຕອບກັບ</button>`;
-
-            // ຖ້າມີຄຳຕອບ, ໃຫ້ Loop ສ້າງ HTML ສຳລັບຄຳຕອບນຳ
             if (item.replies && item.replies.length > 0) {
-                // ຮຽງຄຳຕອບຈາກໃໝ່ໄປເກົ່າ
                 const sortedReplies = item.replies.sort((a, b) => new Date(b.savedAt) - new Date(a.savedAt));
                 sortedReplies.forEach(reply => {
                      const safeReplyText = document.createElement('div');
                      safeReplyText.textContent = reply.text;
                      html += `<div class="reply-item" id="${reply.id}">
-                                 <p class="meta"><b>ຄຳຕອບ</b> | ວັນທີ: ${new Date(reply.savedAt).toLocaleString('lo-LA')}</p>
+                          
+                       <p class="meta"><b>ຄຳຕອບ</b> | ວັນທີ: ${new Date(reply.savedAt).toLocaleString('lo-LA')}</p>
                                  <p>${safeReplyText.innerHTML.replace(/\n/g, '<br>')}</p>
                               </div>`;
                 });
@@ -1727,13 +1401,10 @@ function listenForFeedback() {
 }
 </script>
 
-
-  
-  <script>
+<script>
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-	    //navigator.serviceWorker.register('/service-worker.js')//ທຳມາດາ
-        navigator.serviceWorker.register('./service-worker.js')//ກິດຮັບ
+     window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js')
           .then(registration => {
             console.log('Service Worker registered: ', registration);
           })
