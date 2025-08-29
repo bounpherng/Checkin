@@ -1,4 +1,4 @@
-const CACHE_NAME = 'online-system-cache-v3.3.7';
+const CACHE_NAME = 'online-system-cache-v3.3.8';
 const urlsToCache = [
   './',
   './index.html',
@@ -8,6 +8,7 @@ const urlsToCache = [
   'https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;500;700&display=swap'
 
 ];
+
 
 
 
