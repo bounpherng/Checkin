@@ -249,7 +249,7 @@
     <div id="Home" class="page active">
         <div class="hero">
             <img src="https://i.ibb.co/36359Bf/image.png" alt="Logo" class="logo">
-            <h1 class="title">ລະບົບຄິດໄລ່ເງິນເດືອນ-ອຸດໜູນຕ່າງໆ</h1>
+            <h1 class="title">ຄຳນວນເງິນເດືອນ-ເງີນອຸດໜູນຕ່າງໆ(ອປຊ)</h1>
             <p id="date-lao"></p>
         </div>
          <div class="grid">
@@ -279,7 +279,7 @@
                 <a href="https://api.whatsapp.com/send/?phone=8562091270509" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
             </div>
             <div class="note">
-                </b><br> ພັດທະນາໂດຍ: <b>ທ.ບຸນເຜີ້ງ ເພັດໄຊຍະພູມ</b> | ໂທ: <b>020 9127 0509 </b><br> <a href="#" onclick="adminLogin(); return false;" id="adminLoginLink" style="color: var(--accent-color); text-decoration: none;">.</a> |vs 1.1, ຈຳນວນຜູ້ເຂົ້າຊົມ: <span id="visitorCount">0</span></p>
+                </b><br> ພັດທະນາໂດຍ: <b>ທ.ບຸນເຜີ້ງ ເພັດໄຊຍະພູມ</b> | ໂທ: <b>020 9127 0509 </b><br> <a href="#" onclick="adminLogin(); return false;" id="adminLoginLink" style="color: var(--accent-color); text-decoration: none;">vs 1.1</a>ຈຳນວນຜູ້ເຂົ້າຊົມ: <span id="visitorCount">0</span></p>
             </div>
         </footer>
     </div>
@@ -667,7 +667,7 @@ function handleEnterpriseCategoryChange() {
         monthsInput.max = '4';
     } else if (category === 'ບຳເນັດອອກການ') {
         contributionLabel.textContent = 'ຈຳນວນເງີນສົມທົບ <60 ເດືອນສຸດທ້າຍ:';
-        monthsInput.placeholder = "ປ້ອນເດືອນ (1-60)";
+        monthsInput.placeholder = "ປ້ອນເດືອນ (99)";
         monthsInput.min = '1';
         monthsInput.max = '60';
     }
@@ -1066,7 +1066,7 @@ function listenForFeedback() {
     const displayArea = document.getElementById('feedbackDisplayArea'); if (!displayArea || !window.db) return;
     const { collection, query, orderBy, limit, onSnapshot } = window.firestoreFunctions; const q = query(collection(window.db, "feedbackHistory"), orderBy("savedAt", "desc"), limit(10));
     onSnapshot(q, (querySnapshot) => {
-        let html = '<h3>10 ຄຳຄິດເຫັນລ່າສຸດ</h3>'; if (querySnapshot.empty) { html += '<p style="opacity:0.7;">ຍັງບໍ່ມີຄຳຄິດເຫັນເທື່ອ.</p>'; displayArea.innerHTML = html; return; }
+        let html = '<h3>ຄຳຄິດເຫັນລ່າສຸດ</h3>'; if (querySnapshot.empty) { html += '<p style="opacity:0.7;">ຍັງບໍ່ມີຄຳຄິດເຫັນເທື່ອ.</p>'; displayArea.innerHTML = html; return; }
         querySnapshot.forEach((doc) => {
             const item = { id: doc.id, ...doc.data() }; const savedAtDate = item.savedAt?.toDate ? item.savedAt.toDate() : new Date(); const safeText = document.createElement('div'); safeText.textContent = item.text;
             html += `<div class="feedback-item" id="${item.id}"><p class="meta">ວັນທີ: ${savedAtDate.toLocaleString('lo-LA')}</p><p>${safeText.innerHTML.replace(/\n/g, '<br>')}</p><button class="feedback-reply-btn" onclick="submitFeedback('${item.id}')"><i class="fas fa-reply"></i> ຕອບກັບ</button>`;
