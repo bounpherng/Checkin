@@ -699,8 +699,8 @@ async function calculateSalary() {
     let totalBeforeDeduction, deduction, tax, totalNet, wifeAllowance; let dataToSave = {};
     if (category === 'civil') {
         totalBeforeDeduction = (index * APP_CONFIG.salary.indexMultiplier) + position + yearAllowance;
-        wifeAllowance = wife * APP_CONFIG.salary.wifeAllowance; deduction = totalBeforeDeduction * APP_CONFIG.deductions.civilRate;
-        const taxableIncome = totalBeforeDeduction - deduction; tax = calculateTax(taxableIncome);
+        wifeAllowance = wife * APP_CONFIG.salary.wifeAllowance; deduction = Math.floor(totalBeforeDeduction * APP_CONFIG.deductions.civilRate);
+        const taxableIncome = totalBeforeDeduction - deduction; tax = Math.floor(calculateTax(taxableIncome));
         totalNet = Math.floor(totalBeforeDeduction - deduction - tax + childAllowance + wifeAllowance + livingAllowance);
         dataToSave = { category: 'ເງີນເດືອນພະນັກງານລັດຖະກອນ', index, year, position, children, wife, totalBeforeDeduction, yearAllowance, childAllowance, wifeAllowance, deduction, tax, livingAllowance, totalNet };
     } else {
