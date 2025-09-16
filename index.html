@@ -16,6 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -302,7 +303,7 @@
         ຍິນດີຕ້ອນຮັບ
     </h1>
     <p class="mt-1 text-lg md:text-xl text-gray-700 dark:text-gray-300">
-        ສູ່ເວັບໄຊທ໌ ໃຫ້ຂໍ້ມູນ ແລະ ຄິດໄລ່ເງິນອຸດໜູນປະເພດຕ່າງໆຂອງພາກລັດ ແລະ ພາກວິສາຫະກິດ
+        ເວັບໄຊທ໌ ໃຫ້ຂໍ້ມູນ ແລະ ຄິດໄລ່ເງິນອຸດໜູນປະເພດຕ່າງໆຂອງພາກລັດ ແລະ ພາກວິສາຫະກິດ
     </p>
     <p id="date-lao-calc" class="mt-1 text-ms text-emerald-500 dark:text-emerald-400"></p>
 </section>
@@ -1282,55 +1283,74 @@
     let IS_ADMIN = false;
     let ADMIN_EMAILS = [];
 
-    async function loadAndInitializeApp() {
-      Swal.fire({
-        title: 'ກຳລັງໂຫຼດການຕັ້ງຄ່າ...',
-        text: 'ກະລຸນາລໍຖ້າ...',
-        allowOutsideClick: false,
-        didOpen: () => Swal.showLoading()
-      });
-      try {
-        if (!window.db) {
-          throw new Error("Firestore is not initialized.");
-        }
-        const {
-          doc,
-          getDoc
-        } = window.firestoreFunctions;
-        const configRef = doc(window.db, "configuration", "appConfig");
-        const docSnap = await getDoc(configRef);
-        if (docSnap.exists()) {
-          APP_CONFIG = docSnap.data();
-          if (APP_CONFIG.yearAllowanceTiers) {
-            APP_CONFIG.yearAllowanceTiers.forEach(tier => {
-              if (tier.maxYears === 'Infinity') {
-                tier.maxYears = Infinity;
-              }
-            });
+async function loadAndInitializeApp() {
+  // 1. ສະແດງໜ້າຕ່າງຕ້ອນຮັບ "IT-banban" ທັນທີເປັນເວລາ 5 ວິນາທີ
+  Swal.fire({
+    title: 'ຍິນດີຕ້ອນຮັບ',
+    html: '<div style="font-family: Arial, sans-serif; font-size: 2.5em; font-weight: bold; color: #4CAF50; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">' +
+          '  IT-banban' +
+          '</div>' +
+          '<p style="font-size: 1.1em; color: #555; margin-top: 10px;">ກຳລັງກະກຽມລະບົບໃຫ້ທ່ານ...</p>',
+    timer: 5000, // 5 ວິນາທີ (5000 milliseconds)
+    timerProgressBar: true, // ເພີ່ມແຖບເວລາດ້ານລຸ່ມ ให้ผู้ใช้เห็นว่ากำลังนับถอยหลัง
+    showConfirmButton: false,
+    allowOutsideClick: false
+  });
+
+  // 2. ເລີ່ມໂຫຼດຂໍ້ມູນໃນພື້ນຫຼັງ (background)
+  try {
+    if (!window.db) {
+      throw new Error("Firestore is not initialized.");
+    }
+    const {
+      doc,
+      getDoc
+    } = window.firestoreFunctions;
+
+    const configRef = doc(window.db, "configuration", "appConfig");
+    const docSnap = await getDoc(configRef); // ການໂຫຼດຂໍ້ມູນຈະເກີດຂຶ້ນຢູ່ຈຸດນີ້
+
+    if (docSnap.exists()) {
+      APP_CONFIG = docSnap.data();
+
+      // ປ່ຽນຄ່າ 'Infinity' ໃຫ້ເປັນ Infinity ແທ້ໆ
+      if (APP_CONFIG.yearAllowanceTiers) {
+        APP_CONFIG.yearAllowanceTiers.forEach(tier => {
+          if (tier.maxYears === 'Infinity') {
+            tier.maxYears = Infinity;
           }
-          if (APP_CONFIG.taxBrackets) {
-            APP_CONFIG.taxBrackets.forEach(bracket => {
-              if (bracket.max === 'Infinity') {
-                bracket.max = Infinity;
-              }
-            });
-          }
-          initializeForms();
-          await loadAdminList();
-          Swal.close();
-        } else {
-          throw new Error("ບໍ່ພົບຂໍ້ມູນການຕັ້ງຄ່າໃນ Firestore (configuration/appConfig).");
-        }
-      } catch (error) {
-        console.error("Error loading remote configuration: ", error);
-        Swal.fire({
-          icon: 'error',
-          title: 'ເກີດຂໍ້ຜິດພາດ',
-          text: `ບໍ່ສາມາດໂຫຼດຂໍ້ມູນການຕັ້ງຄ່າຫຼັກຂອງລະບົບໄດ້. ກະລຸນາລອງໃໝ່ອີກຄັ້ງ.`,
-          allowOutsideClick: false,
         });
       }
+      if (APP_CONFIG.taxBrackets) {
+        APP_CONFIG.taxBrackets.forEach(bracket => {
+          if (bracket.max === 'Infinity') {
+            bracket.max = Infinity;
+          }
+        });
+      }
+
+      // ເມື່ອໄດ້ຂໍ້ມູນແລ້ວ, ຈຶ່ງເລີ່ມຕັ້ງຄ່າຟອມ ແລະ ຂໍ້ມູນອື່ນໆ
+      initializeForms();
+      await loadAdminList();
+
+      // ບໍ່ຈຳເປັນຕ້ອງເຮັດຫຍັງກັບ Swal ອີກ, ມັນຈະປິດເອງເມື່ອຄົບ 5 ວິນາທີ
+    } else {
+      throw new Error("ບໍ່ພົບຂໍ້ມູນການຕັ້ງຄ່າໃນ Firestore (configuration/appConfig).");
     }
+  } catch (error) {
+    console.error("Error loading remote configuration: ", error);
+
+    // 3. ຖ້າໂຫຼດຂໍ້ມູນຜິດພາດ, ໃຫ້ປ່ຽນໄປສະແດງໜ້າຕ່າງ Error ທັນທີ
+    // (ມັນຈະປິດໜ້າຕ່າງຕ້ອນຮັບອັດຕະໂນມັດ)
+    Swal.fire({
+      icon: 'error',
+      title: 'ເກີດຂໍ້ຜິດພາດ',
+      text: 'ບໍ່ສາມາດໂຫຼດຂໍ້ມູນຫຼັກຂອງລະບົບໄດ້. ກະລຸນາກວດສອບການເຊື່ອມຕໍ່ແລ້ວລອງໃໝ່ອີກຄັ້ງ.',
+      allowOutsideClick: false
+    });
+  }
+}
+
 
     function showCustomPopup(type, message, subMessage = 'ກະລຸນາກວດສອບຂໍ້ມູນຂອງທ່ານຄືນ') {
       const popup = document.getElementById('popup');
@@ -2208,4 +2228,3 @@
 </body>
 
 </html>
-
