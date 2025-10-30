@@ -1,7 +1,7 @@
 {
-  "name": "ແອັບຄິດໄລ່ເງີນອຸດໜຸນຕ່າງໆ",
-  "short_name": "ແອັບຄິດໄລ່ເງີນອຸດໜຸນຕ່າງໆ",
-  "description": "ຄິດໄລ່ເງິນເດືອນ,ອຸດໜູນພາກລັດ-ວິສາຫະກິດ(ອປຊ)",
+  "name": "ເຊັກອິນ",
+  "short_name": "ເຊັກອິນເຂົ້າເຮັດວຽກ",
+  "description": "ເຊັນອິນເວລາເຂົ້າເຮັດວຽກຫ້ອງການປະກັນສັງຄົມ",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#1a2525",
@@ -9,14 +9,16 @@
   "lang": "lo",
   "icons": [
     {
-      "src": "./icon-192.png",
+      "src": "https://i.ibb.co/N65431ND/Logo.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "./icon-512.png",
+      "src": "https://i.ibb.co/N65431ND/Logo.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "scope": "./"
