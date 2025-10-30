@@ -1,4 +1,4 @@
-const CACHE_NAME = 'online-system-cache-v1.5.1'; // [FIX] ອັບເດດເວີຊັ່ນ Cache
+const CACHE_NAME = 'online-system-cache-v1.5.2'; // [FIX] ອັບເດດເວີຊັ່ນ Cache
 
 // [FIX] ປັບປຸງໃໝ່! ໃຫ້ CORE_URLS ມີສະເພາະໄຟລ໌ທີ່ຈຳເປັນແທ້ໆ (HTML/Manifest)
 // ເພື່ອຫຼີກລ້ຽງ Error 206 ຈາກ 'addAll'
@@ -14,7 +14,7 @@ const CORE_URLS = [
 // ຖ້າໄຟລ໌ໃດໜຶ່ງ cache ບໍ່ຜ່ານ (ເຊັ່ນ 206) ກໍບໍ່ເປັນຫຍັງ, App ຍັງຕິດຕັ້ງໄດ້
 const ASSET_URLS = [
   // ຮູບພາບ (ທີ່ເຄີຍເຮັດໃຫ້ v1.4 ລົ້ມ)
-  'https://i.ibb.co/N65431ND/Logo.png',
+  'https://i.ibb.co/Nq2HzrH/cn.png',
   'https://i.ibb.co/8gPz5vZP/qr-code.png',
   
   // Fonts
@@ -30,7 +30,7 @@ const ASSET_URLS = [
 
 
 self.addEventListener('install', event => {
-  console.log('[SW] Install event starting (v1.5)...');
+  console.log('[SW] Install event starting (v1.5.2)...');
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
@@ -108,5 +108,6 @@ self.addEventListener('activate', event => {
     })
   );
 });
+
 
 
