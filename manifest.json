@@ -1,7 +1,7 @@
 {
   "name": "ເຊັກອິນ",
   "short_name": "ເຊັກອິນເວລາເຂົ້າເຮັດວຽກ",
-  "description": "ເຊັນອິນເວລາເຂົ້າເຮັດວຽກຫ້ອງການປະກັນສັງຄົມ",
+  "description": "ເຊັກອິນເວລາເຂົ້າເຮັດວຽກຫ້ອງການປະກັນສັງຄົມ",
   
   "start_url": "/Checkin/index.html",
   "display": "standalone",
@@ -27,4 +27,5 @@
   
   "scope": "/Checkin/"
 }
+
 
