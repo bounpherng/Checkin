@@ -1,37 +1,66 @@
-const CACHE_NAME = 'online-system-cache-v1.3'; // ອັບເດດເວີຊັ່ນ Cache
+const CACHE_NAME = 'online-system-cache-v1.5'; // [FIX] ອັບເດດເວີຊັ່ນ Cache
 
-// [FIX] ປ່ຽນເສັ້ນທາງ (paths) ໃຫ້ເປັນ absolute ສຳລັບ GitHub Pages
-const urlsToCache = [
-  '/Checkin/', // ໝາຍເຖິງ root ຂອງ sub-directory
+// [FIX] ປັບປຸງໃໝ່! ໃຫ້ CORE_URLS ມີສະເພາະໄຟລ໌ທີ່ຈຳເປັນແທ້ໆ (HTML/Manifest)
+// ເພື່ອຫຼີກລ້ຽງ Error 206 ຈາກ 'addAll'
+
+// 1. ໄຟລ໌ຫຼັກທີ່ຈຳເປັນສຳລັບ App Shell (ຕ້ອງ cache ໃຫ້ຜ່ານ 100%)
+const CORE_URLS = [
+  '/Checkin/',
   '/Checkin/index.html',
-  '/Checkin/manifest.json', // ເພີ່ມ manifest ເຂົ້າ cache
-  'https://i.ibb.co/N65431ND/Logo.png', // URL ໄອຄອນ
-  'https://i.ibb.co/8gPz5vZP/qr-code.png', // URL QR code
+  '/Checkin/manifest.json'
+];
+
+// 2. ໄຟລ໌ເສີມທັງໝົດ (ຮູບ, Font, ວິດີໂອ) ຈະຖືກ cache ແບບແຍກກັນ
+// ຖ້າໄຟລ໌ໃດໜຶ່ງ cache ບໍ່ຜ່ານ (ເຊັ່ນ 206) ກໍບໍ່ເປັນຫຍັງ, App ຍັງຕິດຕັ້ງໄດ້
+const ASSET_URLS = [
+  // ຮູບພາບ (ທີ່ເຄີຍເຮັດໃຫ້ v1.4 ລົ້ມ)
+  'https://i.ibb.co/N65431ND/Logo.png',
+  'https://i.ibb.co/8gPz5vZP/qr-code.png',
   
-  // [FIX] ແກ້ໄຂ URL ຂອງ font ທີ່ພິມຜິດ (httpss -> https) ແລະອັບເດດໃຫ້ຕົງກັບ HTML
+  // Fonts
   'https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700;800&display=swap',
-  'https://fonts.gstatic.com/s/notosanslao/v19/0QIzFNIyG-MWF5ytL-IZ-sK6f8M.woff2', // browser ອາດຈະ request font file
+  'https://fonts.gstatic.com/s/notosanslao/v19/0QIzFNIyG-MWF5ytL-IZ-sK6f8M.woff2',
   
-  // URL ຂອງວິດີໂອ ແລະ lord-icon (ຖ້າຕ້ອງການໃຫ້ offline ໄດ້)
+  // ວິດີໂອ ແລະໄຟລ໌ອື່ນໆ
   'https://cdn-icons-mp4.flaticon.com/512/15594/15594572.mp4',
   'https://cdn-icons-mp4.flaticon.com/512/15594/15594543.mp4',
   'https://cdn.lordicon.com/onmwuuox.json',
   'https://cdn.lordicon.com/lordicon.js'
 ];
 
+
 self.addEventListener('install', event => {
+  console.log('[SW] Install event starting (v1.5)...');
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('Opened cache');
-        // ໃຊ້ addAll ເພື່ອດາວໂຫຼດ ແລະ cache ທຸກ URL
-        // ຖ້າມີ URL ໃດໜຶ່ງດາວໂຫຼດບໍ່ສຳເລັດ, service worker ຈະ install ບໍ່ຜ່ານ
-        return cache.addAll(urlsToCache);
+        console.log('[SW] Caching core app shell...');
+        // 1. Cache ໄຟລ໌ຫຼັກ (Core). ອັນນີ້ຕ້ອງສຳເລັດ (ມີແຕ່ 3 ໄຟລ໌, ປອດໄພ)
+        return cache.addAll(CORE_URLS);
+      })
+      .then(() => {
+        console.log('[SW] Core shell cached. Caching non-essential assets...');
+        return caches.open(CACHE_NAME);
+      })
+      .then(cache => {
+        // 2. Cache ໄຟລ໌ເສີມທັງໝົດ (Assets).
+        // ເຮົາຈະ cache ທີລະອັນ ແລະເພີ່ມ .catch() ໃສ່
+        // ເພື່ອວ່າຖ້າໄຟລ໌ໃດໜຶ່ງ cache ບໍ່ໄດ້ (ເຊັ່ນ ວິດີໂອ ຫຼື ຮູບ ໄດ້ 206)
+        // ມັນຈະບໍ່ເຮັດໃຫ້ການຕິດຕັ້ງທັງໝົດລົ້ມເຫຼວ.
+        const assetPromises = ASSET_URLS.map(url => {
+          // ໃຊ້ .add() ແທນ .addAll()
+          return cache.add(url).catch(err => {
+            console.warn(`[SW] Failed to cache non-essential asset: ${url} - ${err.message}`);
+          });
+        });
+        return Promise.all(assetPromises); 
+      })
+      .then(() => {
+        console.log('[SW] Install event complete (v1.5).');
       })
       .catch(err => {
-        console.error('Failed to add resources to cache', err);
-        // ຖ້າ cache ບາງ URL ບໍ່ສຳເລັດ (ເຊັ່ນ ວິດີໂອ), ອາດຈະລອງ cache ແບບອື່ນ
-        // ແຕ່ສຳລັບ PWA ໄຟລ໌ຫຼັກ (index, manifest) ຕ້ອງ cache ໃຫ້ສຳເລັດ
+        // ຖ້າ .catch() ນີ້ເຮັດວຽກ, ໝາຍຄວາມວ່າ CORE_URLS cache ບໍ່ສຳເລັດ
+        console.error('[SW] Core cache failed, install aborted:', err);
       })
   );
 });
@@ -52,11 +81,9 @@ self.addEventListener('fetch', event => {
             return response;
           }
 
-          // ຕ້ອງ clone response ເພາະ response ເປັນ stream ໃຊ້ໄດ້ຄັ້ງດຽວ
           const responseToCache = response.clone();
           caches.open(CACHE_NAME)
             .then(cache => {
-              // ເກັບ response ທີ່ດຶງມາໃໝ່ໄວ້ໃນ cache
               cache.put(event.request, responseToCache);
             });
           return response;
@@ -71,9 +98,9 @@ self.addEventListener('activate', event => {
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
-          // ລຶບ cache ເກົ່າທີ່ບໍ່ໄດ້ໃຊ້ແລ້ວ
+          // ລຶບ cache ເກົ່າ (v1.4, v1.3, v1.2)
           if (!cacheWhitelist.includes(cacheName)) {
-            console.log('Deleting old cache:', cacheName);
+            console.log('[SW] Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
@@ -81,3 +108,4 @@ self.addEventListener('activate', event => {
     })
   );
 });
+
