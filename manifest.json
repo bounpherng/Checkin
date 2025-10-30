@@ -12,13 +12,13 @@
   "lang": "lo",
   "icons": [
     {
-      "src": "https://i.ibb.co/N65431ND/Logo.png",
+      "src": "https://i.ibb.co/Nq2HzrH/cn.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://i.ibb.co/N65431ND/Logo.png",
+      "src": "https://i.ibb.co/Nq2HzrH/cn.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -27,3 +27,4 @@
   
   "scope": "/Checkin/"
 }
+
