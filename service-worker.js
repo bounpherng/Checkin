@@ -1,4 +1,4 @@
-const CACHE_NAME = 'online-system-cache-v1.5'; // [FIX] ອັບເດດເວີຊັ່ນ Cache
+const CACHE_NAME = 'online-system-cache-v1.5.1'; // [FIX] ອັບເດດເວີຊັ່ນ Cache
 
 // [FIX] ປັບປຸງໃໝ່! ໃຫ້ CORE_URLS ມີສະເພາະໄຟລ໌ທີ່ຈຳເປັນແທ້ໆ (HTML/Manifest)
 // ເພື່ອຫຼີກລ້ຽງ Error 206 ຈາກ 'addAll'
@@ -108,4 +108,5 @@ self.addEventListener('activate', event => {
     })
   );
 });
+
 
