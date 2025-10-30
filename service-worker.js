@@ -1,11 +1,15 @@
-const CACHE_NAME = 'online-system-cache-v1.3'; // ອັບເດດເວີຊັ່ນ Cache
+const CACHE_NAME = 'online-system-cache-v1.6'; // [ປັບປຸງ] ອັບເດດເວີຊັ່ນ Cache ເປັນ v1.6
 
 // [FIX] ປ່ຽນເສັ້ນທາງ (paths) ໃຫ້ເປັນ absolute ສຳລັບ GitHub Pages
 const urlsToCache = [
   '/Checkin/', // ໝາຍເຖິງ root ຂອງ sub-directory
   '/Checkin/index.html',
   '/Checkin/manifest.json', // ເພີ່ມ manifest ເຂົ້າ cache
-  'https://drive.google.com/uc?id=1PLPxvrYNY4ICeyyATveg0H-sxQhIMrNC', // [ປັບປຸງ] URL ໄອຄອນໃໝ່
+  
+  // [ປັບປຸງ] ໃຊ້ໄອຄອນທັງສອງຂະໜາດທີ່ໂຮສຢູ່ໃນ GitHub Pages
+  '/Checkin/icon-192.png', 
+  '/Checkin/icon-512.png', 
+  
   'https://i.ibb.co/8gPz5vZP/qr-code.png', // URL QR code
   
   // [FIX] ແກ້ໄຂ URL ຂອງ font ທີ່ພິມຜິດ (httpss -> https) ແລະອັບເດດໃຫ້ຕົງກັບ HTML
