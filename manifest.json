@@ -1,25 +1,29 @@
 {
-"name": "ເຊັກອິນ",
-"short_name": "ເຊັກອິນເຂົ້າເຮັດວຽກ",
-"description": "ເຊັນອິນເວລາເຂົ້າເຮັດວຽກຫ້ອງການປະກັນສັງຄົມ",
-"start_url": "./index.html",
-"display": "standalone",
-"background_color": "#1a2525",
-"theme_color": "#2ecc71",
-"lang": "lo",
-"icons": [
-{
-"src": "https://www.google.com/url?sa=E&source=gmail&q=https://i.ibb.co/j3xVz9c/Logo.png",
-"sizes": "192x192",
-"type": "image/png",
-"purpose": "any maskable"
-},
-{
-"src": "https://www.google.com/url?sa=E&source=gmail&q=https://i.ibb.co/j3xVz9c/Logo.png",
-"sizes": "512x512",
-"type": "image/png",
-"purpose": "any maskable"
-}
-],
-"scope": "./"
+  "name": "ເຊັກອິນ",
+  "short_name": "ເຊັກອິນເວລາເຂົ້າເຮັດວຽກ",
+  "description": "ເຊັນອິນເວລາເຂົ້າເຮັດວຽກຫ້ອງການປະກັນສັງຄົມ",
+  
+  "start_url": "/Checkin/index.html",
+  "display": "standalone",
+  
+  "background_color": "#e8f7ee",
+  "theme_color": "#2e9a57",
+  
+  "lang": "lo",
+  "icons": [
+    {
+      "src": "https://i.ibb.co/N65431ND/Logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://i.ibb.co/N65431ND/Logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  
+  "scope": "/Checkin/"
 }

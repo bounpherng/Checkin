@@ -6,13 +6,26 @@
   <title>ລະບົບຕິດຕາມການເຊັກອິນ</title>
   <meta name="description" content="ຕິດຕາມການເຊັກອິນເຂົ້າອອກຫ້ອງການ">
   
-  <link rel="manifest" href="./manifest.json" />
+  <!-- 
+    [FIX] ປ່ຽນເສັ້ນທາງ (path) ໃຫ້ເປັນ absolute ສຳລັບ GitHub Pages 
+    ຈາກ "./manifest.json" ເປັນ "/Checkin/manifest.json"
+  -->
+  <link rel="manifest" href="/Checkin/manifest.json" />
   
-  <!-- ອັບເດດ link ຮູບ icon ໃຫ້ເປັນ link ໂດຍກົງ -->
-  <link rel="icon" href="https://i.ibb.co/j3xVz9c/Logo.png" />
+  <link rel="icon" href="https://i.ibb.co/N65431ND/Logo.png" />
+  
+  <!-- [ADD] ເພີ່ມການຮອງຮັບ Apple PWA (iOS) -->
+  <link rel="apple-touch-icon" href="https://i.ibb.co/N65431ND/Logo.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  
   <meta name="theme-color" content="#2e9a57">
+  
+  <!-- [ADD] ເພີ່ມ Link ໂຫຼດ Font Noto Sans Lao ທີ່ຂາດໄປ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700;800&display=swap" rel="stylesheet">
+  
   <script src="https://cdn.lordicon.com/lordicon.js"></script>
 
   <style>
@@ -27,6 +40,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      /* [FIX] ໃຫ້ແນ່ໃຈວ່າ font-family ຖືກຕ້ອງຕາມທີ່ import ມາ */
       font-family: 'Noto Sans Lao', sans-serif;
     }
 
@@ -220,15 +234,14 @@
   </div>
 
   <div class="scan-section">
-    <!-- ອັບເດດ link ຮູບ QR Code ໃຫ້ເປັນ link ໂດຍກົງ -->
-    <img src="https://i.ibb.co/yY1k6Yf/qr-code.png" alt="ຮູບສະແກນ">
+    <img src="https://i.ibb.co/8gPz5vZP/qr-code.png" alt="ຮູບສະແກນ">
     <h2>ສະແກນ QR CODE</h2>
     <p>ເພື່ອຕິດຕັ້ງແອັບ ແລະເຂົ້າສູ່ລະບົບເຊັກອິນ</p>
   </div>
 
   <footer>
     © <span id="year"></span> ພັດທະນາໂດຍ: <strong>MR. bounPherng</strong><br>
-    <small>Icons by <a href="https://lordicon.com/" target="_blank">Lordicon.com</a></small>
+    <small>ເວັບໄຊທ໌ : <a href="https://bounpherng.github.io/IT-BANBAN/" target="_blank">Lordicon.com</a></small>
   </footer>
 
   <script>
@@ -269,25 +282,29 @@
     installBtn.style.display = 'none';
 
     window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('beforeinstallprompt event fired'); // ເພີ່ມ log ເພື່ອກວດສອບ
       e.preventDefault();
       deferredPrompt = e;
       installBtn.style.display = 'block';
     });
 
     installBtn.addEventListener('click', async () => {
+      installBtn.style.display = 'none'; // ເຊື່ອງປຸ່ມຫຼັງຈາກກົດ
       if (deferredPrompt) {
         deferredPrompt.prompt();
-        await deferredPrompt.userChoice;
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User choice: ${outcome}`);
         deferredPrompt = null;
       } else {
-        alert("ກະລຸນາໃຊ້ 'Add to Home screen' ຈາກເມນູ Chrome.");
+        // ປ່ຽນຈາກ alert ເປັນການສະແດງຂໍ້ຄວາມທີ່ດີກວ່າ (ຖ້າຕ້ອງການ)
+        console.log("ບໍ່ສາມາດຕິດຕັ້ງໄດ້, 'Add to Home screen' ຈາກເມນູ.");
       }
     });
 	
-	    // ປັບປຸງການລົງທະບຽນ service worker ໃຫ້ແນ່ນອນວ່າໃຊ້ path ຖືກຕ້ອງ
+	    // [FIX] ປັບປຸງການລົງທະບຽນ service worker ໃຫ້ໃຊ້ absolute path
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js') // ໃຊ້ ./
+        navigator.serviceWorker.register('/Checkin/service-worker.js') // ໃຊ້ /Checkin/
           .then(registration => {
             console.log('Service Worker registered: ', registration);
           })
