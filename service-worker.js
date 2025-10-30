@@ -1,4 +1,4 @@
-const CACHE_NAME = 'online-system-cache-v1.5.2'; // [FIX] ອັບເດດເວີຊັ່ນ Cache
+const CACHE_NAME = 'online-system-cache-v1.6'; // [FIX] ອັບເດດເວີຊັ່ນ Cache
 
 // [FIX] ປັບປຸງໃໝ່! ໃຫ້ CORE_URLS ມີສະເພາະໄຟລ໌ທີ່ຈຳເປັນແທ້ໆ (HTML/Manifest)
 // ເພື່ອຫຼີກລ້ຽງ Error 206 ຈາກ 'addAll'
@@ -30,7 +30,7 @@ const ASSET_URLS = [
 
 
 self.addEventListener('install', event => {
-  console.log('[SW] Install event starting (v1.5.2)...');
+  console.log('[SW] Install event starting (v1.6)...');
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
@@ -108,6 +108,7 @@ self.addEventListener('activate', event => {
     })
   );
 });
+
 
 
 
