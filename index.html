@@ -159,16 +159,19 @@
       text-align: center;
     }
 
+    /* --- [ປັບແປງ] ແກ້ໄຂ CSS ສ່ວນ Scan Section --- */
     .scan-section {
       margin-top: 40px;
       background: linear-gradient(145deg, #ffffff, #f0f8f4);
       border-radius: 20px;
-      padding: 20px;
+      /* [ປັບແປງ] ເອົາ padding ອອກຈາກກອບນອກ */
+      /* padding: 20px; */ 
       text-align: center;
       max-width: 420px;
       width: 100%;
       box-shadow: 0 5px 20px rgba(0,0,0,0.05);
       animation: fadeInUp 1.2s ease;
+      overflow: hidden; /* [ເພີ່ມ] ເພື່ອໃຫ້ຂອບມົນເຮັດວຽກຖືກຕ້ອງ */
     }
 
     .scan-section img {
@@ -177,6 +180,10 @@
       border-radius: 15px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       transition: transform 0.4s;
+      /* [ເພີ່ມ] ຈັດກາງຮູບໃຫ້ແນ່ນອນ */
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .scan-section img:hover {
@@ -184,17 +191,73 @@
     }
 
     .scan-section h2 {
-      margin-top: 16px;
+      /* [ປັບແປງ] ເອົາ margin-top ອອກ ປັບໃຫ້ສວຍງາມໃນ summary */
+      margin-top: 0; 
       color: var(--green-dark);
       font-size: 20px;
       font-weight: 700;
+      margin-bottom: 0; /* [ເພີ່ມ] */
     }
 
     .scan-section p {
       color: #4a6c56;
       font-size: 15px;
-      margin-top: 6px;
+      /* [ປັບແປງ] ປັບ margin ໃຫ້ເຫມາະສົມ */
+      margin-top: 0;
+      margin-bottom: 12px;
     }
+    /* --- [ຈົບການປັບແປງ] --- */
+
+    
+    /* --- [ເພີ່ມ] CSS ໃຫມ່ສຳລັບກ່ອງປິດ-ເປີດ --- */
+    .scan-section summary {
+      cursor: pointer;
+      padding: 20px; /* ເອົາ padding ມາໄວ້ນີ້ແທນ */
+      font-weight: 700;
+      display: flex;
+      /* [ປັບແປງ] ປ່ຽນຈາກ space-between ມາເປັນ center */
+      justify-content: center; 
+      align-items: center;
+      gap: 12px; /* [ເພີ່ມ] ໄລຍະຫ່າງລະຫວ່າງຂໍ້ຄວາມ ແລະ ໄອຄອນ */
+      list-style: none; /* ເອົາລູກສອນເລີ່ມຕົ້ນອອກ (Firefox) */
+      transition: background-color 0.2s;
+    }
+
+    .scan-section summary::-webkit-details-marker {
+      display: none; /* ເອົາລູກສອນເລີ່ມຕົ້ນອອກ (Chrome, Safari, Edge) */
+    }
+    
+    .scan-section summary:hover {
+      background-color: rgba(0,0,0,0.03);
+    }
+
+    /* ໄອຄອນ 'ບວກ' (+) ເພື່ອບອກວ່າປິດຢູ່ */
+    .scan-section summary::after {
+      content: '➕'; 
+      font-size: 1rem;
+      color: var(--green);
+      transition: transform 0.2s ease-in-out;
+    }
+
+    /* ເມື່ອເປີດອອກ */
+    .scan-section details[open] summary {
+      border-bottom: 1px solid #eaf0ec; /* ເພີ່ມເສັ້ນຂັ້ນ */
+    }
+    
+    /* ປ່ຽນໄອຄອນເປັນ 'ລົບ' (-) ເມື່ອເປີດ */
+    .scan-section details[open] summary::after {
+      content: '➖'; 
+    }
+    
+    /* ກ່ອງເນື້ອຫາທີ່ເຊື່ອງໄວ້ */
+    .scan-content-wrapper {
+      padding: 20px;
+      padding-top: 12px; 
+      background: #fff; /* ໃສ່ພື້ນສີຂາວໃຫ້ເນື້ອຫາ */
+      text-align: center; /* ຈັດເນື້ອຫາຢູ່ກາງ */
+    }
+    /* --- [ຈົບການເພີ່ມ CSS ໃຫມ່] --- */
+
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
@@ -230,14 +293,26 @@
     <p>ຫ້ອງການປະກັນສັງຄົມແຂວງ ອັດຕະປື</p>
 
     <button class="btn-primary" id="openApp">ໄປທີ່ຫນ້າເຂົ້າລະບົບເຊັກອິນ</button>
-    <button class="btn-install" id="installApp">ຕິດຕັ້ງແອັບ (ໄວ້ຫນ້າຈໍ)</button>
+    <button class="btn-install" id="installApp">ຕິດຕັ້ງແອັບ (ໄວ້ຫນ້າຈໍໂທລະສັບ)</button>
   </div>
 
+  <!-- [ປັບແປງ] ໃຊ້ <details> ເພື່ອເຮັດໃຫ້ກົດປິດ-ເປີດໄດ້ -->
   <div class="scan-section">
-    <img src="https://i.ibb.co/8gPz5vZP/qr-code.png" alt="ຮູບສະແກນ">
-    <h2>ສະແກນ QR CODE</h2>
-    <p>ເພື່ອຕິດຕັ້ງແອັບ ແລະເຂົ້າສູ່ລະບົບເຊັກອິນ</p>
+    <details>
+      <summary>
+        <!-- H2 ຈະເປັນຫົວຂໍ້ທີ່ກົດໄດ້ -->
+        <h2>ສະແກນ QR CODE</h2>
+      </summary>
+      
+      <!-- ເນື້ອຫານີ້ຈະຖືກເຊື່ອງໄວ້ -->
+      <div class="scan-content-wrapper">
+        <p>ເພື່ອເປີດຫຼິງຕິດຕັ້ງແອັບ (ໄວ້ຫນ້າຈໍໂທລະສັບ)</p>
+        <img src="https://i.ibb.co/8gPz5vZP/qr-code.png" alt="ຮູບສະແກນ">
+      </div>
+    </details>
   </div>
+  <!-- [ຈົບການປັບແປງ] -->
+
 
   <footer>
     © <span id="year"></span> ພັດທະນາໂດຍ: <strong>MR. bounPherng</strong><br>
@@ -317,6 +392,4 @@
   </script>
 </body>
 </html>
-
-
 
