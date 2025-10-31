@@ -276,19 +276,29 @@
 
   <div class="card">
     <div class="logo">
+	
+      <!-- [ປັບແປງ] ເພີ່ມ class="active" ເພື່ອໃຫ້ສະແດງຜົນ ແລະ ຕັດວິດີໂອອອກ -->
+	    <lord-icon id="icon3"
+          src="https://cdn.lordicon.com/onmwuuox.json"
+          trigger="loop"
+          style="width:150px;height:150px"
+          class="active">
+      </lord-icon>
+      
+      <!-- [REMOVE] ຕັດ video1 ຕາມທີ່ຕ້ອງການ -->
+      <!--
       <video id="video1" class="active" muted playsinline preload="auto">
         <source src="https://cdn-icons-mp4.flaticon.com/512/15594/15594572.mp4" type="video/mp4">
       </video>
+      -->
 
+      <!-- [REMOVE] ຕັດ video2 ຕາມທີ່ຕ້ອງການ -->
+      <!--
       <video id="video2" muted playsinline preload="auto">
         <source src="https://cdn-icons-mp4.flaticon.com/512/15594/15594543.mp4" type="video/mp4">
       </video>
-
-      <lord-icon id="icon3"
-          src="https://cdn.lordicon.com/onmwuuox.json"
-          trigger="loop"
-          style="width:150px;height:150px">
-      </lord-icon>
+      -->
+  
     </div>
 
     <h1>ເຂົ້າສູ່ລະບົບເຊັກອິນ</h1>
@@ -322,6 +332,8 @@
   </footer>
 
   <script>
+    // [REMOVE] ຕັດລະຫັດທີ່ກ່ຽວຂ້ອງກັບການສະຫຼັບ ວິດີໂອ 1, 2 ແລະ ໄອຄອນ 3
+    /*
     const v1 = document.getElementById('video1');
     const v2 = document.getElementById('video2');
     const icon3 = document.getElementById('icon3');
@@ -346,6 +358,7 @@
 
     v1.addEventListener('ended', showNext);
     v2.addEventListener('ended', showNext);
+    */
 
     document.getElementById('year').textContent = new Date().getFullYear();
 
