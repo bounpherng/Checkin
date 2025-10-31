@@ -1,4 +1,4 @@
-const CACHE_NAME = 'online-system-cache-v1.6'; // [ປັບປຸງ] ອັບເດດເວີຊັ່ນ Cache ເປັນ v1.6
+const CACHE_NAME = 'online-system-cache-v1.7'; // [ປັບປຸງ] ອັບເດດເວີຊັ່ນ Cache ເປັນ v1.6
 
 // [FIX] ປ່ຽນເສັ້ນທາງ (paths) ໃຫ້ເປັນ absolute ສຳລັບ GitHub Pages
 const urlsToCache = [
@@ -85,3 +85,4 @@ self.addEventListener('activate', event => {
     })
   );
 });
+
