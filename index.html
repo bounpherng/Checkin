@@ -6,359 +6,586 @@
   <title>ລະບົບຕິດຕາມການເຊັກອິນ</title>
   <meta name="description" content="ຕິດຕາມການເຊັກອິນເຂົ້າອອກຫ້ອງການ">
   
-  <!-- 
-    [FIX] ປ່ຽນເສັ້ນທາງ (path) ໃຫ້ເປັນ absolute ສຳລັບ GitHub Pages 
-    ຈາກ "./manifest.json" ເປັນ "/Checkin/manifest.json"
-  -->
   <link rel="manifest" href="/Checkin/manifest.json" />
-  
-  <!-- [ປັບປຸງ] ໃຊ້ໄອຄອນ 512x512 ທີ່ໂຮສຢູ່ໃນ GitHub Pages ເພື່ອເປັນ Favicon -->
   <link rel="icon" href="/Checkin/icon-512.png" />
-  
-  <!-- [ADD] ເພີ່ມການຮອງຮັບ Apple PWA (iOS) -->
-  <!-- [ປັບປຸງ] ໃຊ້ໄອຄອນ 512x512 ທີ່ໂຮສຢູ່ໃນ GitHub Pages -->
   <link rel="apple-touch-icon" href="/Checkin/icon-512.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-  <meta name="theme-color" content="#2e9a57">
+  <meta name="theme-color" content="#1a5c35">
   
-  <!-- [ADD] ເພີ່ມ Link ໂຫຼດ Font Noto Sans Lao ທີ່ຂາດໄປ -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
   
-  <script src="https://cdn.lordicon.com/lordicon.js"></script>
-
   <style>
     :root {
-      --green: #2e9a57;
-      --green-dark: #1f6c3b;
-      --green-light: #e8f7ee;
-      --text-dark: #133a23;
+      --green:       #1e7d40;
+      --green-mid:   #2e9a57;
+      --green-dark:  #0f4422;
+      --gold:        #c9a84c;
+      --gold-light:  #f0d080;
+      --gold-dark:   #8a6820;
+      --cream:       #fdf9f0;
+      --white:       #ffffff;
+      --text-dark:   #0c2e18;
+      --text-mid:    #2a5a38;
     }
 
-    * {
+    *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      /* [FIX] ໃຫ້ແນ່ໃຈວ່າ font-family ຖືກຕ້ອງຕາມທີ່ import ມາ */
-      font-family: 'Noto Sans Lao', sans-serif;
     }
 
     body {
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      background: linear-gradient(180deg, var(--green-light), #fff);
-      color: var(--text-dark);
-      padding: 20px;
+      font-family: 'Noto Sans Lao', sans-serif;
+      background: var(--green-dark);
+      color: var(--white);
       overflow-x: hidden;
-      animation: fadeInBg 1s ease;
     }
 
-    @keyframes fadeInBg {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    /* ===== HERO BACKGROUND ===== */
+    .hero-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
     }
 
-    .card {
-      background: #fff;
-      border-radius: 22px;
-      padding: 28px 24px;
-      text-align: center;
-      box-shadow: 0 8px 35px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 380px;
-      animation: fadeIn 1s ease;
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 80% 60% at 20% 40%, rgba(46,154,87,0.35) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 70%, rgba(201,168,76,0.15) 0%, transparent 55%),
+        linear-gradient(160deg, #0a2f16 0%, #143d22 40%, #0f2b18 100%);
+    }
+
+    /* Gold light beams */
+    .beam {
+      position: absolute;
+      bottom: -10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200%;
+      height: 70%;
+      background: conic-gradient(
+        from 260deg at 50% 100%,
+        transparent 0deg,
+        rgba(201,168,76,0.06) 5deg,
+        transparent 10deg,
+        transparent 15deg,
+        rgba(201,168,76,0.04) 20deg,
+        transparent 25deg,
+        transparent 35deg,
+        rgba(201,168,76,0.07) 40deg,
+        transparent 45deg,
+        transparent 60deg,
+        rgba(201,168,76,0.05) 65deg,
+        transparent 70deg
+      );
+      animation: beamRotate 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes beamRotate {
+      0% { opacity: 0.7; }
+      50% { opacity: 1; }
+      100% { opacity: 0.7; }
+    }
+
+    /* Floating particles */
+    .particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--gold-light);
+      opacity: 0;
+      animation: floatUp var(--dur, 8s) var(--delay, 0s) ease-in infinite;
+    }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.3; }
+      100% { transform: translateY(-20vh) scale(1.5); opacity: 0; }
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    .page-wrapper {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      transition: transform 0.3s;
+      padding: 30px 20px 50px;
     }
 
-    .card:hover {
-      transform: translateY(-4px);
-    }
-
-    .logo {
-      position: relative;
-      width: 150px;
-      height: 150px;
-      margin-bottom: 20px;
+    /* ===== TOP BADGE ===== */
+    .org-badge {
       display: flex;
-      justify-content: center;
       align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 50px;
+      padding: 8px 18px;
+      margin-bottom: 30px;
+      backdrop-filter: blur(10px);
+      animation: slideDown 0.8s ease both;
     }
 
-    video, lord-icon {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 150px;
-      height: 150px;
-      border-radius: 20px;
-      opacity: 0;
-      transition: opacity 1.5s ease;
+    .org-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 8px var(--gold);
+      animation: pulse 2s ease infinite;
     }
 
-    video.active, lord-icon.active {
-      opacity: 1;
-      z-index: 2;
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 6px var(--gold); }
+      50% { box-shadow: 0 0 14px var(--gold-light); }
     }
 
-    h1 {
-      font-size: 22px;
-      color: var(--green);
-      margin-bottom: 10px;
-      font-weight: 800;
+    .org-badge span {
+      font-size: 12px;
+      color: var(--gold-light);
+      letter-spacing: 0.05em;
+      font-weight: 600;
     }
 
-    p {
-      font-size: 14px;
-      color: #3f614a;
-      margin-bottom: 24px;
-    }
-
-    button {
-      border: none;
-      padding: 12px 18px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 700;
+    /* ===== HERO IMAGE CARD ===== */
+    .hero-card {
       width: 100%;
-      transition: all 0.3s;
-      font-size: 15px;
+      max-width: 440px;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 
+        0 0 0 1px rgba(201,168,76,0.25),
+        0 30px 80px rgba(0,0,0,0.5),
+        0 0 60px rgba(201,168,76,0.08);
+      animation: fadeUp 1s ease 0.2s both;
+      position: relative;
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--green), var(--green-dark));
-      color: white;
-      margin-bottom: 10px;
-      box-shadow: 0 5px 15px rgba(46,154,87,0.3);
-    }
-
-    .btn-primary:hover {
-      transform: scale(1.03);
-    }
-
-    .btn-install {
-      background: transparent;
-      color: var(--green-dark);
-      border: 2px solid var(--green);
-    }
-
-    .btn-install:hover {
-      background: var(--green-light);
-    }
-
-    footer {
-      margin-top: 30px;
-      font-size: 13px;
-      color: #2f5f3f;
-      text-align: center;
-    }
-
-    /* --- [ປັບແປງ] ແກ້ໄຂ CSS ສ່ວນ Scan Section --- */
-    .scan-section {
-      margin-top: 40px;
-      background: linear-gradient(145deg, #ffffff, #f0f8f4);
-      border-radius: 20px;
-      /* [ປັບແປງ] ເອົາ padding ອອກຈາກກອບນອກ */
-      /* padding: 20px; */ 
-      text-align: center;
-      max-width: 420px;
+    .hero-img-wrapper {
+      position: relative;
       width: 100%;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-      animation: fadeInUp 1.2s ease;
-      overflow: hidden; /* [ເພີ່ມ] ເພື່ອໃຫ້ຂອບມົນເຮັດວຽກຖືກຕ້ອງ */
+      height: 220px;
+      overflow: hidden;
     }
 
-    .scan-section img {
-      width: 70%;
-      max-width: 250px;
-      border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: transform 0.4s;
-      /* [ເພີ່ມ] ຈັດກາງຮູບໃຫ້ແນ່ນອນ */
+    .hero-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
       display: block;
-      margin-left: auto;
-      margin-right: auto;
+      transition: transform 8s ease;
     }
 
-    .scan-section img:hover {
+    .hero-card:hover .hero-img-wrapper img {
       transform: scale(1.05);
     }
 
-    .scan-section h2 {
-      /* [ປັບແປງ] ເອົາ margin-top ອອກ ປັບໃຫ້ສວຍງາມໃນ summary */
-      margin-top: 0; 
-      color: var(--green-dark);
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 0; /* [ເພີ່ມ] */
+    .hero-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.1) 0%,
+        rgba(10,30,18,0.4) 60%,
+        rgba(10,30,18,0.85) 100%
+      );
     }
 
-    .scan-section p {
-      color: #4a6c56;
-      font-size: 15px;
-      /* [ປັບແປງ] ປັບ margin ໃຫ້ເຫມາະສົມ */
-      margin-top: 0;
-      margin-bottom: 12px;
+    .hero-img-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(201,168,76,0.4);
+      backdrop-filter: blur(8px);
+      border-radius: 10px;
+      padding: 6px 12px;
+      font-size: 11px;
+      color: var(--gold-light);
+      font-weight: 600;
+      letter-spacing: 0.08em;
     }
-    /* --- [ຈົບການປັບແປງ] --- */
 
-    
-    /* --- [ເພີ່ມ] CSS ໃຫມ່ສຳລັບກ່ອງປິດ-ເປີດ --- */
-    .scan-section summary {
-      cursor: pointer;
-      padding: 20px; /* ເອົາ padding ມາໄວ້ນີ້ແທນ */
-      font-weight: 700;
+    /* Logo overlay on image */
+    .logo-on-image {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      border: 2px solid rgba(201,168,76,0.6);
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    }
+
+    .logo-on-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ===== CARD BODY ===== */
+    .card-body {
+      background: linear-gradient(170deg, #0e3a20 0%, #0a2918 100%);
+      padding: 26px 28px 30px;
+      border-top: 1px solid rgba(201,168,76,0.2);
+    }
+
+    .gold-line {
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      border-radius: 2px;
+      margin: 0 auto 18px;
+      box-shadow: 0 0 10px rgba(201,168,76,0.5);
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+    }
+
+    .card-subtitle {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+      margin-bottom: 28px;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn-primary {
       display: flex;
-      /* [ປັບແປງ] ປ່ຽນຈາກ space-between ມາເປັນ center */
-      justify-content: center; 
       align-items: center;
-      gap: 12px; /* [ເພີ່ມ] ໄລຍະຫ່າງລະຫວ່າງຂໍ້ຄວາມ ແລະ ໄອຄອນ */
-      list-style: none; /* ເອົາລູກສອນເລີ່ມຕົ້ນອອກ (Firefox) */
-      transition: background-color 0.2s;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 15px 20px;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      font-family: 'Noto Sans Lao', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--green-dark);
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, #b8922e 100%);
+      box-shadow: 0 6px 24px rgba(201,168,76,0.35), 0 2px 8px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .scan-section summary::-webkit-details-marker {
-      display: none; /* ເອົາລູກສອນເລີ່ມຕົ້ນອອກ (Chrome, Safari, Edge) */
-    }
-    
-    .scan-section summary:hover {
-      background-color: rgba(0,0,0,0.03);
-    }
-
-    /* ໄອຄອນ 'ບວກ' (+) ເພື່ອບອກວ່າປິດຢູ່ */
-    .scan-section summary::after {
-      content: '➕'; 
-      font-size: 1rem;
-      color: var(--green);
-      transition: transform 0.2s ease-in-out;
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+      transition: left 0.5s ease;
     }
 
-    /* ເມື່ອເປີດອອກ */
-    .scan-section details[open] summary {
-      border-bottom: 1px solid #eaf0ec; /* ເພີ່ມເສັ້ນຂັ້ນ */
+    .btn-primary:hover::after { left: 150%; }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(201,168,76,0.45), 0 4px 12px rgba(0,0,0,0.3);
     }
-    
-    /* ປ່ຽນໄອຄອນເປັນ 'ລົບ' (-) ເມື່ອເປີດ */
-    .scan-section details[open] summary::after {
-      content: '➖'; 
-    }
-    
-    /* ກ່ອງເນື້ອຫາທີ່ເຊື່ອງໄວ້ */
-    .scan-content-wrapper {
-      padding: 20px;
-      padding-top: 12px; 
-      background: #fff; /* ໃສ່ພື້ນສີຂາວໃຫ້ເນື້ອຫາ */
-      text-align: center; /* ຈັດເນື້ອຫາຢູ່ກາງ */
-    }
-    /* --- [ຈົບການເພີ່ມ CSS ໃຫມ່] --- */
+    .btn-primary:active { transform: translateY(0); }
 
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .btn-primary svg {
+      flex-shrink: 0;
     }
 
-    @keyframes fadeInUp {
+    .btn-secondary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 14px 20px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 14px;
+      cursor: pointer;
+      font-family: 'Noto Sans Lao', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(201,168,76,0.4);
+      color: var(--gold-light);
+    }
+
+    /* ===== QR SECTION ===== */
+    .qr-section {
+      width: 100%;
+      max-width: 440px;
+      margin-top: 20px;
+      animation: fadeUp 1s ease 0.5s both;
+    }
+
+    .qr-details {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 20px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .qr-summary {
+      cursor: pointer;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      list-style: none;
+      transition: background 0.2s;
+    }
+
+    .qr-summary::-webkit-details-marker { display: none; }
+    .qr-summary:hover { background: rgba(255,255,255,0.04); }
+
+    .qr-summary-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .qr-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .qr-summary h2 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gold-light);
+      letter-spacing: 0.05em;
+    }
+
+    .qr-chevron {
+      color: rgba(255,255,255,0.4);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    details[open] .qr-chevron {
+      transform: rotate(180deg);
+    }
+
+    details[open] .qr-summary {
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .qr-content {
+      padding: 24px;
+      text-align: center;
+    }
+
+    .qr-content p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 18px;
+      font-weight: 300;
+    }
+
+    .qr-img-wrapper {
+      display: inline-block;
+      padding: 14px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,168,76,0.3);
+    }
+
+    .qr-img-wrapper img {
+      width: 160px;
+      height: 160px;
+      display: block;
+      border-radius: 8px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      margin-top: 32px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      text-align: center;
+      line-height: 1.8;
+      animation: fadeUp 1s ease 0.7s both;
+    }
+
+    footer strong { color: rgba(255,255,255,0.5); }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { color: var(--gold-light); }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
       from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <div class="logo">
-	
-      <!-- [ປັບແປງ] ເພີ່ມ class="active" ເພື່ອໃຫ້ສະແດງຜົນ ແລະ ຕັດວິດີໂອອອກ -->
-	    <lord-icon id="icon3"
-          src="https://cdn.lordicon.com/onmwuuox.json"
-          trigger="loop"
-          style="width:150px;height:150px"
-          class="active">
-      </lord-icon>
-      
-      <!-- [REMOVE] ຕັດ video1 ຕາມທີ່ຕ້ອງການ -->
-      <!--
-      <video id="video1" class="active" muted playsinline preload="auto">
-        <source src="https://cdn-icons-mp4.flaticon.com/512/15594/15594572.mp4" type="video/mp4">
-      </video>
-      -->
+  <!-- Background -->
+  <div class="hero-bg">
+    <div class="beam"></div>
+    <div class="particles" id="particles"></div>
+  </div>
 
-      <!-- [REMOVE] ຕັດ video2 ຕາມທີ່ຕ້ອງການ -->
-      <!--
-      <video id="video2" muted playsinline preload="auto">
-        <source src="https://cdn-icons-mp4.flaticon.com/512/15594/15594543.mp4" type="video/mp4">
-      </video>
-      -->
-  
+  <div class="page-wrapper">
+
+    <!-- Top Badge -->
+    <div class="org-badge">
+      <div class="org-badge-dot"></div>
+      <span>ຫ້ອງການປະກັນສັງຄົມແຂວງ</span>
     </div>
 
-    <h1>ເຂົ້າສູ່ລະບົບເຊັກອິນ</h1>
-    <p>ຫ້ອງການປະກັນສັງຄົມແຂວງ ອັດຕະປື</p>
+    <!-- Hero Card -->
+    <div class="hero-card">
 
-    <button class="btn-primary" id="openApp">ໄປທີ່ຫນ້າເຂົ້າລະບົບເຊັກອິນ</button>
-    <button class="btn-install" id="installApp">ຕິດຕັ້ງແອັບ (ໄວ້ຫນ້າຈໍໂທລະສັບ)</button>
-  </div>
-
-  <!-- [ປັບແປງ] ໃຊ້ <details> ເພື່ອເຮັດໃຫ້ກົດປິດ-ເປີດໄດ້ -->
-  <div class="scan-section">
-    <details>
-      <summary>
-        <!-- H2 ຈະເປັນຫົວຂໍ້ທີ່ກົດໄດ້ -->
-        <h2>ສະແກນ QR CODE</h2>
-      </summary>
-      
-      <!-- ເນື້ອຫານີ້ຈະຖືກເຊື່ອງໄວ້ -->
-      <div class="scan-content-wrapper">
-        <p>ເພື່ອເປີດຫຼິງຕິດຕັ້ງແອັບ (ໄວ້ຫນ້າຈໍໂທລະສັບ)</p>
-        <img src="https://i.ibb.co/8gPz5vZP/qr-code.png" alt="ຮູບສະແກນ">
+      <!-- Image -->
+      <div class="hero-img-wrapper">
+        <img 
+          src="https://raw.githubusercontent.com/bounpherng/Checkin/main/logo.jpg"
+          alt="ກອງປະກັນສັງຄົມ"
+          onerror="this.onerror=null; this.src='https://i.ibb.co/8gPz5vZP/qr-code.png';"
+        >
+        <div class="hero-img-overlay"></div>
+        <div class="hero-img-badge">SSO</div>
+        <div class="logo-on-image">
+          <img 
+            src="https://raw.githubusercontent.com/bounpherng/Checkin/main/logo.jpg"
+            alt="logo"
+            onerror="this.style.display='none'"
+          >
+        </div>
       </div>
-    </details>
+
+      <!-- Body -->
+      <div class="card-body">
+        <div class="gold-line"></div>
+
+        <h1 class="card-title">ເຂົ້າສູ່ລະບົບເຊັກອິນ</h1>
+        <p class="card-subtitle">ຫ້ອງປະກັນສັງຄົມແຂວງ</p>
+
+        <button class="btn-primary" id="openApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 3h6v6M10 14L21 3M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+          </svg>
+          ໄປທີ່ຫນ້າເຊັກອິນ
+        </button>
+
+        <button class="btn-secondary" id="installApp" style="display:none">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+            <line x1="12" y1="18" x2="12" y2="18"/>
+          </svg>
+          ຕິດຕັ້ງແອັບໃສ່ໂທລະສັບ
+        </button>
+      </div>
+    </div>
+
+    <!-- QR Section -->
+    <div class="qr-section">
+      <div class="qr-details">
+        <details>
+          <summary class="qr-summary">
+            <div class="qr-summary-left">
+              <div class="qr-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0f4422" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                  <line x1="14" y1="14" x2="14" y2="14"/><line x1="17" y1="14" x2="17" y2="14"/><line x1="20" y1="14" x2="20" y2="14"/>
+                  <line x1="14" y1="17" x2="14" y2="17"/><line x1="17" y1="17" x2="17" y2="17"/><line x1="20" y1="17" x2="20" y2="17"/>
+                  <line x1="14" y1="20" x2="14" y2="20"/><line x1="17" y1="20" x2="17" y2="20"/><line x1="20" y1="20" x2="20" y2="20"/>
+                </svg>
+              </div>
+              <h2>ສະແກນ QR CODE</h2>
+            </div>
+            <svg class="qr-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </summary>
+
+          <div class="qr-content">
+            <p>ສະແກນເພື່ອຕິດຕັ້ງແອັບໃສ່ໜ້າຈໍໂທລະສັບ</p>
+            <div class="qr-img-wrapper">
+              <img src="https://i.ibb.co/8gPz5vZP/qr-code.png" alt="QR Code">
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      © <span id="year"></span> ພັດທະນາໂດຍ: <strong>MR. bounPherng</strong><br>
+      <small>ເວັບໄຊທ໌: <a href="https://bounpherng.github.io/IT-BANBAN/" target="_blank">IT-BANBAN</a></small>
+    </footer>
+
   </div>
-  <!-- [ຈົບການປັບແປງ] -->
-
-
-  <footer>
-    © <span id="year"></span> ພັດທະນາໂດຍ: <strong>MR. bounPherng ເວີຊັນ : 1.1</strong><br>
-    <small>ເວັບໄຊທ໌: <a href="https://bounpherng.github.io/IT-BANBAN/" target="_blank"> IT-BANBAN </a></small>
-  </footer>
 
   <script>
-    // [REMOVE] ຕັດລະຫັດທີ່ກ່ຽວຂ້ອງກັບການສະຫຼັບ ວິດີໂອ 1, 2 ແລະ ໄອຄອນ 3
-    /*
-    const v1 = document.getElementById('video1');
-    const v2 = document.getElementById('video2');
-    const icon3 = document.getElementById('icon3');
-    const sequence = [v1, v2, icon3];
-    let current = 0;
-
-    v1.playbackRate = v2.playbackRate = 0.6;
-    v1.play();
-
-    function showNext() {
-      sequence[current].classList.remove('active');
-      current = (current + 1) % sequence.length;
-      sequence[current].classList.add('active');
-
-      if (sequence[current].tagName === 'VIDEO') {
-        sequence[current].currentTime = 0;
-        sequence[current].play();
-      } else {
-        setTimeout(showNext, 4000);
-      }
+    // Particles
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.cssText = `
+        left: ${Math.random() * 100}%;
+        --dur: ${6 + Math.random() * 10}s;
+        --delay: ${Math.random() * 8}s;
+        width: ${1 + Math.random() * 3}px;
+        height: ${1 + Math.random() * 3}px;
+        opacity: 0;
+      `;
+      container.appendChild(p);
     }
-
-    v1.addEventListener('ended', showNext);
-    v2.addEventListener('ended', showNext);
-    */
 
     document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -369,41 +596,30 @@
 
     let deferredPrompt;
     const installBtn = document.getElementById('installApp');
-    installBtn.style.display = 'none';
 
     window.addEventListener('beforeinstallprompt', (e) => {
-      console.log('beforeinstallprompt event fired'); // ເພີ່ມ log ເພື່ອກວດສອບ
       e.preventDefault();
       deferredPrompt = e;
-      installBtn.style.display = 'block';
+      installBtn.style.display = 'flex';
     });
 
     installBtn.addEventListener('click', async () => {
-      installBtn.style.display = 'none'; // ເຊື່ອງປຸ່ມຫຼັງຈາກກົດ
+      installBtn.style.display = 'none';
       if (deferredPrompt) {
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
         console.log(`User choice: ${outcome}`);
         deferredPrompt = null;
-      } else {
-        // ປ່ຽນຈາກ alert ເປັນການສະແດງຂໍ້ຄວາມທີ່ດີກວ່າ (ຖ້າຕ້ອງການ)
-        console.log("ບໍ່ສາມາດຕິດຕັ້ງໄດ້, 'Add to Home screen' ຈາກເມນູ.");
       }
     });
-	
-	    // [FIX] ປັບປຸງການລົງທະບຽນ service worker ໃຫ້ໃຊ້ absolute path
+
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/Checkin/service-worker.js') // ໃຊ້ /Checkin/
-          .then(registration => {
-            console.log('Service Worker registered: ', registration);
-          })
-          .catch(error => {
-            console.log('Service Worker registration failed: ', error);
-          });
+        navigator.serviceWorker.register('/Checkin/service-worker.js')
+          .then(r => console.log('SW registered:', r))
+          .catch(e => console.log('SW failed:', e));
       });
     }
-	
   </script>
 </body>
 </html>
