@@ -1,25 +1,25 @@
 {
-  "name": "ເຊັກອິນ",
-  "short_name": "ເຊັກອິນ",
+  "name": "ຫ້ອງການປະກັນສັງຄົມ",
+  "short_name": "ເຊັກອິນເວລາເຂົ້າວຽກ",
   "description": "ເຊັນອິນເວລາເຂົ້າເຮັດວຽກຫ້ອງການປະກັນສັງຄົມ",
-  "start_url": "/Checkin/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0d3320",
   "theme_color": "#2e9a57",
   "lang": "lo",
   "icons": [
     {
-      "src": "/Checkin/icon-192.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/Checkin/icon-512.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }
   ],
-  "scope": "/Checkin/"
+  "scope": "./"
 }
