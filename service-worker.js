@@ -2,7 +2,7 @@
 // service-worker.js — ອັບເດດອັດຕະໂນມັດ (Auto-Update PWA)
 // ປ່ຽນ CACHE_VERSION ທຸກຄັ້ງທີ່ຕ້ອງການໃຫ້ app ໂຫຼດໃໝ່ທັນທີ
 // ============================================================
-const CACHE_VERSION = 'v3.0'; // ◄ ປ່ຽນຕົວເລກນີ້ທຸກຄັ້ງທີ່ update
+const CACHE_VERSION = 'v4.0'; // ◄ ປ່ຽນຕົວເລກນີ້ທຸກຄັ້ງທີ່ update
 const CACHE_NAME = `online-system-cache-${CACHE_VERSION}`;
 
 // ໄຟລ໌ທີ່ຕ້ອງ cache (network-first ສຳລັບ HTML, cache-first ສຳລັບ assets)
@@ -10,8 +10,9 @@ const PRECACHE_URLS = [
   '/Checkin/',
   '/Checkin/index.html',
   '/Checkin/manifest.json',
-  '/Checkin/icon-192.png',
-  '/Checkin/icon-512.png',
+  // ✅ ໃຊ້ raw.githubusercontent.com — ໄດ້ຮູບຈິງ ບໍ່ແມ່ນໜ້າ HTML
+  'https://raw.githubusercontent.com/bounpherng/Checkin/main/icon-192.png',
+  'https://raw.githubusercontent.com/bounpherng/Checkin/main/icon-512.png',
 ];
 
 // URL ພາຍນອກ (ຈະ cache ຫຼັງດາວໂຫຼດ)
