@@ -6,16 +6,10 @@
   <title>ລະບົບຕິດຕາມການເຊັກອິນ – ຫ້ອງການປະກັນສັງຄົມ</title>
   <meta name="theme-color" content="#0d3320">
   
-  <link rel="manifest" href="/Checkin/manifest.json" />
-  
-  <!-- ກຳນົດໄອຄອນສຳລັບເວັບບຣາວເຊີທົ່ວໄປ -->
-  <link rel="icon" type="image/png" sizes="192x192" href="/Checkin/icon-192.png" />
-  <link rel="icon" type="image/png" sizes="512x512" href="/Checkin/icon-512.png" />
-  
-  <!-- ກຳນົດໄອຄອນສຳລັບລະບົບ iOS (Apple) -->
-  <link rel="apple-touch-icon" sizes="192x192" href="/Checkin/icon-192.png">
-  <link rel="apple-touch-icon" sizes="512x512" href="/Checkin/icon-512.png">
-  
+  <!-- ແກ້ໄຂ Path ໃຫ້ເປັນ Relative ທັງໝົດ -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon-192.png" />
+  <link rel="apple-touch-icon" href="icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -396,7 +390,7 @@
     }
 
     /* ===== FOOTER ===== */
-    footer {
+    <footer>
       margin-top: 26px;
       text-align: center;
       line-height: 1.9;
@@ -444,8 +438,8 @@
 
 <!-- BACKGROUND -->
 <div class="bg-layer">
-  <!-- ◄ ປ່ຽນ ?v=3 ທຸກຄັ້ງທີ່ update logo ໃໝ່ ເພື່ອ bypass cache -->
-  <img class="bg-img" src="https://raw.githubusercontent.com/bounpherng/Checkin/main/logo.png?v=3" alt="">
+  <!-- ຍັງຄົງໃຊ້ຮູບຈາກ Github ໄດ້ສຳລັບການສະແດງຜົນໃນໜ້າເວັບ -->
+  <img class="bg-img" src="https://raw.githubusercontent.com/bounpherng/Checkin/main/logo.png?v=4" alt="">
   <div class="bg-overlay"></div>
   <div class="bg-sweep"></div>
   <div class="bg-circle bg-c1"></div>
@@ -460,9 +454,8 @@
   <div class="card">
     <!-- IMAGE -->
     <div class="img-zone">
-      <!-- ◄ ປ່ຽນ ?v=3 ທຸກຄັ້ງທີ່ update logo ໃໝ່ -->
       <img class="bg"
-           src="https://raw.githubusercontent.com/bounpherng/Checkin/main/logo.png?v=3"
+           src="https://raw.githubusercontent.com/bounpherng/Checkin/main/logo.png?v=4"
            alt="ກອງປະກັນສັງຄົມ">
       <div class="corner tl"></div>
       <div class="corner tr"></div>
@@ -524,7 +517,6 @@
 
   function applyUpdate() {
     if (newWorker) {
-      // ສົ່ງຄຳສັ່ງໃຫ້ SW ໃໝ່ activate ທັນທີ
       newWorker.postMessage({ type: 'SKIP_WAITING' });
     } else {
       window.location.reload();
@@ -532,24 +524,22 @@
   }
 
   // ===================================================
-  // SERVICE WORKER REGISTRATION + AUTO-UPDATE DETECTION
+  // SERVICE WORKER REGISTRATION (ໃຊ້ Relative Path)
   // ===================================================
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/Checkin/service-worker.js')
+      // ໃຊ້ ./service-worker.js ເພື່ອໃຫ້ອ້າງອີງຖືກຕ້ອງຕາມໂຟນເດີທີ່ຢູ່
+      navigator.serviceWorker.register('./service-worker.js')
         .then(reg => {
           console.log('[App] SW registered, scope:', reg.scope);
 
-          // ກວດສອບ update ທຸກ 60 ວິນາທີ
           setInterval(() => reg.update(), 60 * 1000);
 
-          // ຮັບຮູ້ເມື່ອ SW ໃໝ່ກຳລັງ install
           reg.addEventListener('updatefound', () => {
             newWorker = reg.installing;
             console.log('[App] New SW found, installing...');
 
             newWorker.addEventListener('statechange', () => {
-              // SW ໃໝ່ install ສຳເລັດ ແລະ ລໍຖ້ານຳໃຊ້
               if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
                 console.log('[App] Update ready! Showing banner...');
                 document.getElementById('update-banner').style.display = 'block';
@@ -560,7 +550,6 @@
         })
         .catch(err => console.error('[App] SW registration failed:', err));
 
-      // ເມື່ອ SW ໃໝ່ activate ແລ້ວ — reload ໜ້າໂດຍອັດຕະໂນມັດ
       let refreshing = false;
       navigator.serviceWorker.addEventListener('controllerchange', () => {
         if (!refreshing) {
