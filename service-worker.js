@@ -1,41 +1,55 @@
 // ============================================================
-// service-worker.js — ອັບເດດອັດຕະໂນມັດ (Auto-Update PWA)
-// ປ່ຽນ CACHE_VERSION ທຸກຄັ້ງທີ່ຕ້ອງການໃຫ້ app ໂຫຼດໃໝ່ທັນທີ
+// service-worker.js — Auto-Update PWA v6.0
 // ============================================================
-const CACHE_VERSION = 'v5.0'; // ◄ ປ່ຽນຕົວເລກນີ້ທຸກຄັ້ງທີ່ update
-const CACHE_NAME = `online-system-cache-${CACHE_VERSION}`;
+const CACHE_VERSION = 'v6.0';
+const CACHE_NAME = `checkin-cache-${CACHE_VERSION}`;
 
-// ໄຟລ໌ທີ່ຕ້ອງ cache (network-first ສຳລັບ HTML, cache-first ສຳລັບ assets)
 const PRECACHE_URLS = [
   '/Checkin/',
   '/Checkin/index.html',
   '/Checkin/manifest.json',
-  // ✅ ໃຊ້ absolute path — GitHub Pages serve icon ໂດຍກົງ
-  '/Checkin/icon-192.png',
-  '/Checkin/icon-512.png',
 ];
 
-// URL ພາຍນອກ (ຈະ cache ຫຼັງດາວໂຫຼດ)
+// icon cache ແຍກຕ່າງຫາກ ໂດຍໃຊ້ full URL
+const ICON_URLS = [
+  'https://bounpherng.github.io/Checkin/icon-192.png',
+  'https://bounpherng.github.io/Checkin/icon-512.png',
+];
+
 const EXTERNAL_URLS = [
   'https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;600;700;800&family=Cinzel:wght@700;900&display=swap',
   'https://cdn.lordicon.com/lordicon.js',
-  'https://cdn.lordicon.com/onmwuuox.json',
 ];
 
 // ======= INSTALL =======
 self.addEventListener('install', event => {
-  // skipWaiting: ບໍ່ລໍຖ້າ — activate ທັນທີ
   self.skipWaiting();
-
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      console.log(`[SW ${CACHE_VERSION}] Installing cache...`);
+      console.log(`[SW ${CACHE_VERSION}] Installing...`);
 
-      // Cache ໄຟລ໌ຫຼັກ (ຕ້ອງສຳເລັດ)
-      const precachePromise = cache.addAll(PRECACHE_URLS);
+      // Cache ໄຟລ໌ຫຼັກ
+      const core = cache.addAll(PRECACHE_URLS);
 
-      // Cache ໄຟລ໌ພາຍນອກ (ລອງດີທີ່ສຸດ, ຜິດພາດໄດ້)
-      const externalPromise = Promise.allSettled(
+      // Cache icons ດ້ວຍ no-store ເພື່ອໃຫ້ໄດ້ຮູບໃໝ່ສະເໝີ
+      const icons = Promise.allSettled(
+        ICON_URLS.map(url =>
+          fetch(url, { cache: 'no-store', mode: 'cors' })
+            .then(res => {
+              if (res.ok) {
+                console.log(`[SW] Cached icon: ${url}`);
+                cache.put(url, res.clone());
+                // cache ທັງ path version ດ້ວຍ
+                const path = new URL(url).pathname;
+                cache.put(path, res.clone());
+              }
+            })
+            .catch(e => console.warn(`[SW] Icon fetch failed: ${url}`, e))
+        )
+      );
+
+      // Cache external fonts
+      const external = Promise.allSettled(
         EXTERNAL_URLS.map(url =>
           fetch(url, { cache: 'no-store' })
             .then(res => { if (res.ok) cache.put(url, res); })
@@ -43,58 +57,53 @@ self.addEventListener('install', event => {
         )
       );
 
-      return Promise.all([precachePromise, externalPromise]);
+      return Promise.all([core, icons, external]);
     }).catch(err => console.error('[SW] Install failed:', err))
   );
 });
 
-// ======= ACTIVATE — ລຶບ cache ເກົ່າທັງໝົດ =======
+// ======= ACTIVATE =======
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
+    caches.keys()
+      .then(keys => Promise.all(
         keys.map(key => {
           if (key !== CACHE_NAME) {
             console.log('[SW] Deleting old cache:', key);
             return caches.delete(key);
           }
         })
-      )
-    ).then(() => {
-      console.log(`[SW ${CACHE_VERSION}] Active & controlling all tabs`);
-      // ຄວບຄຸມທຸກ tab ທັນທີ ໂດຍບໍ່ຕ້ອງ refresh
-      return self.clients.claim();
-    })
+      ))
+      .then(() => {
+        console.log(`[SW ${CACHE_VERSION}] Active`);
+        return self.clients.claim();
+      })
   );
 });
 
-// ======= FETCH — ເລືອກ strategy ຕາມປະເພດໄຟລ໌ =======
+// ======= FETCH =======
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
-  // ຂ້າມ request ທີ່ບໍ່ແມ່ນ GET
   if (event.request.method !== 'GET') return;
-
-  // ຂ້າມ Chrome extension URLs
   if (url.protocol === 'chrome-extension:') return;
 
   // ============================================================
-  // STRATEGY 1: Network-First ສຳລັບ HTML ຫຼື index
-  // ໝາຍຄວາມວ່າ: ດຶງໃໝ່ຈາກ server ທຸກຄັ້ງ, cache ເປັນ backup
+  // STRATEGY 1: Network-First — HTML ແລະ manifest (ສຳຄັນ!)
   // ============================================================
-  const isHTMLorManifest =
+  const isDoc =
     url.pathname.endsWith('.html') ||
     url.pathname.endsWith('/') ||
     url.pathname.endsWith('manifest.json');
 
-  if (isHTMLorManifest && url.origin === self.location.origin) {
+  if (isDoc && url.origin === self.location.origin) {
     event.respondWith(
       fetch(event.request, { cache: 'no-cache' })
-        .then(networkRes => {
-          if (networkRes.ok) {
-            caches.open(CACHE_NAME).then(c => c.put(event.request, networkRes.clone()));
+        .then(res => {
+          if (res.ok) {
+            caches.open(CACHE_NAME).then(c => c.put(event.request, res.clone()));
           }
-          return networkRes;
+          return res;
         })
         .catch(() => caches.match(event.request))
     );
@@ -102,61 +111,49 @@ self.addEventListener('fetch', event => {
   }
 
   // ============================================================
-  // STRATEGY 2: Stale-While-Revalidate ສຳລັບ Icons & Images
-  // ໝາຍຄວາມວ່າ: ສົ່ງ cache ກ່ອນ ແຕ່ update ໃນ background
+  // STRATEGY 2: Icon — Network-First ສະເໝີ (ເພື່ອ icon ໃໝ່ທັນທີ)
   // ============================================================
   const isIcon =
-    url.pathname.includes('icon-') ||
-    url.pathname.endsWith('.png') ||
-    url.pathname.endsWith('.jpg') ||
-    url.pathname.endsWith('.svg');
+    url.pathname.includes('icon-192') ||
+    url.pathname.includes('icon-512');
 
   if (isIcon) {
     event.respondWith(
-      caches.open(CACHE_NAME).then(cache =>
-        cache.match(event.request).then(cached => {
-          const fetchPromise = fetch(event.request, { cache: 'no-cache' })
-            .then(networkRes => {
-              if (networkRes.ok) cache.put(event.request, networkRes.clone());
-              return networkRes;
-            })
-            .catch(() => cached);
-
-          // ສົ່ງ cache ທັນທີ ແຕ່ update ໃນ background
-          return cached || fetchPromise;
+      fetch(event.request, { cache: 'no-cache', mode: 'cors' })
+        .then(res => {
+          if (res.ok) {
+            caches.open(CACHE_NAME).then(c => c.put(event.request, res.clone()));
+          }
+          return res;
         })
-      )
+        .catch(() => caches.match(event.request))
     );
     return;
   }
 
   // ============================================================
-  // STRATEGY 3: Cache-First ສຳລັບ Fonts, JS, CSS ທົ່ວໄປ
+  // STRATEGY 3: Cache-First — Fonts, JS, CSS, Images ອື່ນໆ
   // ============================================================
   event.respondWith(
     caches.match(event.request).then(cached => {
       if (cached) return cached;
-
-      return fetch(event.request).then(networkRes => {
-        if (
-          networkRes &&
-          networkRes.status === 200 &&
-          (networkRes.type === 'basic' || networkRes.type === 'cors')
-        ) {
-          caches.open(CACHE_NAME).then(c => c.put(event.request, networkRes.clone()));
-        }
-        return networkRes;
-      }).catch(() => cached);
+      return fetch(event.request)
+        .then(res => {
+          if (res && res.status === 200 &&
+              (res.type === 'basic' || res.type === 'cors')) {
+            caches.open(CACHE_NAME).then(c => c.put(event.request, res.clone()));
+          }
+          return res;
+        })
+        .catch(() => cached);
     })
   );
 });
 
-// ======= MESSAGE — ຮັບຄຳສັ່ງຈາກ main app =======
+// ======= MESSAGE =======
 self.addEventListener('message', event => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
-  if (event.data && event.data.type === 'GET_VERSION') {
-    event.ports[0].postMessage({ version: CACHE_VERSION });
+  if (event.data?.type === 'SKIP_WAITING') self.skipWaiting();
+  if (event.data?.type === 'GET_VERSION') {
+    event.ports[0]?.postMessage({ version: CACHE_VERSION });
   }
 });
