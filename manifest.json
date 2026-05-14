@@ -1,9 +1,9 @@
 {
   "name": "ຫ້ອງການປະກັນສັງຄົມ",
-  "short_name": "ເຊັກອິນ",
+  "short_name": "ເຊັກອິນເວລາເຂົ້າ-ອອກວຽກ",
   "description": "ເຊັກອິນເວລາເຂົ້າເຮັດວຽກຫ້ອງການປະກັນສັງຄົມ",
 
-  "start_url": "./index.html?v=8.0",
+  "start_url": "./index.html?v=8.1",
   "scope": "./",
 
   "display": "standalone",
