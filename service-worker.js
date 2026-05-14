@@ -2,15 +2,15 @@
 // service-worker.js — Auto Update PWA v8.0
 // ============================================================
 
-const CACHE_VERSION = 'v8.0';
+const CACHE_VERSION = 'v8.1';
 const CACHE_NAME = `checkin-cache-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
   './',
-  './index.html?v=8.0',
-  './manifest.json?v=8.0',
-  './icon-192.png?v=8.0',
-  './icon-512.png?v=8.0'
+  './index.html?v=8.1',
+  './manifest.json?v=8.1',
+  './icon-192.png?v=8.1',
+  './icon-512.png?v=8.1'
 ];
 
 // ===== INSTALL =====
