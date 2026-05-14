@@ -1,24 +1,20 @@
 // ============================================================
-// service-worker.js — Auto-Update PWA v6.1
+// service-worker.js — Auto-Update PWA v7.0
 // ============================================================
-const CACHE_VERSION = 'v6.1';
+const CACHE_VERSION = 'v7.0'; // ອັບເດດເວີຊັ່ນເພື່ອລ້າງ Cache ເກົ່າທີ່ຜິດພາດ
 const CACHE_NAME = `checkin-cache-${CACHE_VERSION}`;
 
+// ໃຊ້ Relative Path ທັງໝົດເພື່ອປ້ອງກັນບັນຫາໃນ GitHub Pages
 const PRECACHE_URLS = [
-  '/Checkin/',
-  '/Checkin/index.html',
-  '/Checkin/manifest.json',
-];
-
-// icon cache ແຍກຕ່າງຫາກ ໂດຍໃຊ້ relative URL
-const ICON_URLS = [
-  '/Checkin/icon-192.png',
-  '/Checkin/icon-512.png',
+  './',
+  './index.html',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 const EXTERNAL_URLS = [
-  'https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;600;700;800&family=Cinzel:wght@700;900&display=swap',
-  'https://cdn.lordicon.com/lordicon.js',
+  'https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;600;700;800&family=Cinzel:wght@700;900&display=swap'
 ];
 
 // ======= INSTALL =======
@@ -26,39 +22,18 @@ self.addEventListener('install', event => {
   self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      console.log(`[SW ${CACHE_VERSION}] Installing...`);
-
-      // Cache ໄຟລ໌ຫຼັກ
-      const core = cache.addAll(PRECACHE_URLS);
-
-      // Cache icons ດ້ວຍ no-store ເພື່ອໃຫ້ໄດ້ຮູບໃໝ່ສະເໝີ
-      const icons = Promise.allSettled(
-        ICON_URLS.map(url =>
-          fetch(url, { cache: 'no-store', mode: 'cors' })
-            .then(res => {
-              if (res.ok) {
-                console.log(`[SW] Cached icon: ${url}`);
-                cache.put(url, res.clone());
-                // cache ທັງ path version ດ້ວຍ
-                const path = new URL(url, self.location.origin).pathname;
-                cache.put(path, res.clone());
-              }
-            })
-            .catch(e => console.warn(`[SW] Icon fetch failed: ${url}`, e))
-        )
-      );
-
-      // Cache external fonts
-      const external = Promise.allSettled(
+      console.log(`[SW ${CACHE_VERSION}] Installing & Caching Assets...`);
+      // Cache ໄຟລ໌ພາຍໃນ
+      cache.addAll(PRECACHE_URLS);
+      // Cache ໄຟລ໌ພາຍນອກ
+      return Promise.allSettled(
         EXTERNAL_URLS.map(url =>
-          fetch(url, { cache: 'no-store' })
-            .then(res => { if (res.ok) cache.put(url, res); })
-            .catch(() => {})
+          fetch(url, { mode: 'no-cors' })
+            .then(res => cache.put(url, res))
+            .catch(err => console.warn('[SW] External fetch failed:', url))
         )
       );
-
-      return Promise.all([core, icons, external]);
-    }).catch(err => console.error('[SW] Install failed:', err))
+    })
   );
 });
 
@@ -88,21 +63,15 @@ self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   if (url.protocol === 'chrome-extension:') return;
 
-  // ============================================================
-  // STRATEGY 1: Network-First — HTML ແລະ manifest (ສຳຄັນ!)
-  // ============================================================
-  const isDoc =
-    url.pathname.endsWith('.html') ||
-    url.pathname.endsWith('/') ||
-    url.pathname.endsWith('manifest.json');
-
+  // STRATEGY 1: Network-First (ສຳລັບ HTML ແລະ Manifest ເພື່ອໃຫ້ໄດ້ເວີຊັ່ນໃໝ່ສະເໝີ)
+  const isDoc = url.pathname.endsWith('.html') || url.pathname.endsWith('/') || url.pathname.endsWith('manifest.json');
+  
   if (isDoc && url.origin === self.location.origin) {
     event.respondWith(
-      fetch(event.request, { cache: 'no-cache' })
+      fetch(event.request)
         .then(res => {
-          if (res.ok) {
-            caches.open(CACHE_NAME).then(c => c.put(event.request, res.clone()));
-          }
+          const resClone = res.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, resClone));
           return res;
         })
         .catch(() => caches.match(event.request))
@@ -110,42 +79,19 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // ============================================================
-  // STRATEGY 2: Icon — Network-First ສະເໝີ (ເພື່ອ icon ໃໝ່ທັນທີ)
-  // ============================================================
-  const isIcon =
-    url.pathname.includes('icon-192') ||
-    url.pathname.includes('icon-512');
-
-  if (isIcon) {
-    event.respondWith(
-      fetch(event.request, { cache: 'no-cache', mode: 'cors' })
-        .then(res => {
-          if (res.ok) {
-            caches.open(CACHE_NAME).then(c => c.put(event.request, res.clone()));
-          }
-          return res;
-        })
-        .catch(() => caches.match(event.request))
-    );
-    return;
-  }
-
-  // ============================================================
-  // STRATEGY 3: Cache-First — Fonts, JS, CSS, Images ອື່ນໆ
-  // ============================================================
+  // STRATEGY 2: Cache-First (ສຳລັບຮູບພາບ, ໄອຄອນ ແລະ ຊັບພະຍາກອນອື່ນໆ ເພື່ອຄວາມໄວ ແລະ ໃຊ້ແບບອອບລາຍໄດ້)
   event.respondWith(
     caches.match(event.request).then(cached => {
       if (cached) return cached;
       return fetch(event.request)
         .then(res => {
-          if (res && res.status === 200 &&
-              (res.type === 'basic' || res.type === 'cors')) {
-            caches.open(CACHE_NAME).then(c => c.put(event.request, res.clone()));
+          if (res && res.status === 200 && (res.type === 'basic' || res.type === 'cors')) {
+            const resClone = res.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(event.request, resClone));
           }
           return res;
         })
-        .catch(() => cached);
+        .catch(() => cached); // ຖ້າ Offline ແລະ ບໍ່ມີ Cache ກໍປ່ອຍຜ່ານ
     })
   );
 });
@@ -153,7 +99,4 @@ self.addEventListener('fetch', event => {
 // ======= MESSAGE =======
 self.addEventListener('message', event => {
   if (event.data?.type === 'SKIP_WAITING') self.skipWaiting();
-  if (event.data?.type === 'GET_VERSION') {
-    event.ports[0]?.postMessage({ version: CACHE_VERSION });
-  }
 });
