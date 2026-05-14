@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>ລະບົບຕິດຕາມການເຊັກອິນ – ຫ້ອງການປະກັນສັງຄົມ</title>
   <meta name="theme-color" content="#0d3320">
-  <link rel="manifest" href="/Checkin/manifest.json" />
-  <link rel="icon" href="/Checkin/icon-512.png" />
-  <link rel="apple-touch-icon" href="/Checkin/icon-512.png">
+  <!-- ◄ v=3: ປ່ຽນ version ທຸກຄັ້ງທີ່ update icon/logo ໃໝ່ -->
+  <link rel="manifest" href="/Checkin/manifest.json?v=3" />
+  <link rel="icon" href="/Checkin/icon-512.png?v=3" />
+  <link rel="apple-touch-icon" href="/Checkin/icon-512.png?v=3">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -342,6 +343,29 @@
       transform: translateY(-2px);
     }
 
+    /* ===== UPDATE BANNER ===== */
+    #update-banner {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9999;
+      background: linear-gradient(135deg, #145228, #22883f);
+      color: #fff;
+      text-align: center;
+      padding: 12px 16px;
+      font-family: 'Noto Sans Lao', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      cursor: pointer;
+      animation: slideDown 0.4s ease;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-100%); }
+      to   { transform: translateY(0); }
+    }
+    #update-banner:hover { background: linear-gradient(135deg, #1a6b34, #3dd68c); }
+
     /* ===== STATUS ===== */
     .status-row {
       display: flex;
@@ -401,15 +425,20 @@
     @media (max-width: 360px) {
       .page { padding: 14px 12px; }
       .card-body { padding: 48px 16px 22px; }
-      .logo-ring { width: 76px; height: 76px; }
     }
   </style>
 </head>
 <body>
 
+<!-- 🔔 UPDATE BANNER — ສະແດງອັດຕະໂນມັດເມື່ອມີ version ໃໝ່ -->
+<div id="update-banner" onclick="applyUpdate()">
+  🔄 ມີການອັບເດດໃໝ່! ກົດທີ່ນີ້ເພື່ອໂຫຼດໃໝ່
+</div>
+
 <!-- BACKGROUND -->
 <div class="bg-layer">
-  <img class="bg-img" src="https://raw.githubusercontent.com/bounpherng/Checkin/main/logo.png" alt="">
+  <!-- ◄ ປ່ຽນ ?v=3 ທຸກຄັ້ງທີ່ update logo ໃໝ່ ເພື່ອ bypass cache -->
+  <img class="bg-img" src="https://raw.githubusercontent.com/bounpherng/Checkin/main/logo.png?v=3" alt="">
   <div class="bg-overlay"></div>
   <div class="bg-sweep"></div>
   <div class="bg-circle bg-c1"></div>
@@ -424,14 +453,14 @@
   <div class="card">
     <!-- IMAGE -->
     <div class="img-zone">
+      <!-- ◄ ປ່ຽນ ?v=3 ທຸກຄັ້ງທີ່ update logo ໃໝ່ -->
       <img class="bg"
-           src="https://raw.githubusercontent.com/bounpherng/Checkin/main/logo.png"
+           src="https://raw.githubusercontent.com/bounpherng/Checkin/main/logo.png?v=3"
            alt="ກອງປະກັນສັງຄົມ">
       <div class="corner tl"></div>
       <div class="corner tr"></div>
       <div class="corner bl"></div>
       <div class="corner br"></div>
-
     </div>
 
     <!-- BODY -->
@@ -465,7 +494,7 @@
 
       <div class="status-row">
         <div class="status-dot"></div>
-        <span class="status-text">ລະບົບອອນລາຍ • ພ້ອມໃຊ້ງານ</span>
+        <span class="status-text" id="statusText">ລະບົບອອນລາຍ • ພ້ອມໃຊ້ງານ</span>
       </div>
     </div>
   </div>
@@ -481,6 +510,64 @@
 </div>
 
 <script>
+  // ===================================================
+  // ຕົວແປ: ເກັບ registration ຂອງ SW ໃໝ່ທີ່ລໍຖ້ານຳໃຊ້
+  // ===================================================
+  let newWorker = null;
+
+  function applyUpdate() {
+    if (newWorker) {
+      // ສົ່ງຄຳສັ່ງໃຫ້ SW ໃໝ່ activate ທັນທີ
+      newWorker.postMessage({ type: 'SKIP_WAITING' });
+    } else {
+      window.location.reload();
+    }
+  }
+
+  // ===================================================
+  // SERVICE WORKER REGISTRATION + AUTO-UPDATE DETECTION
+  // ===================================================
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/Checkin/service-worker.js')
+        .then(reg => {
+          console.log('[App] SW registered, scope:', reg.scope);
+
+          // ກວດສອບ update ທຸກ 60 ວິນາທີ
+          setInterval(() => reg.update(), 60 * 1000);
+
+          // ຮັບຮູ້ເມື່ອ SW ໃໝ່ກຳລັງ install
+          reg.addEventListener('updatefound', () => {
+            newWorker = reg.installing;
+            console.log('[App] New SW found, installing...');
+
+            newWorker.addEventListener('statechange', () => {
+              // SW ໃໝ່ install ສຳເລັດ ແລະ ລໍຖ້ານຳໃຊ້
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                console.log('[App] Update ready! Showing banner...');
+                document.getElementById('update-banner').style.display = 'block';
+                document.getElementById('statusText').textContent = 'ມີ Version ໃໝ່ • ກົດ banner ດ້ານເທິງ';
+              }
+            });
+          });
+        })
+        .catch(err => console.error('[App] SW registration failed:', err));
+
+      // ເມື່ອ SW ໃໝ່ activate ແລ້ວ — reload ໜ້າໂດຍອັດຕະໂນມັດ
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!refreshing) {
+          refreshing = true;
+          console.log('[App] Controller changed, reloading...');
+          window.location.reload();
+        }
+      });
+    });
+  }
+
+  // ===================================================
+  // UI LOGIC
+  // ===================================================
   document.getElementById('year').textContent = new Date().getFullYear();
 
   document.getElementById('openApp').addEventListener('click', () => {
@@ -490,20 +577,22 @@
   let deferredPrompt;
   const installBtn = document.getElementById('installApp');
   window.addEventListener('beforeinstallprompt', e => {
-    e.preventDefault(); deferredPrompt = e; installBtn.style.display = 'flex';
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = 'flex';
   });
   installBtn.addEventListener('click', async () => {
     installBtn.style.display = 'none';
-    if (deferredPrompt) { deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; }
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+    }
   });
 
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/Checkin/service-worker.js').catch(() => {});
-    });
-  }
-
-  // Particles
+  // ===================================================
+  // PARTICLES
+  // ===================================================
   const ptCon = document.getElementById('particles');
   for (let i = 0; i < 28; i++) {
     const p = document.createElement('div');
@@ -513,7 +602,9 @@
     ptCon.appendChild(p);
   }
 
-  // Green Wave
+  // ===================================================
+  // GREEN WAVE
+  // ===================================================
   const canvas = document.getElementById('waveCanvas');
   const ctx = canvas.getContext('2d');
   let W, H, t = 0;
