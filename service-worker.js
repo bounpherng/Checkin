@@ -1,7 +1,7 @@
 // ============================================================
-// service-worker.js — Auto-Update PWA v6.0
+// service-worker.js — Auto-Update PWA v6.1
 // ============================================================
-const CACHE_VERSION = 'v6.0';
+const CACHE_VERSION = 'v6.1';
 const CACHE_NAME = `checkin-cache-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
@@ -10,10 +10,10 @@ const PRECACHE_URLS = [
   '/Checkin/manifest.json',
 ];
 
-// icon cache ແຍກຕ່າງຫາກ ໂດຍໃຊ້ full URL
+// icon cache ແຍກຕ່າງຫາກ ໂດຍໃຊ້ relative URL
 const ICON_URLS = [
-  'https://bounpherng.github.io/Checkin/icon-192.png',
-  'https://bounpherng.github.io/Checkin/icon-512.png',
+  '/Checkin/icon-192.png',
+  '/Checkin/icon-512.png',
 ];
 
 const EXTERNAL_URLS = [
@@ -40,7 +40,7 @@ self.addEventListener('install', event => {
                 console.log(`[SW] Cached icon: ${url}`);
                 cache.put(url, res.clone());
                 // cache ທັງ path version ດ້ວຍ
-                const path = new URL(url).pathname;
+                const path = new URL(url, self.location.origin).pathname;
                 cache.put(path, res.clone());
               }
             })
