@@ -2,41 +2,24 @@
   "name": "ເຊັກອິນ",
   "short_name": "ເຊັກອິນ",
   "description": "ເຊັນອິນເວລາເຂົ້າເຮັດວຽກຫ້ອງການປະກັນສັງຄົມ",
-
   "start_url": "/Checkin/index.html",
   "display": "standalone",
-
   "background_color": "#0d3320",
   "theme_color": "#2e9a57",
-
   "lang": "lo",
-
   "icons": [
     {
-      "src": "https://bounpherng.github.io/Checkin/icon-192.png",
+      "src": "/Checkin/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
-      "src": "https://bounpherng.github.io/Checkin/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "https://bounpherng.github.io/Checkin/icon-512.png",
+      "src": "/Checkin/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://bounpherng.github.io/Checkin/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ],
-
   "scope": "/Checkin/"
 }
