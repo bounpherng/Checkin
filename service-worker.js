@@ -1,5 +1,5 @@
 // ປ່ຽນຊື່ Cache ເປັນ v7 (Update ໃໝ່ລ່າສຸດ)
-const CACHE_NAME = 'checkin-pwa-v12-final';
+const CACHE_NAME = 'checkin-pwa-v13-final';
 
 // ຕ້ອງກົງກັບຊື່ໄຟລ໌ຈິງ 100% (ຕົວພິມນ້ອຍທັງໝົດ)
 const ASSETS_TO_CACHE = [
@@ -14,7 +14,7 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('✅ Caching assets v12...');
+      console.log('✅ Caching assets v13...');
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
