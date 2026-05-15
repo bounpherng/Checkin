@@ -1,5 +1,5 @@
 // 🔹 ປ່ຽນຄ່ານີ້ທຸກເທື່ອທີ່ອັບເດດລະບົບ
-const APP_VERSION = 'v2026.05.15';
+const APP_VERSION = 'v2026.05.19';
 
 // 🔹 cache name = app name + version
 const CACHE_NAME = `checkin-pwa-${APP_VERSION}`;
