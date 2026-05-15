@@ -1,679 +1,149 @@
 <!DOCTYPE html>
 <html lang="lo">
 <head>
-
-<meta charset="utf-8">
-<meta name="viewport"
-      content="width=device-width,initial-scale=1,viewport-fit=cover">
-
-<title>
-ລະບົບຕິດຕາມການເຊັກອິນ – ຫ້ອງການປະກັນສັງຄົມ
-</title>
-
-<!-- =========================
-PWA
-========================= -->
-
-<link rel="manifest" href="./manifest.json?v=8.1">
-
-<link rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="./icon-192.png?v=8.1">
-
-<link rel="apple-touch-icon"
-      href="./icon-192.png?v=8.1">
-
-<meta name="theme-color" content="#2e9a57">
-
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<meta name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent">
-
-<!-- =========================
-FONT
-========================= -->
-
-<link rel="preconnect"
-      href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;600;700;800&family=Cinzel:wght@700;900&display=swap"
-      rel="stylesheet">
-
-<style>
-
-:root{
-  --g1:#071a0e;
-  --g2:#0d2b18;
-  --g3:#0d3320;
-  --g4:#145228;
-  --g5:#1a6b34;
-
-  --g-mid:#2da653;
-  --g-light:#4dc97a;
-
-  --gold:#cca752;
-  --gold-light:#e8d399;
-
-  --white:#ffffff;
-  --cream:#edfaf3;
-}
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-html{
-  height:100%;
-}
-
-body{
-  min-height:100vh;
-  font-family:'Noto Sans Lao',sans-serif;
-  background:var(--g1);
-  color:var(--cream);
-
-  overflow-x:hidden;
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-  position:relative;
-}
-
-/* =========================
-BACKGROUND
-========================= */
-
-.bg-layer{
-  position:fixed;
-  inset:0;
-  z-index:0;
-}
-
-.bg-img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center;
-}
-
-.bg-overlay{
-  position:absolute;
-  inset:0;
-
-  background:
-  linear-gradient(
-    160deg,
-    rgba(7,26,14,.88) 0%,
-    rgba(13,51,32,.78) 45%,
-    rgba(7,26,14,.95) 100%
-  );
-}
-
-/* =========================
-PAGE
-========================= */
-
-.page{
-  width:100%;
-  max-width:480px;
-
-  padding:20px;
-
-  position:relative;
-  z-index:10;
-}
-
-/* =========================
-CARD
-========================= */
-
-.card{
-  width:100%;
-
-  background:rgba(10,34,20,.82);
-
-  border:1px solid rgba(45,166,83,.22);
-
-  border-radius:28px;
-
-  overflow:hidden;
-
-  backdrop-filter:blur(28px);
-
-  box-shadow:
-    0 20px 60px rgba(0,0,0,.55),
-    inset 0 1px 0 rgba(255,255,255,.08);
-}
-
-/* =========================
-IMAGE
-========================= */
-
-.img-zone{
-  position:relative;
-  width:100%;
-  aspect-ratio:1/1;
-}
-
-.img-zone img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-/* =========================
-BODY
-========================= */
-
-.card-body{
-  padding:26px;
-  text-align:center;
-}
-
-.org-label{
-  font-size:11px;
-  color:var(--g-mid);
-
-  letter-spacing:.18em;
-  text-transform:uppercase;
-
-  margin-bottom:10px;
-}
-
-.card-lao-title{
-  font-size:22px;
-  font-weight:800;
-
-  line-height:1.4;
-
-  margin-bottom:10px;
-}
-
-.divider{
-  width:80%;
-  height:1px;
-
-  margin:16px auto;
-
-  background:
-  linear-gradient(
-    90deg,
-    transparent,
-    var(--g-light),
-    transparent
-  );
-}
-
-.card-title{
-  font-family:'Cinzel',serif;
-
-  color:var(--gold-light);
-
-  font-size:20px;
-  font-weight:900;
-
-  margin-bottom:8px;
-}
-
-.card-sub{
-  color:rgba(237,250,243,.58);
-
-  font-size:14px;
-
-  margin-bottom:24px;
-}
-
-/* =========================
-BUTTON
-========================= */
-
-.btn-green{
-  width:100%;
-
-  padding:16px 20px;
-
-  border:none;
-  border-radius:16px;
-
-  cursor:pointer;
-
-  font-size:16px;
-  font-weight:700;
-
-  color:#fff;
-
-  background:
-  linear-gradient(
-    135deg,
-    #3dd68c 0%,
-    #22883f 40%,
-    #145228 100%
-  );
-
-  box-shadow:
-    0 10px 25px rgba(20,82,40,.45);
-
-  transition:.3s;
-
-  margin-bottom:12px;
-}
-
-.btn-green:hover{
-  transform:translateY(-2px);
-}
-
-.btn-outline{
-  width:100%;
-
-  padding:14px 18px;
-
-  border-radius:16px;
-
-  cursor:pointer;
-
-  font-size:15px;
-  font-weight:700;
-
-  color:var(--g-light);
-
-  border:1px solid rgba(77,201,122,.35);
-
-  background:rgba(45,166,83,.08);
-
-  transition:.3s;
-}
-
-.btn-outline:hover{
-  background:rgba(45,166,83,.16);
-}
-
-/* =========================
-STATUS
-========================= */
-
-.status-row{
-  margin-top:18px;
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:8px;
-}
-
-.status-dot{
-  width:8px;
-  height:8px;
-
-  border-radius:50%;
-
-  background:var(--g-light);
-
-  box-shadow:0 0 10px var(--g-light);
-
-  animation:blink 2s infinite;
-}
-
-@keyframes blink{
-  0%,100%{opacity:1;}
-  50%{opacity:.3;}
-}
-
-.status-text{
-  font-size:12px;
-  color:rgba(255,255,255,.55);
-}
-
-/* =========================
-FOOTER
-========================= */
-
-footer{
-  margin-top:22px;
-
-  text-align:center;
-  line-height:1.8;
-}
-
-footer .line1{
-  font-size:11px;
-  color:rgba(77,201,122,.48);
-}
-
-footer .line2{
-  font-size:13px;
-  color:rgba(255,255,255,.45);
-}
-
-footer strong{
-  color:var(--g-light);
-}
-
-footer a{
-  color:var(--gold);
-  text-decoration:none;
-}
-
-/* =========================
-UPDATE BANNER
-========================= */
-
-#update-banner{
-  display:none;
-
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-
-  z-index:9999;
-
-  padding:12px;
-
-  text-align:center;
-
-  font-size:14px;
-  font-weight:700;
-
-  color:#fff;
-
-  cursor:pointer;
-
-  background:
-  linear-gradient(
-    135deg,
-    #145228,
-    #22883f
-  );
-}
-
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ລະບົບເຊັກອິນ - ຕິດຕັ້ງ</title>
+  
+  <!-- Manifest -->
+  <link rel="manifest" href="./manifest.json">
+  
+  <!-- ໄອຄອນ: ກວດສອບຊື່ໄຟລ໌ໃຫ້ຖືກຕ້ອງ -->
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png">
+  
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#2e9a57">
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Phetsarath OT', Arial, sans-serif;
+      background: #f0f2f5;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      max-width: 90%;
+      width: 350px;
+    }
+    h1 { margin-top: 0; color: #2e9a57; font-size: 1.5rem; }
+    p { color: #666; margin-bottom: 20px; }
+    
+    .btn {
+      background: #2e9a57;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+      display: none; 
+      box-shadow: 0 2px 4px rgba(46, 154, 87, 0.3);
+      transition: transform 0.2s;
+    }
+    .btn:active { transform: scale(0.95); }
+    
+    .ios-instruction {
+      display: none;
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+      font-size: 0.95rem;
+      border: 1px solid #dee2e6;
+      line-height: 1.5;
+    }
+    .icon-preview {
+      width: 80px;
+      height: 80px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      object-fit: cover;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
 </head>
-
 <body>
 
-<div id="update-banner"
-     onclick="applyUpdate()">
-
-🔄 ມີການອັບເດດໃໝ່
-ກົດເພື່ອໂຫຼດໃໝ່
-
-</div>
-
-<!-- =========================
-BACKGROUND
-========================= -->
-
-<div class="bg-layer">
-
-  <img class="bg-img"
-       src="https://raw.githubusercontent.com/bounpherng/Checkin/main/logo.png?v=8"
-       alt="">
-
-  <div class="bg-overlay"></div>
-
-</div>
-
-<!-- =========================
-PAGE
-========================= -->
-
-<div class="page">
-
-  <div class="card">
-
-    <!-- IMAGE -->
-    <div class="img-zone">
-
-      <img
-        src="https://raw.githubusercontent.com/bounpherng/Checkin/main/logo.png?v=8"
-        alt="logo">
-
+  <div class="container" id="mainContent">
+    <img src="./icon-192.png" alt="Logo" class="icon-preview" onerror="this.src=''; this.style.backgroundColor='#eee'">
+    <h1>ລະບົບເຊັກອິນ</h1>
+    <p id="statusText">ກະລຸນາຕິດຕັ້ງແອັບເພື່ອເຂົ້າສູ່ລະບົບ</p>
+    
+    <button id="installBtn" class="btn">📲 ຕິດຕັ້ງແອັບລົງມືຖື</button>
+    
+    <div id="iosPrompt" class="ios-instruction">
+      <div>ຕິດຕັ້ງເທິງ iPhone/iPad:</div>
+      <div style="margin-top:5px;">1. ກົດປຸ່ມ <strong>Share</strong> <span style="font-size:1.2em">⎋</span> ດ້ານລຸ່ມ</div>
+      <div style="margin-top:5px;">2. ເລືອກ <strong>"Add to Home Screen"</strong> ⊞</div>
     </div>
 
-    <!-- BODY -->
-    <div class="card-body">
-
-      <p class="org-label">
-        Social Security Office
-      </p>
-
-      <h1 class="card-lao-title">
-        ຫ້ອງການປະກັນສັງຄົມ
-      </h1>
-
-      <div class="divider"></div>
-
-      <h2 class="card-title">
-        CHECK-IN SYSTEM
-      </h2>
-
-      <p class="card-sub">
-        ລະບົບຕິດຕາມການເຂົ້າ-ອອກ ຫ້ອງການ
-      </p>
-
-      <!-- OPEN -->
-
-      <button class="btn-green"
-              id="openApp">
-
-        ໄປທີ່ໜ້າເຊັກອິນ
-
-      </button>
-
-      <!-- INSTALL -->
-
-      <button class="btn-outline"
-              id="installApp"
-              style="display:none">
-
-        ຕິດຕັ້ງແອັບ
-
-      </button>
-
-      <!-- STATUS -->
-
-      <div class="status-row">
-
-        <div class="status-dot"></div>
-
-        <span class="status-text"
-              id="statusText">
-
-          ລະບົບອອນລາຍ • ພ້ອມໃຊ້ງານ
-
-        </span>
-
-      </div>
-
-    </div>
+    <p id="redirectMsg" style="display:none; color: #2e9a57; font-weight:bold;">✅ ກຳລັງເຂົ້າສູ່ລະບົບ...</p>
   </div>
 
-  <!-- FOOTER -->
+  <script>
+    function isRunningStandalone() {
+      return (window.matchMedia('(display-mode: standalone)').matches) ||
+             (window.navigator.standalone) || 
+             document.referrer.includes('android-app://');
+    }
 
-  <footer>
+    if (isRunningStandalone()) {
+      document.getElementById('mainContent').style.display = 'none'; 
+      window.location.href = 'https://lssomain.laotel.com/Authentication';
+    }
 
-    <div class="line1">
-      © <span id="year"></span>
-      ຫ້ອງການປະກັນສັງຄົມ
-    </div>
-
-    <div class="line2">
-
-      <strong>
-        ທ.ບຸນເຜີ້ງ ເພັດໄຊຍະພູມ
-      </strong>
-
-    </div>
-
-  </footer>
-
-</div>
-
-<script>
-
-/* =========================
-YEAR
-========================= */
-
-document.getElementById('year')
-.textContent =
-new Date().getFullYear();
-
-/* =========================
-OPEN APP
-========================= */
-
-document
-.getElementById('openApp')
-.addEventListener('click',()=>{
-
-  window.location.href =
-  'https://lssomain.laotel.com/Authentication';
-
-});
-
-/* =========================
-INSTALL APP
-========================= */
-
-let deferredPrompt;
-
-const installBtn =
-document.getElementById('installApp');
-
-window.addEventListener(
-'beforeinstallprompt',
-e=>{
-
-  e.preventDefault();
-
-  deferredPrompt = e;
-
-  installBtn.style.display = 'block';
-
-});
-
-installBtn.addEventListener(
-'click',
-async ()=>{
-
-  if(!deferredPrompt) return;
-
-  deferredPrompt.prompt();
-
-  await deferredPrompt.userChoice;
-
-  deferredPrompt = null;
-
-  installBtn.style.display='none';
-
-});
-
-/* =========================
-SERVICE WORKER
-========================= */
-
-let newWorker = null;
-
-function applyUpdate(){
-
-  if(newWorker){
-
-    newWorker.postMessage({
-      type:'SKIP_WAITING'
-    });
-
-  }else{
-
-    window.location.reload();
-
-  }
-
-}
-
-if('serviceWorker' in navigator){
-
-  window.addEventListener('load',()=>{
-
-    navigator.serviceWorker
-    .register('./service-worker.js?v=8.0')
-
-    .then(reg=>{
-
-      console.log('SW Registered');
-
-      setInterval(()=>{
-
-        reg.update();
-
-      },5*60*1000);
-
-      reg.addEventListener(
-      'updatefound',()=>{
-
-        newWorker = reg.installing;
-
-        newWorker.addEventListener(
-        'statechange',()=>{
-
-          if(
-            newWorker.state === 'installed' &&
-            navigator.serviceWorker.controller
-          ){
-
-            document
-            .getElementById('update-banner')
-            .style.display='block';
-
-            document
-            .getElementById('statusText')
-            .textContent =
-            'ມີ Version ໃໝ່ • ກົດ banner ດ້ານເທິງ';
-
-          }
-
-        });
-
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(reg => {
+             console.log('SW Registered');
+             reg.update();
+          })
+          .catch(err => console.error('SW Fail', err));
       });
+    }
 
-    })
-
-    .catch(err=>{
-
-      console.error(err);
-
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+    
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'block';
     });
 
-    let refreshing = false;
-
-    navigator.serviceWorker
-    .addEventListener(
-    'controllerchange',()=>{
-
-      if(refreshing) return;
-
-      refreshing = true;
-
-      window.location.reload();
-
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log('User response:', outcome);
+      deferredPrompt = null;
     });
 
-  });
+    const isIos = /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream;
+    if (isIos && !isRunningStandalone()) {
+      document.getElementById('iosPrompt').style.display = 'block';
+    }
 
-}
-
-</script>
-
+    window.addEventListener('appinstalled', () => {
+      installBtn.style.display = 'none';
+      document.getElementById('statusText').innerText = 'ຕິດຕັ້ງສຳເລັດ! ກະລຸນາເປີດແອັບຈາກໜ້າຈໍຫຼັກ.';
+    });
+  </script>
 </body>
 </html>
