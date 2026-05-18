@@ -1,9 +1,7 @@
-// 🔹 ປ່ຽນຄ່ານີ້ທຸກເທື່ອທີ່ອັບເດດລະບົບ
-const APP_VERSION = 'v2026.05.19';
+// ປ່ຽນຊື່ Cache ເປັນ v7 (Update ໃໝ່ລ່າສຸດ)
+const CACHE_NAME = 'checkin-pwa-v12-final';
 
-// 🔹 cache name = app name + version
-const CACHE_NAME = `checkin-pwa-${APP_VERSION}`;
-
+// ຕ້ອງກົງກັບຊື່ໄຟລ໌ຈິງ 100% (ຕົວພິມນ້ອຍທັງໝົດ)
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -12,24 +10,21 @@ const ASSETS_TO_CACHE = [
   './icon-512.png'
 ];
 
-// ================= INSTALL =================
 self.addEventListener('install', (event) => {
-  self.skipWaiting(); // ໃຫ້ version ໃໝ່ເຮັດວຽກທັນທີ
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('✅ Caching assets ' + APP_VERSION + '...');
+      console.log('✅ Caching assets v12...');
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
 });
 
-// ================= ACTIVATE =================
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cache) => {
-          // 🔥 ລົບ cache ເກົ່າທີ່ບໍ່ກົງ version
           if (cache !== CACHE_NAME) {
             console.log('🧹 Clearing old cache:', cache);
             return caches.delete(cache);
@@ -38,10 +33,9 @@ self.addEventListener('activate', (event) => {
       );
     })
   );
-  self.clients.claim();
+  return self.clients.claim();
 });
 
-// ================= FETCH (Cache First) =================
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {

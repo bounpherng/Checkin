@@ -2,19 +2,16 @@
 <html lang="lo">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ລະບົບເຊັກອິນ - ຕິດຕັ້ງ</title>
 
-  <!-- PWA Settings -->
   <link rel="manifest" href="./manifest.json">
-  <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
   <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png">
 
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#2e9a57">
+  <meta name="theme-color" content="#1a6e38">
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap');
@@ -125,6 +122,7 @@
       border-radius: 99px;
       background: linear-gradient(90deg, var(--green-light), var(--white));
       box-shadow: 0 0 10px rgba(76,197,119,0.7);
+      /* NO CSS transition — controlled by JS for accuracy */
     }
 
     /* Dot loader */
@@ -208,8 +206,8 @@
   <!-- ══ SPLASH SCREEN ══ -->
   <div id="splash">
     <div class="logo-ring">
-      <img id="splashLogo" src="./icon-512.png" alt="LSSO Logo"
-           onerror="this.src='./icon-192.png'; this.onerror=null;">
+      <img id="splashLogo" src="./icon-192.png" alt="LSSO Logo"
+           onerror="this.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; this.style.background='#1e7d3e'">
     </div>
     <div class="splash-title">ລະບົບເຊັກອິນ LSSO</div>
     <div class="splash-sub">ຫ້ອງການປະກັນສັງຄົມ</div>
@@ -233,8 +231,8 @@
 
   <!-- ══ INSTALL PAGE ══ -->
   <div class="container" id="mainContent">
-    <img src="./icon-512.png" alt="Logo" class="icon-preview"
-         onerror="this.src='./icon-192.png'; this.onerror=null;">
+    <img src="./icon-192.png" alt="Logo" class="icon-preview"
+         onerror="this.src=''; this.style.backgroundColor='#eee'">
     <h1>ລະບົບເຊັກອິນ</h1>
     <p id="statusText">ກະລຸນາຕິດຕັ້ງແອັບເພື່ອເຂົ້າສູ່ລະບົບ</p>
 
@@ -259,7 +257,7 @@
     var SPLASH_SECS  = 5;
 
     /* ══════════════════════════════════════════════════
-       REDIRECT
+       REDIRECT — ແຂງແກນ, ຫຼາຍຊັ້ນ, ປ້ອງກັນ double-fire
     ══════════════════════════════════════════════════ */
     var _redirected = false;
 
@@ -268,19 +266,24 @@
       _redirected = true;
 
       try {
+        /* ຊັ້ນ 1: replace (ດີທີ່ສຸດ, ບໍ່ເພີ່ມ history entry) */
         window.location.replace(REDIRECT_URL);
       } catch (e1) {
         try {
+          /* ຊັ້ນ 2: href */
           window.location.href = REDIRECT_URL;
         } catch (e2) {
           try {
+            /* ຊັ້ນ 3: assign */
             window.location.assign(REDIRECT_URL);
           } catch (e3) {
+            /* ຊັ້ນ 4: open ໃໝ່ (last resort) */
             window.open(REDIRECT_URL, '_self');
           }
         }
       }
 
+      /* Safety net: ຖ້າ 3 ວິຍັງບໍ່ redirect ໃຫ້ສະແດງປຸ່ມ manual */
       setTimeout(function() {
         if (!document.hidden) {
           var btn = document.getElementById('manualBtn');
@@ -301,7 +304,7 @@
     }
 
     /* ══════════════════════════════════════════════════
-       SPLASH + TIMER
+       SPLASH + TIMER (Date.now-based, ກັນ throttle drift)
     ══════════════════════════════════════════════════ */
     if (isStandalone()) {
       var splash     = document.getElementById('splash');
@@ -317,7 +320,9 @@
       var totalMs      = SPLASH_SECS * 1000;
       var tickInterval = null;
       var hardTimer    = null;
+      var fadeTimer    = null;
 
+      /* ── ຟັງຊັ້ນ fade-out + redirect ── */
       function finishSplash() {
         if (_redirected) return;
         clearInterval(tickInterval);
@@ -329,9 +334,10 @@
         splash.style.transition = 'opacity 0.45s ease';
         splash.style.opacity    = '0';
 
-        setTimeout(doRedirect, 500);
+        fadeTimer = setTimeout(doRedirect, 500);
       }
 
+      /* ── Tick ທຸກ 100ms (Date.now-based, ກັນ drift) ── */
       function tick() {
         var elapsed   = Date.now() - startTime;
         var remaining = totalMs - elapsed;
@@ -341,22 +347,28 @@
           return;
         }
 
+        /* ອັບເດດ progress bar */
         var pct = Math.min((elapsed / totalMs) * 100, 100);
         bar.style.width = pct.toFixed(1) + '%';
 
+        /* ອັບເດດ label (ນັບຖອຍຫຼັງ ວິ) */
         var secsLeft = Math.ceil(remaining / 1000);
         countLabel.textContent = 'ກຳລັງໂຫຼດ… ' + secsLeft;
       }
 
       tickInterval = setInterval(tick, 100);
-      tick();
+      tick(); /* run ທັນທີ ໂດຍບໍ່ລໍ 100ms ທຳອິດ */
 
+      /* ── Hard-deadline: ຮັບປະກັນ redirect ຢ່າງຈາ ── */
       hardTimer = setTimeout(finishSplash, totalMs + 800);
 
+      /* ── Visibility: ຖ້າ user ກັບມາຈາກ background ── */
       document.addEventListener('visibilitychange', function() {
         if (!document.hidden && !_redirected) {
           var elapsed = Date.now() - startTime;
-          if (elapsed >= totalMs) finishSplash();
+          if (elapsed >= totalMs) {
+            finishSplash();
+          }
         }
       });
     }
